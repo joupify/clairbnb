@@ -1,0 +1,6 @@
+<h1>Host Listing</h1>
+
+<% @listings.each do |l| %>
+
+<%= link_to  l.title, host_listings_path(l) %>
+<% end %>
