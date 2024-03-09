@@ -8,15 +8,30 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkbE-rqwyRH1ClKinCjrLazb890rGsDrM"></script>
+
+
+
+    
   </head>
 
   <body>
     <% if user_signed_in? %>
      <%= link_to "Log Out", destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
     <% end %>
-    <p class="notice"><%= notice %></p>
-     <p class="alert"><%= alert %></p>
+   
+      <%= render partial: "shared/flash" %>
 
     <%= yield %>
   </body>
 </html>
+
+
+
+
+
+
+
+

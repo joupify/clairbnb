@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_06_153642) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_08_185633) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,17 +18,19 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_06_153642) do
     t.bigint "host_id", null: false
     t.string "title", null: false
     t.string "description"
-    t.string "adress"
+    t.string "address"
     t.string "city"
     t.string "postal_code"
     t.string "country"
-    t.decimal "lat", precision: 10, scale: 6
-    t.decimal "lng", precision: 10, scale: 6
+    t.decimal "latitude", precision: 10, scale: 6
+    t.decimal "longitude", precision: 10, scale: 6
     t.integer "max_guests", default: 1
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "listing_details", default: {"bed_size"=>nil, "roomType"=>nil, "number_of_beds"=>nil, "number_of_rooms"=>nil}
     t.index ["host_id"], name: "index_listings_on_host_id"
+    t.index ["listing_details"], name: "index_listings_on_listing_details", using: :gin
   end
 
   create_table "users", force: :cascade do |t|

@@ -1,16 +1,9 @@
-<h1>List your propreties</h1>
-
-<%= simple_form_for [:host, @listing] do |f| %>
-
-<%= f.input :title %>
-<%= f.input :description %>
-<%= f.input :max_guests %>
-<%= f.input :adress %>
-<%= f.country_select :country, { priority_countries: ['FR'], include_blank: 'Select Country' }, { class: 'form-control' } %>
+<div class='container'>
+      <%= render partial:"shared/error" %>
 
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+    <h1>List your propreties</h1>
+    <%= render 'form', listing: @listing %>
+    <%= link_to 'back to listings', host_listings_path %>
 
-<% end %> 
+</div>

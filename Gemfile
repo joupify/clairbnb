@@ -28,13 +28,12 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 
 gem 'annotate'
-gem "bootstrap"
+gem 'bootstrap', '~> 5.3.2'
 gem "font-awesome-sass"
 gem "simple_form"
 gem 'country_select'
-
-
-
+gem "geocoder"
+gem 'dotenv-rails', groups: [:development, :test]
 
 
 

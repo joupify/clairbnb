@@ -1,0 +1,51 @@
+<pre><%=JSON.pretty_generate (@listing.as_json)%></pre>
+
+
+
+
+
+<% if @listing.listing_details && @listing.listing_details.is_a?(String) %>
+  <% listing_details_hash = JSON.parse(@listing.listing_details) %>
+  <% if listing_details_hash.has_key?('rooms') && listing_details_hash['rooms'].is_a?(Array) %>
+    <% listing_details_hash['rooms'].each do |room| %>
+      <div class="room d-flex gap-4">
+        <p>Room Type: <%= room['roomType'] %></p>
+        <p>Bed Size: <%= room['bed_size'] %></p>
+      </div>
+    <% end %>
+  <% else %>
+    <p>No room details available yet.</p>
+  <% end %>
+<% else %>
+  <%# Handle case where listing_details is already a hash or nil %>
+<% end %>
+
+
+
+
+<% if @listing.present? && @listing.listing_details.present? %>
+  <h2>Listing Details</h2>
+  <ul>
+    <li>Number of Rooms: <%= @listing.listing_details['number_of_rooms'] %></li>
+    <li>Number of Beds: <%= @listing.listing_details['number_of_beds'] %></li>
+    <%= debug @listing.listing_details %>
+  </ul>
+
+  <h2>Rooms</h2>
+  <% @listing.listing_details['rooms'].each do |room| %>
+    <div class="room">
+        <%= debug @listing.listing_details %>
+      <p>Room Type: <%= room['roomType'] %></p>
+      <p>Bed Size: <%= room['bed_size'] %></p>
+      <p>Number of Beds: <%= room['number_of_beds'] %></p>
+    </div>
+  <% end %>
+<% else %>
+  <p>No listing details or rooms available yet.</p>
+<% end %>
+
+
+
+
+<%= link_to 'Edit', edit_host_listing_path(@listing) %>
+</div>

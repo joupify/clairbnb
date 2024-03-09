@@ -1,2 +1,7 @@
-<h1>Host::Listings#edit</h1>
-<p>Find me in app/views/host/listings/edit.html.erb</p>
+<div class='container'>
+    <h1>Edit <%=@listing.title  %></h1>
+
+    <%= render 'form', listing: @listing %>
+
+    <%= link_to 'back to listing', host_listing_path(@listing) %>
+</div>

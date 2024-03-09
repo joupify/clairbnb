@@ -5,10 +5,18 @@ class Host::ListingsController < ApplicationController
 
   def index
     @listings = current_user.listings.all
+    @markers = @listings.geocoded.map do |listing|
+      {
+        lat: listing.latitude,
+        lng: listing.longitude
+      }
+    end
   end
 
   def new
     @listing = Listing.new
+    @show_address = true # or false, depending on your logic
+    render 'host/listings/_form'
   end
 
   def create
@@ -16,12 +24,14 @@ class Host::ListingsController < ApplicationController
     if @listing.save
       redirect_to host_listing_path(@listing), notice: "Listing was successfully created."
     else
-      flash.now[:errors] = @listing.errors.full_messages
+      flash[:errors] = @listing.errors.full_messages
       render :new
     end
   end
 
   def edit
+    @show_address = false # or false, depending on your logic
+    render 'host/listings/_form'
   end
 
   def update
@@ -58,7 +68,9 @@ class Host::ListingsController < ApplicationController
       :city,
       :postal_code,
       :country,
-      :max_guests
+      :max_guests,
+      listing_details:{}
+
     )
   end
 
@@ -67,8 +79,11 @@ class Host::ListingsController < ApplicationController
     params.require(:listing).permit(
       :title,
       :description,
-      :max_guests
+      :max_guests,
+      listing_details:{}
     )
   end
+
+  
 end
 

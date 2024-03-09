@@ -1,0 +1,8 @@
+
+<% if flash[:errors] %>
+  <div class="error-messages">
+    <% flash[:errors].each do |error| %>
+      <p><%= error %></p>
+    <% end %>
+  </div>
+<% end %>

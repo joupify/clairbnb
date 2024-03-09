@@ -1,0 +1,35 @@
+<div class='container'>
+  <%= simple_form_for [:host, @listing] do |f| %>
+ <% if @listing.errors.any? %>
+         <div id="error_explanation">
+           <h2><%= pluralize(@listing.errors.count, "error") %> prohibited this article from being saved:</h2>
+           <ul>
+             <% @listing.errors.full_messages.each do |msg| %>
+               <li><%= msg %></li>
+             <% end %>
+             <% end %>
+
+
+  <%= f.input :title %>
+  <%= f.input :description %>
+  <%= f.input :max_guests, label: "How many people max can stay?", input_html: { min: 1, max: 100, step: 1 } %>
+  <%= f.input :listing_details, as: :jsonb %>
+   
+
+
+    <% if @show_address %>
+      <%= f.input :address %>
+      <%= f.input :city %>
+      <%= f.input :postal_code %>
+      <%= f.country_select :country, { priority_countries: ['FR'], include_blank: 'Select Country' }, { class: 'form-control' } %>
+      
+  <% end %>
+
+    <div class="form-actions">
+      <%= f.button :submit, data: { remote: true }, class:'btn btn-dark' %>
+
+    </div>
+
+  <% end %> 
+
+</div>
