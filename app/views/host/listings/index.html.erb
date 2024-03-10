@@ -7,7 +7,6 @@
     lat : <%= l.latitude if l.latitude.present? %><br>
     lng : <%= l.longitude if l.longitude.present?%><br>
         <%= l.status %><br>
-        <%= l.listing_details %>
 
     <%= button_to 'delete this listing', host_listing_path(l), method: :delete %><br>
 

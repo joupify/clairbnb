@@ -1,0 +1,10 @@
+<%= simple_form_for [:host, @listing] do |f| %>
+  <%= f.simple_fields_for :rooms do |room_fields| %>
+    <%= room_fields.input :room_type, label: "Room Type", as: :select, collection: Room.room_types.keys %>
+    <%= room_fields.simple_fields_for :beds do |bed_fields| %>
+      <%= bed_fields.input :bed_size, label: "Bed Size", as: :select, collection: Bed.bed_sizes.keys %>
+    <% end %>
+  <% end %>
+  <%= f.button :submit %>
+<% end %>
+

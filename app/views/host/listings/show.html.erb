@@ -24,35 +24,8 @@
       <p>Max Guests: <%= @listing.max_guests %></p>
    
   
-    </div>
-    <div class="col-md-6 bg-light">
-      <h3>Rooms</h3>
-      
-      <% listing_details_hash = JSON.parse(@listing.listing_details) rescue nil %>
-      <% if listing_details_hash.present? %>
-        <ul>
-        <li>Number of Rooms: <%= listing_details_hash['number_of_rooms'] %></li>
-        <li>Number of Beds: <%= listing_details_hash['number_of_beds'] %></li>
-        </ul>
-          <h3>Rooms (<%= listing_details_hash['number_of_rooms'] %> total)</h3> 
-        <p>Total Beds: <%= listing_details_hash['number_of_beds'] %></p> 
-        <ul class="list-group">
-          <% listing_details_hash['rooms'].each do |room| %>
-            <li class="list-group-item">
-              Room Type: <%= room['roomType'] %>
-              <br>
-              Number of Beds: <%= room['number_of_beds'] %>
-              <br>
-              Bed Size: <%= room['bed_size'] %>
-            </li>
-
-          <% end %>
-        </ul>
-      <% end %>
-    </div>
-  </div>
+   
 </div>
-
 
 
 

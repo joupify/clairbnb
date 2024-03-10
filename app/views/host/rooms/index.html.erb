@@ -1,0 +1,10 @@
+<h1>Rooms</h1>
+<% @rooms.each do |r| %>
+  <%= r.room_type %>
+  <%= r.beds.count %>
+    <% r.beds.each do |bed| %>
+      <%= bed.bed_size %>
+    <% end %>
+<% end %>
+
+<%= render 'host/rooms/form', locals: { listing: @listing } %>
