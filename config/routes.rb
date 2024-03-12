@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   namespace :host do
     resources :listings do
       # /host/listings/:listing_id/rooms
-      resources :rooms, only: [:index, :create, :destroy]
-    end
+      resources :rooms, only: [:index, :new, :create, :destroy] 
+      end
   end
 
   devise_for :users, controllers: {

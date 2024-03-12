@@ -17,6 +17,7 @@ class Host::ListingsController < ApplicationController
     @listing = Listing.new
     @show_address = true # or false, depending on your logic
     render 'host/listings/_form'
+
   end
 
   def create
@@ -45,6 +46,12 @@ class Host::ListingsController < ApplicationController
   end
 
   def show
+
+    # Find a specific room or create a new one if none exists for this listing
+    @room = @listing.rooms.new
+    @bed = @room.beds.new
+
+
   end
 
 
@@ -69,7 +76,6 @@ class Host::ListingsController < ApplicationController
       :postal_code,
       :country,
       :max_guests,
-      listing_details:{}
 
     )
   end
@@ -80,7 +86,6 @@ class Host::ListingsController < ApplicationController
       :title,
       :description,
       :max_guests,
-      listing_details:{}
     )
   end
 

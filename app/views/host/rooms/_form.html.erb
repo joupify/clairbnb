@@ -1,10 +1,28 @@
-<%= simple_form_for [:host, @listing] do |f| %>
-  <%= f.simple_fields_for :rooms do |room_fields| %>
-    <%= room_fields.input :room_type, label: "Room Type", as: :select, collection: Room.room_types.keys %>
-    <%= room_fields.simple_fields_for :beds do |bed_fields| %>
-      <%= bed_fields.input :bed_size, label: "Bed Size", as: :select, collection: Bed.bed_sizes.keys %>
-    <% end %>
-  <% end %>
-  <%= f.button :submit %>
-<% end %>
 
+<div data-controller="room">
+  <template data-room-target="bedFields">
+    <label class="">Bed size</label>
+    <select name="room[beds_attributes][][bed_size]" class=" ">
+      <% Bed.bed_sizes.each do |bed_size, _| %>
+        <option><%= bed_size %></option>
+      <% end %>
+    </select>
+  </template>
+
+  <%= form_with(model: [:host, @listing, @room], local: true) do |form| %>
+    <div class="field">
+      <%= form.label :room_type %>
+      <%= form.select :room_type, options_for_select(Room.room_types.keys), {}, class: "" %>
+  </div>
+
+
+  <fieldset data-room-target="beds">
+   <legend>Beds</legend>
+  </fieldset>
+
+  <a href ="#" data-action= "room#addBed" class= "btn btn-dark" >Add Bed</a>
+
+
+    <%= form.submit "Add room", class: "btn btn-primary" %>
+  <% end %>
+</div>

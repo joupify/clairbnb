@@ -11,3 +11,14 @@ class Bed < ApplicationRecord
 
   }
 end
+# == Schema Information
+#
+# Table name: beds
+#
+#  id         :integer(8)      not null, primary key
+#  room_id    :integer(8)      not null
+#  bed_size   :integer(4)
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+#
+
