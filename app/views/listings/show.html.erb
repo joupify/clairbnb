@@ -1,6 +1,24 @@
-<div class="container py-2">
-
-  <h2>Rooms</h2>
+<div class="container">
+    <div class="row">
+  
+      <h1 class="mb-3"><%= @listing.title %></h1>
+      <div class="col-12 bg-light  gap-3 mb-3">
+        <p>Description: <%= @listing.description %></p>
+        <p>Address: <%= @listing.address %></p>
+        <p>City: <%= @listing.city %></p>
+        <p>Postal Code: <%= @listing.postal_code %></p>
+        <p>Country: <%= @listing.country %></p>
+        <p>Latitude: <%= @listing.latitude %></p>
+        <p>Longitude: <%= @listing.longitude %></p>
+      </div>
+  
+      <h2>Listing Details</h2>
+      <div class="col-md-6 bg-light">
+        <p>Title: <%= @listing.title %></p>
+        <p>Max Guests: <%= @listing.max_guests %></p>
+        <p>Status: <%= @listing.status %></p>
+        
+ <h2>Rooms</h2>
   <div class="container d-flex gap-3">
 
   <% if @listing.rooms.present? %>
@@ -26,7 +44,6 @@
                 </ul>
               </div>
 
-              <p><%= button_to 'delete room', host_listing_room_path(@listing, room), method: :delete, class:"btn btn-danger" %></p>
 
             <% else %>
               <div class="card-body">
@@ -44,10 +61,13 @@
 </div>
 
 </div>
+        </div>
+  
 
 
-<div class="container py-2 ">
-  <%= render 'host/rooms/form', listing: @listing %>
-<br>
-<%= link_to 'Edit', edit_host_listing_path(@listing) %>
+
+<div>
+
+    <h4> HOST</h4>
+    <%= @listing.host.name %>
 </div>

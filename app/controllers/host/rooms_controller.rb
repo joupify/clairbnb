@@ -29,6 +29,14 @@ class Host::RoomsController < ApplicationController
       end
     end
   end
+
+  def destroy
+    @listing = Listing.find(params[:listing_id])
+    @room = @listing.rooms.find(params[:id])
+    @room.destroy
+
+    redirect_to host_listing_rooms_path(@listing), notice: 'Room successfully detroyed.'
+  end
   
 
   private

@@ -2,7 +2,7 @@
   <div class="row">
 
     <h1 class="mb-3"><%= @listing.title %></h1>
-    <div class="col-12 bg-secondary d-flex flex-wrap gap-3 mb-3">
+    <div class="col-12 bg-light  gap-3 mb-3">
       <p>Description: <%= @listing.description %></p>
       <p>Address: <%= @listing.address %></p>
       <p>City: <%= @listing.city %></p>
@@ -10,24 +10,23 @@
       <p>Country: <%= @listing.country %></p>
       <p>Latitude: <%= @listing.latitude %></p>
       <p>Longitude: <%= @listing.longitude %></p>
-      <p>Max Guests: <%= @listing.max_guests %></p>
-      <p>Status: <%= @listing.status %></p>
     </div>
 
     <h2>Listing Details</h2>
     <div class="col-md-6 bg-light">
       <p>Title: <%= @listing.title %></p>
-      <p>Address: <%= @listing.address %></p>
       <p>Max Guests: <%= @listing.max_guests %></p>
+      <p>Status: <%= @listing.status %></p>
+
     </div>
 
 
 
 
-    <%= render 'host/rooms/form', listing: @listing %>
 
 
     <%= link_to 'Edit', edit_host_listing_path(@listing) %>
+    <%= link_to 'Add Room', host_listing_rooms_path(@listing) %>
 
 
   </div>

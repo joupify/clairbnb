@@ -12,7 +12,7 @@
   <%= form_with(model: [:host, @listing, @room], local: true) do |form| %>
     <div class="field">
       <%= form.label :room_type %>
-      <%= form.select :room_type, options_for_select(Room.room_types.keys), {}, class: "" %>
+      <%= form.select :room_type, options_for_select(Room.room_types.keys), {} %>
   </div>
 
 
