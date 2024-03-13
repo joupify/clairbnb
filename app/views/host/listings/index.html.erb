@@ -1,14 +1,51 @@
-<div class='container'>
-    <h1 class='fw-bolder'>Host Listing</h1>
+<div class='container py-2 mt-5'>
+  <h1 class='fw-bolder mb-5'>Yours Listings</h1>
+
+  <div class="">
+    <div class="row">
 
     <% @listings.each do |l| %>
-    <%= link_to  l.title, host_listing_path(l) %> <br>
-    <%= l.address %><br><br>
-    lat : <%= l.latitude if l.latitude.present? %><br>
-    lng : <%= l.longitude if l.longitude.present?%><br>
-        <%= l.status %><br>
-        <%= l.listing_details %>
+    <div class="col-md-6">
 
-    <%= button_to 'delete this listing', host_listing_path(l), method: :delete %><br>
+
+      <div class="d-flex gap-2 justify-content-between mx-5 mb-5">
+        <div class="">
+          <img class="rounded img-fluid h-100" src="https://a0.muscache.com/im/pictures/01de0512-9191-474b-b5c1-7d0766f733ca.jpg?aki">
+        </div>
+        <div class="card-product-infos ">
+          <%= link_to l.title, host_listing_path(l), class:"text-dark fs-4 text-decoration-none" %>
+          <p>
+          <i class="fa-solid fa-location-dot"></i>
+          <%= l.address %></p>
+          <p>
+          <i class="fa-solid fa-map "></i>
+           lat : <%= l.latitude if l.latitude.present? %>,
+           lng : <%= l.longitude if l.longitude.present? %></p>
+
+           <% if l.published? %>
+            <p  class="fw-bold ">
+            <i class="fa-regular fa-circle-check text-success fw-bold fs-5 mr-2 "></i>
+            <%= l.status.capitalize %></p>
+            <% else %>
+            <p  class="fw-bold">
+              <i class="fa-regular fa-clock text-warning fw-bold fs-5 "></i>
+            <%= l.status.capitalize %></p>
+            <% end %>
+
+          <div class="d-flex gap-2">
+            <p>  <%= link_to "Edit listing", edit_host_listing_path(l), class: "btn btn-secondary  " %></p>
+            <p>  <%= link_to "Edit rooms", host_listing_rooms_path(l), class: "btn btn-dark  " %></p>
+            <p><%= button_to "delete listing", host_listing_path(l), method: :delete, data: { confirm: "Are you sure?" }, class:"btn btn-warning" %></p>
+          </div>
+        </div>
+      </div>
+        </div>
 
     <% end %>
+  </div>
+  </div>
+
+
+
+  <%= link_to "Add listing", new_host_listing_path, class: "btn btn-dark mt-3 " %>
+</div>

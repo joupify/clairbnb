@@ -27,7 +27,6 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 
-gem 'annotate'
 gem 'bootstrap', '~> 5.3.2'
 gem "font-awesome-sass"
 gem "simple_form"
@@ -79,6 +78,9 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
   gem "letter_opener"
+  gem 'annotate'
+  
+
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"

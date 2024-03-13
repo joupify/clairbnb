@@ -1,0 +1,15 @@
+# app/views/host/rooms/new.html.erb
+
+<%= form_with(model: [:host, @listing, @room], local: true) do |form| %>
+
+  <div class="field">
+    <%= form.label :room_type %>
+    <%= form.select :room_type, options_for_select(Room.room_types.keys), {}, class: "" %>
+  </div>
+
+  <%= render 'host/rooms/room', form: form %> <!-- Pass form variable to the partial -->
+
+  <%= form.submit "Add bed", class: "btn btn-secondary", id: "add-bed-button" %>
+
+  <%= form.submit "Add room", class: "btn btn-primary" %>
+<% end %>

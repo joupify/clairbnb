@@ -1,61 +1,53 @@
+<div class="container py-2 mt-5">
+  <div class="card-product">
 
 
-<div class="container">
-    <div class="row">
+      <div class="d-flex gap-2 justify-content-between mx-5 mb-5">
+        <div class="">
+          <img class="rounded img-fluid h-100" src="https://a0.muscache.com/im/pictures/01de0512-9191-474b-b5c1-7d0766f733ca.jpg?aki">
+        </div>
+        <div class="card-product-infos ">
+           <h1><%= @listing.title %></h1>
+
+          <p>
+          <i class="fa-solid fa-location-dot"></i>
+
+          <%= @listing.address %></p>
+          <p>
+          <i class="fa-solid fa-map "></i>
+           lat : <%= @listing.latitude if @listing.latitude.present? %>,
+           lng : <%= @listing.longitude if @listing.longitude.present? %></p>
+
+           <% if @listing.published? %>
+            <p  class="fw-bold ">
+            <i class="fa-regular fa-circle-check text-success fw-bold fs-5 mr-2 "></i>
+            <%= @listing.status.capitalize %></p>
+            <% else %>
+            <p  class="fw-bold">
+              <i class="fa-regular fa-clock text-warning fw-bold fs-5 "></i>
+            <%= @listing.status.capitalize %></p>
+            <% end %>
+
+          <div class="d-flex gap-2">
+            <p>  <%= link_to "Edit listing", edit_host_listing_path(@listing), class: "btn btn-secondary  " %></p>
+            <p>  <%= link_to "Edit rooms", host_listing_rooms_path(@listing), class: "btn btn-dark  " %></p>
+            <p><%= button_to "delete listing", host_listing_path(@listing), method: :delete, data: { confirm: "Are you sure?" }, class:"btn btn-warning" %></p>
+          </div>
+        
+
+         
+        </div>
+      </div>
+        </div
+ 
 
 
-  <h1 class="mb-3"><%= @listing.title %></h1>
-    <div class="col-12 bg-secondary d-flex gap-5 mb-3">
-    <p>Description: <%= @listing.description %></p>
-    <p>Address: <%= @listing.address %></p>
-    <p>City: <%= @listing.city %></p>
-    <p>Postal Code: <%= @listing.postal_code %></p>
-    <p>Country: <%= @listing.country %></p>
-    <p>Latitude: <%= @listing.latitude %></p>
-    <p>Longitude: <%= @listing.longitude %></p>
-    <p>Max Guests: <%= @listing.max_guests %></p>
-    <p>Status: <%= @listing.status %></p>
+
+
+
+    <%= link_to 'Add Room', host_listing_rooms_path(@listing) %> 
+       <%= link_to 'Back to listings', host_listings_path %>
+
+
+
   </div>
-
-  <h2 class="">Listing Details</h2>
-    <div class="col-md-6 bg-light">
-      <p>Title: <%= @listing.title %></p>
-      <p>Address: <%= @listing.address %></p>
-      <p>Max Guests: <%= @listing.max_guests %></p>
-   
-  
-    </div>
-    <div class="col-md-6 bg-light">
-      <h3>Rooms</h3>
-      
-      <% listing_details_hash = JSON.parse(@listing.listing_details) rescue nil %>
-      <% if listing_details_hash.present? %>
-        <ul>
-        <li>Number of Rooms: <%= listing_details_hash['number_of_rooms'] %></li>
-        <li>Number of Beds: <%= listing_details_hash['number_of_beds'] %></li>
-        </ul>
-          <h3>Rooms (<%= listing_details_hash['number_of_rooms'] %> total)</h3> 
-        <p>Total Beds: <%= listing_details_hash['number_of_beds'] %></p> 
-        <ul class="list-group">
-          <% listing_details_hash['rooms'].each do |room| %>
-            <li class="list-group-item">
-              Room Type: <%= room['roomType'] %>
-              <br>
-              Number of Beds: <%= room['number_of_beds'] %>
-              <br>
-              Bed Size: <%= room['bed_size'] %>
-            </li>
-
-          <% end %>
-        </ul>
-      <% end %>
-    </div>
-  </div>
-</div>
-
-
-
-
-<%= link_to 'Edit', edit_host_listing_path(@listing) %>
-
-

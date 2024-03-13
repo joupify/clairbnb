@@ -1,0 +1,73 @@
+<div class="container">
+    <div class="row">
+  
+      <h1 class="mb-3"><%= @listing.title %></h1>
+      <div class="col-12 bg-light  gap-3 mb-3">
+        <p>Description: <%= @listing.description %></p>
+        <p>Address: <%= @listing.address %></p>
+        <p>City: <%= @listing.city %></p>
+        <p>Postal Code: <%= @listing.postal_code %></p>
+        <p>Country: <%= @listing.country %></p>
+        <p>Latitude: <%= @listing.latitude %></p>
+        <p>Longitude: <%= @listing.longitude %></p>
+      </div>
+  
+      <h2>Listing Details</h2>
+      <div class="col-md-6 bg-light">
+        <p>Title: <%= @listing.title %></p>
+        <p>Max Guests: <%= @listing.max_guests %></p>
+        <p>Status: <%= @listing.status %></p>
+        
+ <h2>Rooms</h2>
+  <div class="container d-flex gap-3">
+
+  <% if @listing.rooms.present? %>
+    <% @listing.rooms.each do |room| %>
+      <div class="d-flex">
+        <div class="d-flex gap-3">
+          <div class="card mb-3">
+            <div class="card-header">
+              <h4><%= room.room_type %></h4>
+              <h6 >Number of beds: <span class="bg-success text-white fs-5 p-2 rounded-circle"><%= room.beds.count %></span></h6>
+
+              
+            </div>
+            <% if room.beds.present? %>
+              <div class="card-body">
+                <h4>Beds:</h4>
+                <ul class="list-group">
+
+                  <% room.beds.each do |bed| %>
+                    <li class="list-group-item"><%= bed.bed_size %></li>
+
+                  <% end %>
+                </ul>
+              </div>
+
+
+            <% else %>
+              <div class="card-body">
+                <p>No beds in this room.</p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      
+    <% end %>
+  <% else %>
+    <p>No rooms available for this listing.</p>
+  <% end %>
+</div>
+
+</div>
+ </div>
+  
+
+
+
+<div>
+
+    <h4> HOST</h4>
+    <%= @listing.host.name %>
+</div>

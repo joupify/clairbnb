@@ -13,8 +13,8 @@
   <%= f.input :title %>
   <%= f.input :description %>
   <%= f.input :max_guests, label: "How many people max can stay?", input_html: { min: 1, max: 100, step: 1 } %>
-  <%= f.input :listing_details, as: :jsonb %>
-   
+<%= f.select :status, options_for_select(Listing.statuses.keys.map { |status| [status.capitalize, status] }, @listing.status), {}, class: "form-select" %>
+
 
 
     <% if @show_address %>
@@ -26,7 +26,7 @@
   <% end %>
 
     <div class="form-actions">
-      <%= f.button :submit, data: { remote: true }, class:'btn btn-dark' %>
+      <%= f.button :submit, data: { remote: true }, class:'btn btn-dark w-100 mt-5' %>
 
     </div>
 
