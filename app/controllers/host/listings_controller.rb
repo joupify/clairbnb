@@ -86,6 +86,7 @@ class Host::ListingsController < ApplicationController
       :title,
       :description,
       :max_guests,
+      :status,
     )
   end
 

@@ -1,7 +1,9 @@
 <div class="container py-2">
 
   <h2>Rooms</h2>
-  <div class="container d-flex gap-3">
+  <%= link_to "Back to #{@listing.title}", host_listing_path(@listing), class:"text-decoration-none text-dark" %>
+
+  <div class="container d-flex gap-3 mt-5">
 
   <% if @listing.rooms.present? %>
     <% @listing.rooms.each do |room| %>
@@ -49,5 +51,6 @@
 <div class="container py-2 ">
   <%= render 'host/rooms/form', listing: @listing %>
 <br>
-<%= link_to 'Edit', edit_host_listing_path(@listing) %>
+<%= link_to 'Edit', edit_host_listing_path(@listing) %><br>
+
 </div>
