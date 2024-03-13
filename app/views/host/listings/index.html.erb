@@ -1,13 +1,37 @@
-<div class='container'>
-    <h1 class='fw-bolder'>Host Listing</h1>
+<div class='container py-2'>
+  <h1 class='fw-bolder mb-3'>Yours Listings</h1>
 
+  <div class="card-product">
     <% @listings.each do |l| %>
-    <%= link_to  l.title, host_listing_path(l) %> <br>
-    <%= l.address %><br><br>
-    lat : <%= l.latitude if l.latitude.present? %><br>
-    lng : <%= l.longitude if l.longitude.present?%><br>
-        <%= l.status %><br>
+      <div class="d-flex">
+        <div>
+          <img class="rounded img-fluid h-100" src="https://a0.muscache.com/im/pictures/01de0512-9191-474b-b5c1-7d0766f733ca.jpg?aki">
+        </div>
+        <div class="card-product-infos">
+          <%= link_to l.title, host_listing_path(l) %>
+          <p>
+          <i class="fa-solid fa-location-dot"></i>
+          <%= l.address %></p>
+          <p>
+          <i class="fa-solid fa-map"></i>
+           lat : <%= l.latitude if l.latitude.present? %>,
+           lng : <%= l.longitude if l.longitude.present? %></p>
 
-    <%= button_to 'delete this listing', host_listing_path(l), method: :delete %><br>
+           <% if l.published? %>
+            <p  class="fw-bold ">
+            <i class="fa-regular fa-circle-check text-success fw-bold fs-5 "></i>
+            <%= l.status.capitalize %></p>
+            <% else %>
+            <p  class="fw-bold">
+              <i class="fa-regular fa-clock text-warning fw-bold fs-5 "></i>
+            <%= l.status.capitalize %></p>
+            <% end %>
 
+          <p><%= button_to "delete this listing", host_listing_path(l), method: :delete, data: { confirm: "Are you sure?" } %></p>
+        </div>
+      </div>
     <% end %>
+  </div>
+
+  <%= link_to "Add listing", new_host_listing_path, class: "btn btn-primary mt-3 " %>
+</div>

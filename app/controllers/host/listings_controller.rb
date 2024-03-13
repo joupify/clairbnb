@@ -71,7 +71,7 @@ class Host::ListingsController < ApplicationController
     params.require(:listing).permit(
       :title,
       :description,
-      :adress,
+      :address,
       :city,
       :postal_code,
       :country,

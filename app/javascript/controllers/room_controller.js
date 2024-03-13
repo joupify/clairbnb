@@ -13,7 +13,6 @@ export default class extends Controller {
   addBed(e) {
     console.log(this.bedFieldsTarget.innerHTML);
     e.preventDefault()
-    console.log( this.bedsTarget);
   this.bedsTarget.insertAdjacentHTML(
     'beforeend',
     this.bedFieldsTarget.innerHTML

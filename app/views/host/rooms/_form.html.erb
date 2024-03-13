@@ -6,7 +6,7 @@
       <% Bed.bed_sizes.each do |bed_size, _| %>
         <option><%= bed_size %></option>
       <% end %>
-    </select>
+    </select> 
   </template>
 
   <%= form_with(model: [:host, @listing, @room], local: true) do |form| %>
@@ -26,3 +26,4 @@
     <%= form.submit "Add room", class: "btn btn-primary" %>
   <% end %>
 </div>
+

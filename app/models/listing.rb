@@ -25,7 +25,6 @@ class Listing < ApplicationRecord
   belongs_to :host, class_name: 'User'
   has_many :rooms
   accepts_nested_attributes_for :rooms
-  has_many :beds, dependent: :destroy
 
   enum status: {draft: 0, published: 1, archived:3}
   scope :published, -> {where(status: :published)}

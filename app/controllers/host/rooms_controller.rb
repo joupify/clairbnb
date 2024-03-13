@@ -22,7 +22,7 @@ class Host::RoomsController < ApplicationController
   
     respond_to do |format|
       if @room.save
-        format.html { redirect_to host_listing_room_path(@listing, @room), notice: 'Room successfully created.' }
+        format.html { redirect_to host_listing_rooms_path(@listing), notice: 'Room successfully created.' }
       else
         flash[:errors] = @room.errors.full_messages
         format.html { render :new } # Render the new room form again
