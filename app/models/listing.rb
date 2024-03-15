@@ -22,9 +22,15 @@ class Listing < ApplicationRecord
   validates  :title, presence: true
   validates :max_guests, numericality: { greater_than: 0, less_than_or_equal_to: 100 }
 
+
+
   belongs_to :host, class_name: 'User'
   has_many :rooms
+  has_many :photos, dependent: :destroy
+
   accepts_nested_attributes_for :rooms
+  accepts_nested_attributes_for :photos, allow_destroy: true
+
 
   enum status: {draft: 0, published: 1, archived:3}
   scope :published, -> {where(status: :published)}

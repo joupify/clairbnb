@@ -2,6 +2,8 @@ require_relative "boot"
 
 require "rails/all"
 require 'dotenv/load'
+require_relative '../app/uploaders/image_uploader'
+
 
 
 # Require the gems listed in Gemfile, including any gems

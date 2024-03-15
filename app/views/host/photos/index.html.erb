@@ -1,0 +1,9 @@
+
+
+<h1>Host::Photos</h1>
+
+<%= simple_form_for [:host, @listing, @photo], html: { multipart: true } do |f| %>
+  <%= f.input :image, as: :file %>
+  <%= f.button :submit, 'Upload Photos' %>
+<% end %>
+

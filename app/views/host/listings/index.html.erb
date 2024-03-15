@@ -10,7 +10,15 @@
 
       <div class="d-flex gap-2 justify-content-between mx-5 mb-5">
         <div class="">
-          <img class="rounded img-fluid h-100" src="https://a0.muscache.com/im/pictures/01de0512-9191-474b-b5c1-7d0766f733ca.jpg?aki">
+        <div class="">
+         <% if l.photos.exists? %>
+          <% l.photos.each do |photo| %>
+              <% if photo.image.present? %>
+                <%= image_tag photo.image.url, style: "width: 400px;" %>
+              <% end %>         
+           <% end %>
+        <% end %>
+        </div>
         </div>
         <div class="card-product-infos ">
           <%= link_to l.title, host_listing_path(l), class:"text-dark fs-4 text-decoration-none" %>
