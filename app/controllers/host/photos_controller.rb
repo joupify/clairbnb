@@ -12,6 +12,12 @@ class Host::PhotosController < ApplicationController
     @photo = @listing.photos.new
   end
 
+  def show
+    @listing = current_user.listings.find(params[:listing_id])
+    @photo = @listing.photoss.find(params[:id])
+
+  end
+
   def create
     @listing = current_user.listings.find(params[:listing_id])
     @photo = @listing.photos.new(photo_params)
@@ -29,7 +35,12 @@ class Host::PhotosController < ApplicationController
 
 
   def destroy
-    @listing = current_user.listings.find(params[:listing_id])
+    @listing = Listing.find(params[:listing_id])
+    @photo = @listing.photos.find(params[:id])
+    @photo.destroy
+
+    redirect_to host_listing_photos_path(@listing), notice: 'Photo successfully detroyed.'
+    
   end
 
   private

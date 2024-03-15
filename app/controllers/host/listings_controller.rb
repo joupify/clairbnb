@@ -79,7 +79,8 @@ class Host::ListingsController < ApplicationController
       :postal_code,
       :country,
       :max_guests,
-      
+      photos_attributes: [:image, :caption]
+
 
     )
   end
@@ -91,6 +92,7 @@ class Host::ListingsController < ApplicationController
       :description,
       :max_guests,
       :status,
+      photos_attributes: [:image, :caption]
     )
   end
 

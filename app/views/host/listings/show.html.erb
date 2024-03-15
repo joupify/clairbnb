@@ -2,54 +2,61 @@
   <div class="card-product">
 
 
-      <div class="d-flex gap-2 justify-content-between mx-5 mb-5">
-        <div class="">
-          <% @listing.photos.each do |photo| %>
-            <%= image_tag photo.image.url if photo.image.present? %>
-          <% end %>
-        </div>
-        <div class="card-product-infos ">
-           <h1><%= @listing.title %></h1>
+  <div class="d-flex gap-2 justify-content-between mx-5 mb-5">
 
-          <p>
-          <i class="fa-solid fa-location-dot"></i>
-
-          <%= @listing.address %></p>
-          <p>
-          <i class="fa-solid fa-map "></i>
-           lat : <%= @listing.latitude if @listing.latitude.present? %>,
-           lng : <%= @listing.longitude if @listing.longitude.present? %></p>
-
-           <% if @listing.published? %>
-            <p  class="fw-bold ">
-            <i class="fa-regular fa-circle-check text-success fw-bold fs-5 mr-2 "></i>
-            <%= @listing.status.capitalize %></p>
-            <% else %>
-            <p  class="fw-bold">
-              <i class="fa-regular fa-clock text-warning fw-bold fs-5 "></i>
-            <%= @listing.status.capitalize %></p>
-            <% end %>
-
-          <div class="d-flex gap-2">
-            <p>  <%= link_to "Edit listing", edit_host_listing_path(@listing), class: "btn btn-secondary  " %></p>
-            <p>  <%= link_to "Edit rooms", host_listing_rooms_path(@listing), class: "btn btn-dark  " %></p>
-            <p><%= button_to "delete listing", host_listing_path(@listing), method: :delete, data: { confirm: "Are you sure?" }, class:"btn btn-warning" %></p>
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <% @listing.photos.each_with_index do |photo, index| %>
+          <div class="carousel-item <%= 'active' if index == 0 %>">
+            <%= image_tag photo.image.url, class: 'd-block w-100' if photo.image.present? %>
           </div>
-        
-
-         
-        </div>
+        <% end %>
       </div>
-        </div
- 
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
 
 
+    </div>
+    <div class="card-product-infos ">
+        <h1><%= @listing.title %></h1>
+        <p><%= @listing.description %></p>
 
+      <p>
+      <i class="fa-solid fa-location-dot"></i>
+      <%= @listing.address %></p>
+      <p>
+      <i class="fa-solid fa-map "></i>
+        lat : <%= @listing.latitude if @listing.latitude.present? %>,
+        lng : <%= @listing.longitude if @listing.longitude.present? %></p>
 
+        <% if @listing.published? %>
+        <p  class="fw-bold ">
+        <i class="fa-regular fa-circle-check text-success fw-bold fs-5 mr-2 "></i>
+        <%= @listing.status.capitalize %></p>
+        <% else %>
+        <p  class="fw-bold">
+          <i class="fa-regular fa-clock text-warning fw-bold fs-5 "></i>
+        <%= @listing.status.capitalize %></p>
+        <% end %>
 
-    <%= link_to 'Add Room', host_listing_rooms_path(@listing) %> 
-       <%= link_to 'Back to listings', host_listings_path %>
+      <div class="d-flex gap-2">
+        <p>  <%= link_to "Edit listing", edit_host_listing_path(@listing), class: "btn btn-secondary  " %></p>
+        <p>  <%= link_to "Edit rooms", host_listing_rooms_path(@listing), class: "btn btn-dark  " %></p>
+        <p><%= button_to "delete listing", host_listing_path(@listing), method: :delete, data: { confirm: "Are you sure?" }, class:"btn btn-warning" %></p>
+      </div>
+    
+    </div>
+  </div>
+    </div>
 
-
+<%= link_to 'Add Room', host_listing_rooms_path(@listing) %> 
+  <%= link_to 'Back to listings', host_listings_path %>
 
   </div>
