@@ -7,11 +7,29 @@
     <% @listings.each do |l| %>
     <div class="col-md-6">
 
+      <div class="d-flex flex-wrap gap-2 justify-content-between mx-5 mb-5">
+        <% if l.photos.exists? %>
+          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <% l.photos.each_with_index do |photo, index| %>
+                <div class="carousel-item <%= 'active' if index == 0 %>">
+                  <% if photo.image.present? %>
+                    <%= image_tag photo.image.url, class:'image-fluid', style: "width: 400px;" %>
+                  <% end %>         
+                </div>
+              <% end %>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        <% end %>
 
-      <div class="d-flex gap-2 justify-content-between mx-5 mb-5">
-        <div class="">
-          <img class="rounded img-fluid h-100" src="https://a0.muscache.com/im/pictures/01de0512-9191-474b-b5c1-7d0766f733ca.jpg?aki">
-        </div>
         <div class="card-product-infos ">
           <%= link_to l.title, host_listing_path(l), class:"text-dark fs-4 text-decoration-none" %>
           <p>
@@ -39,13 +57,11 @@
           </div>
         </div>
       </div>
-        </div>
+    </div>
 
     <% end %>
   </div>
   </div>
-
-
 
   <%= link_to "Add listing", new_host_listing_path, class: "btn btn-dark mt-3 " %>
 </div>

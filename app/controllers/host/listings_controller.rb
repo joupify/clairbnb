@@ -1,10 +1,12 @@
 class Host::ListingsController < ApplicationController
-  before_action :set_listing, only: %i[show edit update destroy]
   before_action :authenticate_user!
+
+  before_action :set_listing, only: %i[show edit update destroy]
 
 
   def index
     @listings = current_user.listings.all
+
     @markers = @listings.geocoded.map do |listing|
       {
         lat: listing.latitude,
@@ -50,6 +52,7 @@ class Host::ListingsController < ApplicationController
     # Find a specific room or create a new one if none exists for this listing
     @room = @listing.rooms.new
     @bed = @room.beds.new
+    @photo = @listing.photos.new
 
 
   end
@@ -76,6 +79,8 @@ class Host::ListingsController < ApplicationController
       :postal_code,
       :country,
       :max_guests,
+      photos_attributes: [:image, :caption]
+
 
     )
   end
@@ -87,6 +92,7 @@ class Host::ListingsController < ApplicationController
       :description,
       :max_guests,
       :status,
+      photos_attributes: [:image, :caption]
     )
   end
 

@@ -1,0 +1,20 @@
+
+
+<h1>Host::Photos</h1>
+
+<%= simple_form_for [:host, @listing, @photo], html: { multipart: true } do |f| %>
+  <%= f.input :image, as: :file %>
+  <%= f.input :caption %>
+  <%= f.button :submit, 'Upload Photos' %>
+<% end %>
+
+
+<% if @listing.photos.present?  %>
+  <% @listing.photos.each do |photo| %>
+    <%= image_tag photo.image.url(:thumb) if photo.image.present? %>
+    <p><%= button_to 'delete image', host_listing_photo_path(@listing, photo), method: :delete, class:"btn btn-danger" %></p>
+
+  <% end  %>
+<% end %>
+
+

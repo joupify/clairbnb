@@ -49,3 +49,8 @@
 
 <%= link_to 'Edit', edit_host_listing_path(@listing) %>
 </div>
+
+
+
+
+          # <img class="rounded img-fluid h-100" src="https://a0.muscache.com/im/pictures/01de0512-9191-474b-b5c1-7d0766f733ca.jpg?aki">
