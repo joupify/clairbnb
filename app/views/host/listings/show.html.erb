@@ -46,6 +46,13 @@
         <%= @listing.status.capitalize %></p>
         <% end %>
 
+        
+        <p class="fw-bold">Price/Night: <span class="fs-5"><%= number_to_currency(@listing.nightly_price / 100, unit: '€', precision: 0 ) %></span></p>  
+        <p class="fw-bold">Cleaning Fee: <span class="fs-5"><%= number_to_currency(@listing.cleaning_fee / 100, unit: '€', precision: 0) %></span></p>
+
+
+
+
       <div class="d-flex gap-2">
         <p>  <%= link_to "Edit listing", edit_host_listing_path(@listing), class: "btn btn-secondary  " %></p>
         <p>  <%= link_to "Edit rooms", host_listing_rooms_path(@listing), class: "btn btn-dark  " %></p>

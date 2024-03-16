@@ -1,4 +1,16 @@
 <div class='container'>
+    <% if flash[:error] %>
+  <div class="alert alert-danger"><%= flash[:error] %></div>
+<% end %>
+
+<% if @listing.errors.any? %>
+  <div class="alert alert-danger">
+    <% @listing.errors.each do |error| %>
+      <p><%= error %></p>
+    <% end %>
+  </div>
+<% end %>
+
     <h1>Edit <%=@listing.title  %></h1>
 
     <%= render 'form', listing: @listing %>

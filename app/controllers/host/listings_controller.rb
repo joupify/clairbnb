@@ -32,30 +32,31 @@ class Host::ListingsController < ApplicationController
     end
   end
 
+
+  def show
+    # Find a specific room or create a new one if none exists for this listing
+    @room = @listing.rooms.new
+    @bed = @room.beds.new
+    @photo = @listing.photos.new
+  end
+
+
   def edit
     @show_address = false # or false, depending on your logic
     render 'host/listings/_form'
   end
-
+  
   def update
     @listing = current_user.listings.find(params[:id])
     if @listing.update(listing_update_params)
       redirect_to host_listing_path(@listing), notice: "Listing was successfully updated."
     else
+      puts "Update failed. Errors: #{@listing.errors}"
       flash.now[:errors] = @listing.errors.full_messages
       render :edit
     end
   end
-
-  def show
-
-    # Find a specific room or create a new one if none exists for this listing
-    @room = @listing.rooms.new
-    @bed = @room.beds.new
-    @photo = @listing.photos.new
-
-
-  end
+  
 
 
   def destroy
@@ -79,7 +80,9 @@ class Host::ListingsController < ApplicationController
       :postal_code,
       :country,
       :max_guests,
-      photos_attributes: [:image, :caption]
+      :nightly_price,
+      :cleaning_fee,
+      photos_attributes: [:id, :image, :caption]
 
 
     )
@@ -92,7 +95,9 @@ class Host::ListingsController < ApplicationController
       :description,
       :max_guests,
       :status,
-      photos_attributes: [:image, :caption]
+      :nightly_price,
+      :cleaning_fee,
+      photos_attributes: [:id, :image, :caption]
     )
   end
 

@@ -54,3 +54,93 @@
 
 
           # <img class="rounded img-fluid h-100" src="https://a0.muscache.com/im/pictures/01de0512-9191-474b-b5c1-7d0766f733ca.jpg?aki">
+
+
+
+//  reservation controller :
+
+class ReservationsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_listing, only: %i[new create]
+
+
+
+  def index
+  end
+
+
+  def show
+    @listing = Listing.published.find(params[:id])
+    @reservation = Reservation.new(listing: @listing)
+  end
+
+
+
+  def new
+    @listing = Listing.find(params[:listing_id])
+    @reservation = Reservation.new
+  end
+
+
+  def create
+  
+    @listing = Listing.find(params[:listing_id])
+    @reservation = Reservation.new(reservation_params)
+    @reservation.listing = @listing
+
+    if @reservation.save 
+      # create checkout session
+      listing = @reservation.listing
+      checkout_session = Stripe::Checkout::Session.create(
+        success_url: reservation_url(@reservation), # URL for domain name
+        cancel_url: listing_url(listing),
+        customer: current_user.stripe_customer_id,
+        mode: 'payment',
+        line_items: [{
+          price_data: {
+            unit_amount: listing.nightly_price,
+            currency: 'eur', # Corrected currency code to 'eur'
+            product: '', # Cleaning_fee product_id
+          }, 
+          quantity: 1 # How many nights they booked?
+        }, {
+          price_data: {
+            unit_amount: listing.cleaning_fee,
+            currency: 'eur', # Corrected currency code to 'eur'
+            product: listing.stripe_product_id,
+          },
+          quantity: 1
+        }]
+      )
+  
+      redirect_to checkout_session.url
+    else
+      flash[:errors] = @reservation.errors.full_messages 
+      redirect_to listing_path(params[:reservation][:listing_id])
+      render :'listing/show', status: :unprocessable_entity
+
+    end
+  end
+  
+
+
+
+  private
+
+  
+    def set_listing
+      @listing = Listing.find(params[:listing_id])
+    end
+
+  def reservation_params
+    params.require(:reservation).permit(:listing_id, :guest_id, :session_id, :status)
+  end
+  
+end
+
+
+
+
+
+
+
