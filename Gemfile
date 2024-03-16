@@ -34,6 +34,7 @@ gem 'country_select'
 gem "geocoder"
 gem 'carrierwave'
 gem 'stripe'
+gem 'resque'
 
 
 
