@@ -16,6 +16,9 @@ module Clairbnb
     config.load_defaults 7.0
 
     Rails.application.default_url_options = {host: 'localhost', port: 3000}
+    config.active_job.queue_adapter = :resque
+
+
 
 
 
