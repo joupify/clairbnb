@@ -5,12 +5,13 @@ Rails.application.routes.draw do
   resources :webhooks, only: [:create]
 
   resources :listings, only: [:index, :show] do
-    resources :reservations do
-    member do
-    post '/cancel'=> 'reservations#cancel', as: 'cancel_reservation'
-    end
-    end
+    resources :reservations 
+      # member do
+      # post '/cancel'=> 'reservations#cancel'
+      # end
+    
   end
+  post '/listings/:listing_id/reservations/:id/cancel', to: 'reservations#cancel', as: 'cancel_listing_reservation'
 
   post '/webhooks/:source' => 'webhooks#create'
 

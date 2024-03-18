@@ -59,9 +59,15 @@ class ReservationsController < ApplicationController
   
 
     def cancel
-      @reservation = current_user.listings.reservation.find(params[:id])
+      @listing = current_user.listings.find(params[:listing_id])
+      @reservation = @listing.reservations.find(params[:id])
+      refund = Stripe::Refund.create({
+        payment_intent: @reservation.stripe_payment_intent_id
+      })
+      @reservation.update(status: :canceling, stripe_refund_id: refund.id)
+      redirect_to action: "show", id: @reservation
     end
-    
+
     private
   
     def set_listing

@@ -5,4 +5,4 @@
 
 <pre><%= JSON.pretty_generate(@reservation.as_json) %></pre>
 
-<%= link_to "Cancel Reservation", cancel_reservation_listing_reservation_path(@listing, @reservation), method: :post, data: { confirm: "Are you sure you want to cancel this reservation?" } %>
+<%= button_to "Cancel Reservation", cancel_listing_reservation_path(@listing, @reservation), method: :post %>
