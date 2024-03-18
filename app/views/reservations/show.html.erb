@@ -1,0 +1,8 @@
+<!-- app/views/reservations/show.html.erb -->
+  <h1> <%= @listing.title %></h1>
+
+<h1>Reservation Details</h1>
+
+<pre><%= JSON.pretty_generate(@reservation.as_json) %></pre>
+
+<%= button_to "Cancel Reservation", cancel_listing_reservation_path(@listing, @reservation), method: :post %>

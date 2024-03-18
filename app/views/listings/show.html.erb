@@ -1,73 +1,87 @@
 <div class="container">
     <div class="row">
   
-      <h1 class="mb-3"><%= @listing.title %></h1>
-      <div class="col-12 bg-light  gap-3 mb-3">
-        <p>Description: <%= @listing.description %></p>
-        <p>Address: <%= @listing.address %></p>
-        <p>City: <%= @listing.city %></p>
-        <p>Postal Code: <%= @listing.postal_code %></p>
-        <p>Country: <%= @listing.country %></p>
-        <p>Latitude: <%= @listing.latitude %></p>
-        <p>Longitude: <%= @listing.longitude %></p>
-      </div>
-  
-      <h2>Listing Details</h2>
-      <div class="col-md-6 bg-light">
-        <p>Title: <%= @listing.title %></p>
-        <p>Max Guests: <%= @listing.max_guests %></p>
-        <p>Status: <%= @listing.status %></p>
-        
- <h2>Rooms</h2>
-  <div class="container d-flex gap-3">
-
-  <% if @listing.rooms.present? %>
-    <% @listing.rooms.each do |room| %>
-      <div class="d-flex">
-        <div class="d-flex gap-3">
-          <div class="card mb-3">
-            <div class="card-header">
-              <h4><%= room.room_type %></h4>
-              <h6 >Number of beds: <span class="bg-success text-white fs-5 p-2 rounded-circle"><%= room.beds.count %></span></h6>
-
-              
-            </div>
-            <% if room.beds.present? %>
-              <div class="card-body">
-                <h4>Beds:</h4>
-                <ul class="list-group">
-
-                  <% room.beds.each do |bed| %>
-                    <li class="list-group-item"><%= bed.bed_size %></li>
-
-                  <% end %>
-                </ul>
-              </div>
+     <div class="container py-2 mt-5">
+     <div class="card-product">
 
 
-            <% else %>
-              <div class="card-body">
-                <p>No beds in this room.</p>
+      <div class="d-flex gap-2 justify-content-between mx-5 mb-5">
+
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <% @listing.photos.each_with_index do |photo, index| %>
+              <div class="carousel-item <%= 'active' if index == 0 %>">
+                <%= image_tag photo.image.url, class: 'd-block w-100' if photo.image.present? %>
               </div>
             <% end %>
           </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+
+
+        </div>
+        <div class="card-product-infos ">
+            <h1><%= @listing.title %></h1>
+            <p><%= @listing.description %></p>
+
+          <p>
+          <i class="fa-solid fa-location-dot"></i>
+          <%= @listing.address %></p>
+          <p>
+          <i class="fa-solid fa-map "></i>
+            lat : <%= @listing.latitude if @listing.latitude.present? %>,
+            lng : <%= @listing.longitude if @listing.longitude.present? %></p>
+
+            <% if @listing.published? %>
+            <p  class="fw-bold ">
+            <i class="fa-regular fa-circle-check text-success fw-bold fs-5 mr-2 "></i>
+            <%= @listing.status.capitalize %></p>
+            <% else %>
+            <p  class="fw-bold">
+              <i class="fa-regular fa-clock text-warning fw-bold fs-5 "></i>
+            <%= @listing.status.capitalize %></p>
+            <% end %>
+
+            
+            <p class="fw-bold">Price/Night: <span class="fs-6"><%= number_to_currency(@listing.nightly_price / 100, unit: '€', precision: 0 ) %></span></p>  
+            <p class="fw-bold">Cleaning Fee: <span class="fs-6"><%= number_to_currency(@listing.cleaning_fee / 100, unit: '€', precision: 0) %></span></p>
+
+            
+            <h6>Rooms: <%= @listing.rooms.count%></h6>
+            <h6> Host:  <%= @listing.host.email%></h6>
+              
+
+
         </div>
       </div>
-      
-    <% end %>
-  <% else %>
-    <p>No rooms available for this listing.</p>
-  <% end %>
-</div>
+    </div>
 
+
+
+    <div class="card">
+    <div class="card-body">
+      <h2 class="card-title">Make a Reservation</h2>
+     <%= simple_form_for([@listing, @reservation]) do |form| %>
+  <%= form.hidden_field :listing_id, value: @listing.id %>
+  <%= form.button :submit, 'Reserve ', class: 'btn btn-primary', data: { turbo: false } %>
+<% end %>
+
+    </div>
+  </div>
+
+  <%= link_to 'Back to listings', host_listings_path %>
+
+
+    
 </div>
  </div>
   
+  </div>
 
-
-
-<div>
-
-    <h4> HOST</h4>
-    <%= @listing.host.name %>
-</div>

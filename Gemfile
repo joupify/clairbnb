@@ -33,6 +33,8 @@ gem "simple_form"
 gem 'country_select'
 gem "geocoder"
 gem 'carrierwave'
+gem 'stripe'
+gem 'resque'
 
 
 

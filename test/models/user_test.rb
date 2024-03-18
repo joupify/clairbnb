@@ -23,6 +23,7 @@
 #  unlock_token           :string
 #  locked_at              :datetime
 #  name                   :string
+#  stripe_customer_id     :string
 #
 require "test_helper"
 

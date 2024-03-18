@@ -17,10 +17,10 @@ end
 #
 # Table name: rooms
 #
-#  id         :integer(8)      not null, primary key
-#  listing_id :integer(8)      not null
-#  room_type  :integer(4)
-#  created_at :datetime        not null
-#  updated_at :datetime        not null
+#  id         :bigint           not null, primary key
+#  listing_id :bigint           not null
+#  room_type  :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
