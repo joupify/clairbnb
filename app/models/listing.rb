@@ -42,15 +42,23 @@ class Listing < ApplicationRecord
   after_validation :geocode, if: :will_save_change_to_address?
 
   after_commit :may_be_create_stripe_product, on: [:create, :update]
+  
 
   def may_be_create_stripe_product
     return if !stripe_product_id.blank?
+
+    # product_images = []
+
+    # photos.each do |photo|
+    #   product_images << photo.image_url if photo.image.present?
+    # end
 
     product = Stripe::Product.create(
       name: title,
       url: Rails.application.routes.url_helpers.url_for(self),
       metadata: {
-      clairbnb_id: id
+      clairbnb_id: id,
+      # images: product_images
       },
 
       

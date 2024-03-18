@@ -3,9 +3,13 @@ class ReservationsController < ApplicationController
   before_action :set_listing, only: %i[new create]
 
 
+  def show
+    @reservation = current_user.listings.map { |listing| listing.reservations.find_by(id: params[:id]) }.compact.first
+    # If there's no reservation found with the given id, @reservation will be nil
+    @listing = @reservation.listing
 
-
-
+  end
+  
     def create
       @listing = Listing.find(params[:listing_id])
       @reservation= @listing.reservations.new(reservation_params)
@@ -16,7 +20,7 @@ class ReservationsController < ApplicationController
         # create checkout session
         listing = @reservation.listing
         checkout_session = Stripe::Checkout::Session.create(
-          success_url: listing_url(@reservation.listing),
+          success_url: listing_reservation_url(@listing, @reservation),
           cancel_url: listing_url(listing),
           customer: current_user.stripe_customer_id,
           mode: 'payment',
@@ -39,7 +43,10 @@ class ReservationsController < ApplicationController
             reservation_id: @reservation.id,
           },
           payment_intent_data: {
-            reservation_id: @reservation.id,
+            metadata: {
+              reservation_id: @reservation.id,
+
+            }
 
           }
         )
@@ -50,6 +57,11 @@ class ReservationsController < ApplicationController
       end
     end
   
+
+    def cancel
+      @reservation = current_user.listings.reservation.find(params[:id])
+    end
+    
     private
   
     def set_listing
