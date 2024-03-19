@@ -1,2 +1,11 @@
-<h1>Reservations#index</h1>
+<h1>Reservations</h1>
 
+<% @reservations.each do |reservation| %>
+  <h2>Reservation <%= reservation.id %></h2>
+  <pre><%= JSON.pretty_generate(reservation.as_json) %></pre>
+<% if current_user == reservation.listing.host && reservation.status != 'cancelled' %>
+    <%= button_to "Cancel Reservation", cancel_listing_reservation_path(reservation, :listing_id), method: :post %>
+  <% end %>
+
+
+<% end %>

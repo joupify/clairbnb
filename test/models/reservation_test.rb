@@ -6,10 +6,11 @@
 #  listing_id               :bigint           not null
 #  guest_id                 :bigint           not null
 #  session_id               :string
-#  status                   :integer          default(0)
+#  status                   :integer          default("pending")
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #  stripe_payment_intent_id :string
+#  stripe_refund_id         :string
 #
 require "test_helper"
 
