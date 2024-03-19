@@ -1,4 +1,4 @@
-<div class="navbar navbar-expand-sm bg-dark text-white navbar-lewagon">
+<div class="navbar navbar-expand-sm bg-warning navbar-lewagon">
   <div class="container-fluid">
     <%= link_to "#", class: "navbar-brand" do %>
       <%= image_tag "" %>
@@ -10,38 +10,40 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
-          <li class="nav-item active">
-            <%= link_to "Home", root_path, class: "nav-link text-white" %>
-          </li>
-           <li class="nav-item ">
-            <%= link_to "Listings", listings_path, class: "nav-link text-white" %>
-          </li>
-          <li class="nav-item ">
-            <%= link_to "Reservations", listing_reservations_path(:listing_id), class: "nav-link text-white" %>
-          </li>
-         <% if user_signed_in? %>
 
-          <li class="nav-item ">
+        <li class="<%= 'active' if current_page?(root_path) %>">
+          <%= link_to "Home", root_path, class: "nav-link text-white" %>
+        </li>
+        <li class="nav-item <%= 'active' if current_page?(listings_path) %>">
+          <%= link_to "Listings", listings_path, class: "nav-link text-white" %>
+        </li>
+
+        <li class="nav-item <%= 'active' if current_page?(listing_reservations_path(:listing_id)) %>">
+          <%= link_to "Reservations", listing_reservations_path(:listing_id), class: "nav-link text-white" %>
+        </li>
+
+        <% if user_signed_in? %>
+          <li class="nav-item <%= 'active' if current_page?(host_listings_path) %>">
             <%= link_to "Dashbord", host_listings_path, class: "nav-link text-white" %>
           </li>
-          <li class="nav-item ">
+          <li class="nav-item <%= 'active' if current_page?('#') %>">
             <%= link_to "Messages", "#", class: "nav-link text-white" %>
           </li>
           <li class="nav-item dropdown">
             <%= image_tag "me.jpg", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <a href="<%= edit_user_registration_path %>" class="nav-link fw-bolder">
-                            MON COMPTE
-                          </a>
+                MON COMPTE
+              </a>
               <%= link_to "Another action", "#", class: "dropdown-item" %>
               <%= link_to "Log Out", destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "dropdown-item" %>
             </div>
           </li>
-        <%else %>
-          li class="nav-item"
+        <% else %>
+          <li class="nav-item <%= 'active' if current_page?(new_user_session_path) %>">
             <%= link_to "Login", new_user_session_path, class: "nav-link text-white" %>
           </li>
-        <%end %>
+        <% end %>
       </ul>
     </div>
   </div>
