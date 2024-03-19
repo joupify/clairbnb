@@ -1,0 +1,13 @@
+<h1>Merchant Settings</h1>
+
+<% if current_user.stripe_account_id.blank? %>
+  You have not connected to you Stripe_account yet
+  <%= link_to  "connect to you stripe account", connect_host_merchant_settings_path(@merchant_settings), class:"btn btn-primary" %>
+<% else %>
+
+
+<h1>Stripe_account : <%= current_user.stripe_account_id %></h1>
+<h1>Charges enabled : <%= current_user.charges_enabled? ? 'Yes': 'No'%></h1>
+  
+<% end %>
+  
