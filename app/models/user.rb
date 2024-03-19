@@ -24,6 +24,9 @@
 #  locked_at              :datetime
 #  name                   :string
 #  stripe_customer_id     :string
+#  is_host                :boolean          default(FALSE)
+#  stripe_account_id      :string
+#  charges_enabled        :boolean          default(FALSE)
 #
 
 class User < ApplicationRecord
@@ -31,7 +34,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :confirmable, :lockable, :timeoutable, :trackable, :omniauthable
+         :lockable, :timeoutable, :trackable, :omniauthable
   devise :omniauthable, omniauth_providers: [:google_oauth2]
 
   has_many :listings, foreign_key: :host_id

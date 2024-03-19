@@ -28,7 +28,25 @@ class EventJob < ApplicationJob
   
 
   def handle_stripe(event)
+    puts "Handling stripe event: #{event.type}"
+
     case event.type
+
+    when "account.updated"
+    puts "Handling account.updated event"
+    account = event.data.object
+    puts "Event data: #{event.inspect}"
+
+    user = User.find_by(stripe_account_id: account.id)
+    if user.nil?
+      puts "User not found for stripe_account_id: #{account.id}"
+    else
+      puts "Updating charges_enabled for user: #{user.id}"
+      user.update(charges_enabled: account.charges_enabled)
+      puts "charges_enabled updated: #{user.charges_enabled}"
+    end
+
+
     when "checkout.session.completed"
       #do something with checkout  session and reservation
       checkout_session = event.data.object

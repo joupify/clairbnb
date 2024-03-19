@@ -25,6 +25,8 @@ me = User.find_or_create_by!(email: "imagevogue8@gmail.com") do |user|
       email: Faker::Internet.email,
       password: Faker::Internet.password
     )
+    puts "User with email #{host.email} created with password: #{password}"
+
   
     10.times do
       Listing.create!(
@@ -41,3 +43,5 @@ me = User.find_or_create_by!(email: "imagevogue8@gmail.com") do |user|
     end
   end
 puts 'seeding succefully'  
+
+

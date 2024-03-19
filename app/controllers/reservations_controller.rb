@@ -2,11 +2,17 @@ class ReservationsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_listing, only: %i[new create]
 
+  def index
+    @reservations = current_user.reservations.all
+  end
+  
 
   def show
-    @reservation = current_user.listings.map { |listing| listing.reservations.find_by(id: params[:id]) }.compact.first
+    @reservation = current_user.reservations.find(params[:id])
+
+    # @reservation = current_user.listings.map { |listing| listing.reservations.find_by(id: params[:id]) }.compact.first
     # If there's no reservation found with the given id, @reservation will be nil
-    @listing = @reservation.listing
+     @listing = @reservation.listing
 
   end
   
@@ -43,6 +49,11 @@ class ReservationsController < ApplicationController
             reservation_id: @reservation.id,
           },
           payment_intent_data: {
+            #application_fee_amount: ((listing.cleaning_fee + listing.nightly_price) * 0.10).to_i,
+            # transfer_data: {
+            # destination: listing.host.stripe_account_id
+
+          # },
             metadata: {
               reservation_id: @reservation.id,
 
