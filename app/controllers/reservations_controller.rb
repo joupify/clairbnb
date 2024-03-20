@@ -9,11 +9,14 @@ class ReservationsController < ApplicationController
 
   def show
     @reservation = current_user.reservations.find(params[:id])
-
     # @reservation = current_user.listings.map { |listing| listing.reservations.find_by(id: params[:id]) }.compact.first
     # If there's no reservation found with the given id, @reservation will be nil
      @listing = @reservation.listing
+  end
 
+  def new
+    @listing = Listing.find(params[:listing_id])
+    @reservation = Reservation.new
   end
   
     def create
