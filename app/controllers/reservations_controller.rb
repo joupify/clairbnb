@@ -23,13 +23,12 @@ class ReservationsController < ApplicationController
       @booking = BookListing.new(current_user, reservation_params)
 
       if @booking.save
-        render json: {
-          message: 'Booking created successfully',
-        }
+        redirect_to @booking.checkout_url, allow_other_host: true, status: :see_other
+
       else
         flash.now[:errors] = @booking.errors
-        render :new
-      end
+        @listing = @booking.listing
+        render :new      end
 
 
 

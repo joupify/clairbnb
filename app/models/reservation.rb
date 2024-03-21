@@ -17,6 +17,6 @@ class Reservation < ApplicationRecord
   has_one :calendar_event, dependent: :destroy, required: true
   belongs_to :guest, class_name: 'User'
   enum status: {pending: 0, booked:1, canceling:3, cancelled:2}
-  
-  delegate :start_date, :end_date, to: :calendar_event
+
+  delegate :start_date, :end_date, :nights, to: :calendar_event
 end

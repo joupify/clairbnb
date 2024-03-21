@@ -1,3 +1,4 @@
+<%= render partial: 'shared/errors' %>
 
 <form action="<%= listing_reservations_path(@listing) %>" method="post" data-turbo="false">
   <input type="date" name="reservation[start_date]">
