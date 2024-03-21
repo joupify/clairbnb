@@ -101,3 +101,5 @@ group :test do
   gem "selenium-webdriver"
 
 end
+
+gem "validates_overlap", "~> 1.0"
