@@ -29,6 +29,7 @@ class Listing < ApplicationRecord
 
   belongs_to :host, class_name: 'User'
   has_many :rooms
+  has_many :calendar_events 
   has_many :photos, dependent: :destroy
   has_many :reservations, dependent: :destroy
 

@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     
   end
   post '/listings/:listing_id/reservations/:id/cancel', to: 'reservations#cancel', as: 'cancel_listing_reservation'
+  get '/listings/:listing_id/reservations/:id/expire', to: 'reservations#expire', as: 'expire_listing_reservation'
+
 
   post '/webhooks/:source' => 'webhooks#create'
 

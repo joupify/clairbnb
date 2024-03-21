@@ -17,6 +17,7 @@ class ReservationsController < ApplicationController
   def new
     @listing = Listing.find(params[:listing_id])
     @reservation = Reservation.new
+    @calendar_events = @listing.calendar_events
   end
   
     def create
@@ -28,7 +29,9 @@ class ReservationsController < ApplicationController
       else
         flash.now[:errors] = @booking.errors
         @listing = @booking.listing
-        render :new      end
+        @calendar_events = @listing.calendar_events
+        render :new
+      end
 
 
 
@@ -95,6 +98,16 @@ class ReservationsController < ApplicationController
       redirect_to action: "show", id: @reservation
     end
 
+    def expire
+      session_id = params[:session_id]  # Store it in a variable for clarity
+    
+      if session_id.present?  # Check if it's not nil
+        Stripe::Checkout::Session.expire(session_id)
+      end
+    
+      redirect_to listings_path  # Redirect to listings_path regardless
+    end
+    
     private
   
     def set_listing

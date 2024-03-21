@@ -32,11 +32,12 @@ class BookListing
       # Create a Stripe Checkout session
       @checkout_session = Stripe::Checkout::Session.create(
         success_url: listing_reservation_url(listing, reservation),
-        cancel_url: listing_url(listing),
+        cancel_url: expire_listing_reservation_url(listing, reservation) + "?session_id={CHECKOUT_SESSION_ID}",
         customer: current_user.stripe_customer_id,
         mode: 'payment',
         allow_promotion_codes: true,
         submit_type: 'book',
+        expires_at: 1.hour.from_now.to_i,
         
         line_items: [{
           price_data: {
