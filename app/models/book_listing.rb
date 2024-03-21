@@ -35,6 +35,8 @@ class BookListing
         cancel_url: listing_url(listing),
         customer: current_user.stripe_customer_id,
         mode: 'payment',
+        allow_promotion_codes: true,
+        submit_type: 'book',
         
         line_items: [{
           price_data: {
