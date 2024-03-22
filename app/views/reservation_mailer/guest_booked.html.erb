@@ -1,0 +1,16 @@
+<h1>Booking confirmed</h1>
+
+<p>
+    Host email: <%= @reservation.host.email %>, 
+  <%= @reservation.guest.email %> has booked your listing. <%= @reservation.listing.title %>
+
+  <%= @reservation.start_date %> to <%= @reservation.end_date %>
+
+  <p>nimber of nights : <%= @reservation.nights %></p>
+
+  <%= @reservation.listing.nightly_price %>
+
+  <%= @reservation.listing.cleaning_fee%>
+
+
+</p>
