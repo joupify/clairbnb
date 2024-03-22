@@ -103,3 +103,5 @@ group :test do
 end
 
 gem "validates_overlap", "~> 1.0"
+
+gem "pagy", "~> 7.0"

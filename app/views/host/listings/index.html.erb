@@ -1,3 +1,16 @@
+<%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+
+
+
+
+
+
+
+
+
+
+
+
 <div class='container py-2 mt-5'>
   <h1 class='fw-bolder mb-5'>Yours Listings</h1>
 
@@ -65,3 +78,4 @@
 
   <%= link_to "Add listing", new_host_listing_path, class: "btn btn-dark mt-3 " %>
 </div>
+<%== pagy_nav(@pagy) if @pagy.pages > 1 %>

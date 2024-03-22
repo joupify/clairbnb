@@ -3,7 +3,10 @@ class ReservationsController < ApplicationController
   before_action :set_listing, only: %i[new create]
 
   def index
-    @reservations = current_user.reservations.all
+    @reservations = current_user.reservations
+    @host_reservations = current_user.host_reservations
+    puts "@host_reservations: #{@host_reservations.inspect}" # Add this line for debugging
+
   end
   
 

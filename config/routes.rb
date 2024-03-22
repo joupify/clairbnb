@@ -6,18 +6,17 @@ Rails.application.routes.draw do
 
   resources :listings, only: [:index, :show] do
     resources :reservations 
-      # member do
-      # post '/cancel'=> 'reservations#cancel'
-      # end
-    
+     
   end
   post '/listings/:listing_id/reservations/:id/cancel', to: 'reservations#cancel', as: 'cancel_listing_reservation'
+
   get '/listings/:listing_id/reservations/:id/expire', to: 'reservations#expire', as: 'expire_listing_reservation'
 
 
   post '/webhooks/:source' => 'webhooks#create'
 
   namespace :host do
+    get 'reservations/index'
     resources :merchant_settings do
       collection do
         get 'connected' => 'merchant_settings#connected'
@@ -27,6 +26,8 @@ Rails.application.routes.draw do
     resources :listings do
       resources :photos, only: [:index, :create, :destroy]
       resources :rooms, only: [:index, :new, :create, :destroy]
+      resources :reservations, only: [:show]
+
     end
   end
 

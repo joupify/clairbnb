@@ -1,11 +1,103 @@
-<h1>Reservations</h1>
+<div class="container p-2 mb-4 mt-5">
 
-<% @reservations.each do |reservation| %>
-  <h2>Reservation <%= reservation.id %></h2>
-  <pre><%= JSON.pretty_generate(reservation.as_json) %></pre>
-<% if current_user == reservation.listing.host && reservation.status != 'cancelled' %>
-    <%= button_to "Cancel Reservation", cancel_listing_reservation_path(reservation, :listing_id), method: :post %>
-  <% end %>
+<h1 class="fs-4 fw-bold mb-4">Your Hosting trip</h1>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Reservation ID</th>
+        <th>Host</th>
+        <th>Guest</th>
+        <th>Title</th>
+
+        <th>Check-in</th>
+        <th>Check-out</th>
+        <th>Total Price</th>
+        <th>Cleaning Fee</th>
+        <th>Nights</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @reservations.each do |reservation| %>
+        <tr>
+          <td><%= reservation.id %></td>
+          <td><%= reservation.host.email %></td>
+          <td><%= reservation.guest.email %></td>
+          <td><%= link_to reservation.listing.title, listing_reservation_path(reservation.listing, reservation) %></td>
+
+          <td><%= reservation.start_date %></td>
+          <td><%= reservation.end_date %></td>
+          <td><%= number_to_currency(reservation.listing.nightly_price / 100) %></td>
+          <td><%= number_to_currency(reservation.listing.cleaning_fee / 100) %></td>
+          <td><%= reservation.nights %></td>
+          <td><%= reservation.status %></td>
+          <td>
+            <%= link_to "View", listing_reservation_path(reservation.listing, reservation) %>
+
+            
+           
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 
+<h1 class="fs-4 fw-bold mb-4">Your are hosting these guests</h1>
+<% if !@host_reservations.empty? %>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Reservation ID</th>
+        <th>Host</th>
+        <th>Guest</th>
+        <th>Title</th>
+
+        <th>Check-in</th>
+        <th>Check-out</th>
+        <th>Total Price</th>
+        <th>Cleaning Fee</th>
+        <th>Nights</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <% @host_reservations.each do |reservation| %>
+        <tr>
+          <td><%= reservation.id %></td>
+          <td><%= reservation.host.email %></td>
+          <td><%= reservation.guest.email %></td>
+          <td><%= link_to reservation.listing.title, host_listing_reservation_path(reservation.listing, reservation) %></td>
+
+
+          <td><%= reservation.start_date %></td>
+          <td><%= reservation.end_date %></td>
+          <td><%= number_to_currency(reservation.listing.nightly_price / 100) %></td>
+          <td><%= number_to_currency(reservation.listing.cleaning_fee / 100) %></td>
+          <td><%= reservation.nights %></td>
+          <td><%= reservation.status %></td>
+          <td>
+            <%= link_to "View", host_listing_reservation_path(reservation.listing, reservation) %>
+
+            
+           
+          </td>
+        </tr>
+
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
 <% end %>
+</div>
+
+

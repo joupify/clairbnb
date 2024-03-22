@@ -1,8 +1,14 @@
-<!-- app/views/reservations/show.html.erb -->
-  <h1> <%= @listing.title %></h1>
+<div class="container">
 
-<h1>Reservation Details</h1>
+  <h1 class="fs-4 fw-bold mt-4 mb-3"> <%= @listing.title %></h1>
+
+<h1 class=" fs-4 fw-bold mt-4 mb-3">Reservation Details</h1>
 
 <pre><%= JSON.pretty_generate(@reservation.as_json(include: :calendar_event)) %></pre>
 
-<%= button_to "Cancel Reservation", cancel_listing_reservation_path(@listing, @reservation), method: :post %>
+<div class="d-flex gap-3">
+  <%= button_to "Cancel Reservation", cancel_listing_reservation_path(@listing, @reservation), method: :post, class:"btn btn-primary" %>
+  <%= link_to "back to reservations", listing_reservations_path(@listing), class:"btn btn-primary" %>
+<div>
+
+</div>
