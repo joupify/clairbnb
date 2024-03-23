@@ -8,12 +8,22 @@ class NewMessage < Noticed::Base
   #
   deliver_by :database
   deliver_by :email, mailer: "MessageMailer", method: :new_message
+  deliver_by :twilio, format: :format_for_twilio
+
   # deliver_by :slack
   # deliver_by :custom, class: "MyDeliveryMethod"
 
   # Add required params
   #
   param :message
+
+  def format_for_twilio
+    {
+      Body: params[:message].content,
+      From: Rails.application.credentials.twilio[:phone_number],
+      To: recipient.phone_number
+    }
+  end
 
   # Define helper methods to make rendering easier.
   #
@@ -22,6 +32,6 @@ class NewMessage < Noticed::Base
   # end
   #
   # def url
-  #   message_path(params[:message])
+  #   post_path(params[:post])
   # end
 end
