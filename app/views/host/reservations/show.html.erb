@@ -10,6 +10,8 @@
 
   <pre><%= JSON.pretty_generate(@reservation.as_json(include: :calendar_event)) %></pre>
   
+  <%= link_to "Messages", listing_reservation_messages_path(@reservation.listing, @reservation), class:"btn btn-primary" %>
+
   <div class="d-flex gap-3">
     <%= button_to "Cancel Reservation", cancel_listing_reservation_path(@reservation.listing, @reservation), method: :post, class:"btn btn-primary" %>
 <%= link_to "Back to Reservations", listing_reservations_path(@reservation.listing), class: "btn btn-primary" %>

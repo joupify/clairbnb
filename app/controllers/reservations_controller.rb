@@ -21,6 +21,7 @@ class ReservationsController < ApplicationController
     @listing = Listing.find(params[:listing_id])
     @reservation = Reservation.new
     @calendar_events = @listing.calendar_events
+    @message = Message.new
   end
   
     def create

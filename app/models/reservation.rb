@@ -15,6 +15,7 @@
 class Reservation < ApplicationRecord
   belongs_to :listing
   belongs_to :guest, class_name: 'User'
+  has_many :messages, dependent: :destroy
 
   has_one :calendar_event, dependent: :destroy, required: true
   has_one :host, through: :listing

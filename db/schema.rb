@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_22_013542) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_22_153241) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,6 +62,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_22_013542) do
     t.integer "cleaning_fee"
     t.string "stripe_product_id"
     t.index ["host_id"], name: "index_listings_on_host_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.bigint "from_user_id", null: false
+    t.bigint "to_user_id", null: false
+    t.bigint "reservation_id", null: false
+    t.text "content", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["from_user_id"], name: "index_messages_on_from_user_id"
+    t.index ["reservation_id"], name: "index_messages_on_reservation_id"
+    t.index ["to_user_id"], name: "index_messages_on_to_user_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -141,6 +153,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_22_013542) do
   add_foreign_key "calendar_events", "listings"
   add_foreign_key "calendar_events", "reservations"
   add_foreign_key "listings", "users", column: "host_id"
+  add_foreign_key "messages", "reservations"
+  add_foreign_key "messages", "users", column: "from_user_id"
+  add_foreign_key "messages", "users", column: "to_user_id"
   add_foreign_key "photos", "listings"
   add_foreign_key "reservations", "listings"
   add_foreign_key "reservations", "users", column: "guest_id"

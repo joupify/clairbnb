@@ -1,15 +1,19 @@
 Rails.application.routes.draw do
+  get 'messages/index'
   root to: 'static_pages#home'
 
 
   resources :webhooks, only: [:create]
 
   resources :listings, only: [:index, :show] do
-    resources :reservations 
-     
-  end
-  post '/listings/:listing_id/reservations/:id/cancel', to: 'reservations#cancel', as: 'cancel_listing_reservation'
+    resources :reservations  do
+      resources :messages, only: [:index, :create, :new]
 
+
+    end
+  end
+
+  post '/listings/:listing_id/reservations/:id/cancel', to: 'reservations#cancel', as: 'cancel_listing_reservation'
   get '/listings/:listing_id/reservations/:id/expire', to: 'reservations#expire', as: 'expire_listing_reservation'
 
 
