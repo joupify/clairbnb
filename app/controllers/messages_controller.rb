@@ -5,7 +5,7 @@ class MessagesController < ApplicationController
   def index
     @reservation = set_reservation
     if @reservation
-      @messages = @reservation.messages.includes(:from_user)
+      @messages = @reservation.messages.includes(:from_user).order(created_at: :desc)
       @message = @reservation.messages.new
     else
       flash[:alert] = "Reservation not found."
