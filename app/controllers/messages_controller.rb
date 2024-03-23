@@ -7,6 +7,7 @@ class MessagesController < ApplicationController
     if @reservation
       @messages = @reservation.messages.includes(:from_user).order(created_at: :desc)
       @message = @reservation.messages.new
+      @messages.where(to_user: current_user).mark_as_read!
     else
       flash[:alert] = "Reservation not found."
       redirect_to reservations_path

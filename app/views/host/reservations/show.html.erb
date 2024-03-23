@@ -6,7 +6,7 @@
     <h1 class="fs-4 fw-bold mt-4 mb-3"> <%= @reservation.listing.title %></h1>
   
   <h1 class=" fs-4 fw-bold mt-4 mb-3">Reservation Details</h1>
-  <h3><%= @reservation.guest.email %></h3>
+  <h3>Guest:<%= @reservation.guest.email %></h3>
 
   <pre><%= JSON.pretty_generate(@reservation.as_json(include: :calendar_event)) %></pre>
   
