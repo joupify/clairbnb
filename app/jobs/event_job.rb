@@ -65,7 +65,18 @@ class EventJob < ApplicationJob
      end
      reservation.update(status: :expired)
 
-      
+    when "identity_verification_session_verified"
+      session = event.data.object
+      user = User.find_by(id: session .metadata.user_id)
+      if user.nil?
+         raise "No User found with this  ID: #{session.metadata.user_id}"
+      end
+     if session.status == "verified"  
+      user.update(identity_verified: :true)
+     else
+      user.update(identity_verified: :false)
+     end
+
 
     when "charge.refunded"
       #do something with checkout  session and reservation

@@ -25,6 +25,22 @@ class ReservationsController < ApplicationController
   end
   
     def create
+    # check if the identity user is verified
+    if !current_user.identity_verified
+      # redirect_to new_identity_verification_path, alert: "Please verify your identity before making a reservation."
+      # Create the session
+      verification_session = Stripe::Identity::VerificationSession.create({
+        type: 'document',
+        metadata: {
+          user_id: current_user.id,
+        },
+        return_url: new_listing_reservation_url(listing_id: reservation_params[:listing_id])
+
+      })
+      redirect_to verification_session.url, allow_other_host: true, status: :see_other
+      return
+    end
+    
       @booking = BookListing.new(current_user, reservation_params)
 
       if @booking.save
