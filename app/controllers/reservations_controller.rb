@@ -9,7 +9,6 @@ class ReservationsController < ApplicationController
 
   end
   
-
   def show
     @reservation = current_user.reservations.find(params[:id])
     # @reservation = current_user.listings.map { |listing| listing.reservations.find_by(id: params[:id]) }.compact.first
@@ -22,24 +21,40 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.new
     @calendar_events = @listing.calendar_events
     @message = Message.new
+    unavailable_events = CalendarEvent.where(listing_id: @listing.id)
+                                      .where.not(status: :reserved)
+                                      .or(CalendarEvent.where(listing_id: @listing.id, status: :reserved, reservation_id: nil))
+                                      .or(CalendarEvent.where(listing_id: @listing.id, reservation_id: Reservation.where(status: :booked).pluck(:id)))
+                                      .pluck(:start_date, :end_date)
+
+
+
+    @unavailable_dates = unavailable_events.flat_map do |start_date, end_date|
+      if start_date == end_date - 1 # If the booking is for only one night
+        [start_date] # Mark only the start date as unavailable
+      else
+        (start_date..end_date).to_a # Mark all dates between start and end date as unavailable
+      end
+    end
+    puts @unavailable_dates
   end
   
     def create
     # check if the identity user is verified
-    if !current_user.identity_verified
-      # redirect_to new_identity_verification_path, alert: "Please verify your identity before making a reservation."
-      # Create the session
-      verification_session = Stripe::Identity::VerificationSession.create({
-        type: 'document',
-        metadata: {
-          user_id: current_user.id,
-        },
-        return_url: new_listing_reservation_url(listing_id: reservation_params[:listing_id])
+    # if !current_user.identity_verified
+    #   # redirect_to new_identity_verification_path, alert: "Please verify your identity before making a reservation."
+    #   # Create the session
+    #   verification_session = Stripe::Identity::VerificationSession.create({
+    #     type: 'document',
+    #     metadata: {
+    #       user_id: current_user.id,
+    #     },
+    #     return_url: new_listing_reservation_url(listing_id: reservation_params[:listing_id])
 
-      })
-      redirect_to verification_session.url, allow_other_host: true, status: :see_other
-      return
-    end
+    #   })
+    #   redirect_to verification_session.url, allow_other_host: true, status: :see_other
+    #   return
+    # end
     
       @booking = BookListing.new(current_user, reservation_params)
 
@@ -121,6 +136,7 @@ class ReservationsController < ApplicationController
     def expire
       session_id = params[:session_id]  # Store it in a variable for clarity
     
+      
       if session_id.present?  # Check if it's not nil
         Stripe::Checkout::Session.expire(session_id)
       end

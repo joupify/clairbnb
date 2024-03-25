@@ -37,7 +37,7 @@ class BookListing
         mode: 'payment',
         allow_promotion_codes: true,
         submit_type: 'book',
-        expires_at: 1.hour.from_now.to_i,
+        expires_at:1.hour.from_now.to_i,
         
         line_items: [{
           price_data: {

@@ -67,7 +67,9 @@ class Listing < ApplicationRecord
     update(stripe_product_id: product.id)  #update locally when come back from stripe, check in rails c to confirm
   end
 
-
+  def unavailable_dates
+    calendar_events.pluck(:start_date, :end_date).map { |start_date, end_date| (start_date..end_date).to_a }.flatten
+  end
   
 end
 
