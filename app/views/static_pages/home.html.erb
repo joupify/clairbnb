@@ -1,107 +1,64 @@
 
 
-				
-			
-			<!-- This is to make the Form Contents appear on the Image -->
-<div class="row justify-content-center">
-  <div class="col-sm-8 my-3">
-    <%= form_with url: listings_path, method: :get, class: "d-flex" do %>
-      <%= text_field_tag :query,
-            params[:query],
-            class: "form-control",
-            placeholder: "Type a keyword"
-        %>
-      <%= text_field_tag :city,
+<!-- This is to make the Form Contents appear on the Image -->
+
+<div class="container py-2">
+  <div class="row ">
+    <div class="col-sm-4 my-3 ">
+      <%= form_with url: listings_path, method: :get, class: "container mt-3 rounded" do %>
+      <h1>Book unique homes and experiences.</h1>
+        <div class="form-group">
+          <%= label_tag :city, "Where", class:"fw-bolder" %>
+          <%= text_field_tag :city,
             params[:city],
             class: "form-control",
             placeholder: "City"
-        %>
-      <%= date_field_tag :checkin,
-            params[:checkin],
-            class: "form-control",
-            placeholder: "Check-in Date"
-        %>
-      <%= date_field_tag :checkout,
-            params[:checkout],
-            class: "form-control",
-            placeholder: "Check-out Date"
-        %>
-      <%= number_field_tag :guests,
-            params[:guests],
-            class: "form-control",
-            placeholder: "Number of Guests"
-        %>
-      <%= submit_tag "Search", name: "", class: "btn btn-primary ml-2" %>
-    <% end %>
+          %>
+        </div>
+        <div class="form-row">
+          <div class="form-group col">
+            <%= label_tag :checkin, "Check In", class:"fw-bolder" %>
+            <%= date_field_tag :checkin,
+              params[:checkin],
+              class: "form-control",
+              placeholder: "Check-in Date"
+            %>
+          </div>
+          <div class="form-group col">
+            <%= label_tag :checkout, "Check Out", class:"fw-bolder" %>
+            <%= date_field_tag :checkout,
+              params[:checkout],
+              class: "form-control",
+              placeholder: "Check-out Date"
+            %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= label_tag :guests, "Guests", class:"fw-bolder" %>
+          <div class="input-group">
+            <%= number_field_tag :guests,
+              params[:guests],
+              class: "form-control",
+              placeholder: "1 guest"
+            %>
+            <%= select_tag :guestType,
+              options_for_select(["Adults", "Children", "Infants"], selected: "Adults"),
+              class: "custom-select"
+            %>
+          </div>
+        </div>
+        <%= submit_tag "Search", class: "btn btn-primary btn-lg float-right mb-4 mt-4" %>
+      <% end %>
+    </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-  <form action="/listings/search" method="get" class="container mt-3 rounded" style="max-width: 420px; padding: 30px; background-color: white; font-family: Helvetica; font-weight: 600; color: #484848;">
-      <h1 style="font-size: 2em; font-weight: bold; margin-bottom: 15px;">Book unique homes and experiences.</h1>
-      <div class="form-group">
-          <label for="destination">Where</label>
-          <input class="form-control" type="text" placeholder="Anywhere" name="destination" id="destination">
-      </div>
-      <div class="form-row">
-          <div class="form-group col">
-              <label for="checkin">Check In</label>
-              <input class="form-control" type="date" name="checkin" id="checkin">
-          </div>
-          <div class="form-group col">
-              <label for="checkout">Check Out</label>
-              <input class="form-control" type="date" name="checkout" id="checkout">
-          </div>
-      </div>
-      <div class="form-group">
-          <label for="guests">Guests</label>
-          <div class="input-group">
-              <input class="form-control" type="number" placeholder="1 guest" name="guests" id="guests">
-              <select class="custom-select" id="guestType">
-                  <option selected>Adults</option>
-                  <option value="Children">Children</option>
-                  <option value="Infants">Infant</option>
-              </select>
-          </div>
-      </div>
-      <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-lg float-right">Search</button>
-      </div>
-  </form>
-
-
-
-
 			<!-- Form Ends here. -->
 
-			<!-- The below section displays the Reviews and Feedbacks given by the users. -->
 
-			<div style="padding: 2px 100px; font-size: 14px; font-family: Helvetica;">
-				<h3>What guests are saying about homes in India</h3>
-
-				<!-- SVG for particular Star Symbol -->
-
-			<svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style="height: 20px; width: 20px; fill: rgb(255, 180, 0);"><path d="m21.95 9.48a.84.84 0 0 0 -.87-.48h-4.62a.5.5 0 0 0 0 1l4.14.01-4.81 4.17a.5.5 0 0 0 -.14.57l2.65 6.38-6.07-3.72a.5.5 0 0 0 -.52 0l-6.08 3.72 2.65-6.37a.5.5 0 0 0 -.13-.57l-4.75-4.18h5.75a.5.5 0 0 0 .46-.3l2.37-5.37 1.58 3.57a.5.5 0 0 0 .91-.41l-1.72-3.88a.8.8 0 0 0 -1.56-.01l-2.38 5.39h-5.9a.83.83 0 0 0 -.87.48.85.85 0 0 0 .32.96l4.85 4.25-2.78 6.67a.81.81 0 0 0 .16.98.66.66 0 0 0 .43.15 1.1 1.1 0 0 0 .56-.18l6.37-3.91 6.38 3.92a.81.81 0 0 0 .99.03c.15-.12.37-.41.15-1l-2.77-6.66 4.92-4.26a.84.84 0 0 0 .31-.95zm-.78.53h-.01" fill="#484848"></path><path d="m11 21.5a.5.5 0 1 1 -.5-.5.5.5 0 0 1 .5.5zm-3.5-15.5a.5.5 0 1 0 .5.5.5.5 0 0 0 -.5-.5zm15 10h-.5v-.5a.5.5 0 0 0 -1 0v .5h-.5a.5.5 0 0 0 0 1h .5v.5a.5.5 0 0 0 1 0v-.5h.5a.5.5 0 0 0 0-1zm-15-13h-.5v-.5a.5.5 0 0 0 -1 0v .5h-.5a.5.5 0 0 0 0 1h .5v.5a.5.5 0 0 0 1 0v-.5h.5a.5.5 0 0 0 0-1zm10.22 7.54a.84.84 0 0 0 -.17-.02q-.28-.01-3.19 0a .6.6 0 0 1 -.55-.35l-1.5-3.23a.42.42 0 0 0 -.75 0l-1.81 4.14a2.92 2.92 0 0 0 4.12 3.72l.46-.26 3.49-2.99.16-.18a.5.5 0 0 0 -.26-.82z"></path></svg>
-			<!-- End of SVG -->
-			<p style="display:inline">India homes were rated
-				<strong>4.6 out of 5 stars</strong>
-				with <strong> 210,000+ reviews </strong>
-			</p>
-		</div><br>
 
 		<!-- Reviews and Feedbacks which uses Bootstrap Grid property, includes images  -->
 
-		<div class="container" style="padding: 5px;">
+<div class="container py-2">
 
 			<!-- Bootstrap's grid system is built with flexbox and allows up to 12 columns across the page. A grid row is divided into 12 parts. -->
 
@@ -109,134 +66,70 @@
 
 			Make sure that the sum adds up to 12 or fewer. -->
 
-			<div class="row">
-				<!-- The Bootstrap 4 grid system has five classes: -->
+			
+ <div class="row">
+  <% if @listings.present? %>
+    <% @listings.each do |l| %>
+    <div class="col-md-4">
 
-				<!-- .col- (extra small devices - screen width less than 576px)
+      <div class="d-flex flex-wrap gap-2 justify-content-between mx-5 mb-5">
+        <% if l.photos.exists? %>
+         <div id="carouselExampleIndicators<%= l.id %>" class="carousel slide pointer-event" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <% l.photos.each_with_index do |photo, index| %>
+                <div class="carousel-item <%= 'active' if index == 0 %>">
+                  <% if photo.image.present? %>
+                    <%= image_tag photo.image.url, class:'image-fluid rounded-4', style: "width: 400px;" %>
+                  <% end %>         
+                </div>
+              <% end %>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators<%= l.id %>" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators<%= l.id %>" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        <% end %>
 
-				.col-sm- (small devices - screen width equal to or greater than 576px)
+        <div class="card-product-infos ">
+         <div class="mt-4 flex justify-between">
+          <div>
+            <h3 class="text-sm text-gray-700">
+              <%= link_to l.title, listing_path(l), class:"text-dark fs-text-decoration-none" %>
+            </h3>
+            <p class="fw-bold">Price/Night: <span class="fs-5"><%= number_to_currency(l.nightly_price / 100, unit: '€', precision: 0) if l.nightly_price.present? %></span></p>  
+          </div>
+          <p class="text-sm font-medium text-gray-900"><%= l.city %></p>
+        </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
 
-				.col-md- (medium devices - screen width equal to or greater than 768px)
-
-				.col-lg- (large devices - screen width equal to or greater than 992px)
-
-				.col-xl- (xlarge devices - screen width equal to or greater than 1200px)
-
-				The classes above can be combined to create more dynamic and flexible layouts. -->
-
-				<div class="col-md-4">
-					<img class="rounded" src="https://a0.muscache.com/im/pictures/01de0512-9191-474b-b5c1-7d0766f733ca.jpg?aki_policy=large" width="100%" height="100%">
-				</div>
-				<div class="col-md-4">
-					<img class="rounded" src="https://a0.muscache.com/im/pictures/5440673/a183e798_original.jpg?aki_policy=large" width="100%" height="100%">
-				</div>
-				<div class="col-md-4">
-					<img class="rounded" src="https://a0.muscache.com/im/pictures/49982382/37c921e0_original.jpg?aki_policy=large" width="100%" height="100%">
-				</div>
-			</div>
-		</div>
+    <% end %>
+  </div>
+  </div>
+</div>
 
 		<!-- Reviews and Feedbacks which displays star ratings -->
 
-		<div class="container" style="padding: 5px;">
-			<div class="row">
-				<div class="col-md-4">
-					<span class="fa fa-star checked"></span>
-					<span class="fa fa-star checked"></span>
-					<span class="fa fa-star checked"></span>
-					<span class="fa fa-star checked"></span>
-					<span class="fa fa-star checked"></span>
-				</div>
-				<div class="col-md-4">
-					<span class="fa fa-star checked"></span>
-					<span class="fa fa-star checked"></span>
-					<span class="fa fa-star checked"></span>
-					<span class="fa fa-star checked"></span>
-					<span class="fa fa-star checked"></span>
-				</div>
-				<div class="col-md-4">
-					<span class="fa fa-star checked"></span>
-					<span class="fa fa-star checked"></span>
-					<span class="fa fa-star checked"></span>
-					<span class="fa fa-star checked"></span>
-					<span class="fa fa-star checked"></span>
-				</div>
-			</div>
-		</div>
+				
 
 		<!-- Reviews and Feedbacks which uses Bootstrap Grid property, includes text -->
 
-		<div class="container" style="padding: 3px; font-size: 14px; font-family: Helvetica;">
-			<div class="row">
-				<div class="col-md-4">
-					<p>Diana and KC have been the perfect host. Even though they were in another country, they made sure all our needs are fulfilled.
-					From sho...</p>
-				</div>
-				<div class="col-md-4">
-					<p>I had no idea I had family members in Mumbai, and this is very much how I felt leaving Soraya and Fabia. Their hospitality and generosity are...</p>
-				</div>
-				<div class="col-md-4">
-					<p>My name is Jeannette, and I stayed with my partner Matthew at Magpie Villa for a little under a week last week. Staying in Amita's...</p>
-				</div>
-			</div>
-		</div>
-
+	
 		<!-- Reviews and Feedbacks of data about a particular user -->
 		
-		<div class="container" style="margin-bottom: 10px;">
-			<div class="row">
-				<div class="col-md-4">
-					<div class="row">
-						<div class="col-md-2">
-							<img src="https://a0.muscache.com/im/pictures/f7bb01c8-e346-4a76-b68f-c0c9a64efd1e.jpg?aki_policy=large" height="48" width="48" style="border-radius: 50%;">
-						</div>
-						<div class="col-md-10">
-							<p style="font-weight: bold; font-family: Helvetica; margin: 0;">Umar</p>
-							<p>India</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="row">
-						<div class="col-md-2">
-							<img src="https://a0.muscache.com/im/users/31258848/profile_pic/1429084173/original.jpg?aki_policy=large" height="48" width="48" style="border-radius: 50%;">
-						</div>
-						<div class="col-md-10">
-							<p style="font-weight: bold; font-family: Helvetica; margin: 0;">Nicolas</p>
-							<p>India</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="row">
-						<div class="col-md-2">
-							<img src="https://a0.muscache.com/im/pictures/8321142b-a689-47b1-bbd1-eba6e374ef52.jpg?aki_policy=large" height="48" width="48" style="border-radius: 50%;">
-						</div>
-						<div class="col-md-10">
-							<p style="font-weight: bold; font-family: Helvetica; margin: 0;">Matthew</p>
-							<p>United States</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="container" style="margin-bottom: 50px; color: #484848;">
-			<div class="row">
-				<div class="col-md-10">
-					<h3 style="margin-top: 50px;">When are you travelling?</h3>
-					<p>Add dates for updated pricing and availability.</p>
-				</div>
-				<div class="col-md-2">
-					<button type="button" class="btn btn-outline-primary rounded nohover" style="margin: 50px; padding: 10px; padding-left: 20px; padding-right: 20px; border: 2px solid;"><strong>Add dates</strong></button>
-				</div>
-			</div>
-		</div>
 		<hr>
 		<div class="container" style="margin-top: 70px;">
 			<div class="row">
 				<div class="col-md-3">
 					<section>
-						<h6 style="margin-left: 40px;">Airbnb</h6>
+						<h6 style="margin-left: 40px;">Clairbnb</h6>
 						<ul style="list-style: none;">
 							<li><a href="#">Help</a></li>
 							<li><a href="#">Policies</a></li>
