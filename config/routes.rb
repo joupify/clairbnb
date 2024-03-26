@@ -1,19 +1,23 @@
 Rails.application.routes.draw do
+  get 'messages/index'
   root to: 'static_pages#home'
 
 
   resources :webhooks, only: [:create]
 
   resources :listings, only: [:index, :show] do
-    resources :reservations 
-      # member do
-      # post '/cancel'=> 'reservations#cancel'
-      # end
-    
+    resources :reservations  do
+      resources :messages, only: [:index, :create, :new]
+
+
+    end
   end
+
   post '/listings/:listing_id/reservations/:id/cancel', to: 'reservations#cancel', as: 'cancel_listing_reservation'
+  get '/listings/:listing_id/reservations/:id/expire', to: 'reservations#expire', as: 'expire_listing_reservation'
 
   post '/webhooks/:source' => 'webhooks#create'
+
 
   namespace :host do
     resources :merchant_settings do
@@ -25,8 +29,11 @@ Rails.application.routes.draw do
     resources :listings do
       resources :photos, only: [:index, :create, :destroy]
       resources :rooms, only: [:index, :new, :create, :destroy]
+      resources :reservations, only: [:index, :show]
+
     end
   end
+
 
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks'

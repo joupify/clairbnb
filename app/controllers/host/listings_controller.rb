@@ -1,12 +1,12 @@
 class Host::ListingsController < ApplicationController
+  include Pagy::Backend
   before_action :authenticate_user!
-
   before_action :set_listing, only: %i[show edit update destroy]
 
 
   def index
-    @listings = current_user.listings.all
-
+    @pagy, @listings = pagy(current_user.listings.all)
+    
     @markers = @listings.geocoded.map do |listing|
       {
         lat: listing.latitude,

@@ -1,0 +1,32 @@
+<%= render partial: 'shared/errors' %>
+
+<ul>
+  <% if @calendar_events.present? %>
+  <% @calendar_events.each do |calendar_event| %>
+    <li>
+      <%= calendar_event.start_date %> - <%= calendar_event.end_date %>
+      <%= calendar_event.status %>
+      <%= calendar_event.try(:reservation).try(:status) %>
+    
+    <% end %>
+
+
+    </li>
+    <% end %>
+</ul>
+
+<form action="<%= listing_reservations_path(@listing) %>" method="post" data-turbo="false">
+  <!-- Replace type="date" with type="text" and add IDs -->
+  <input type="date" id="start_date" name="reservation[start_date]" placeholder="Select start date" data-controller="datepicker" data-unavailable-dates="<%= @unavailable_dates&.map { |date| date.strftime('%Y-%m-%d') }&.join(',') %>">
+  <input type="date" id="end_date" name="reservation[end_date]" placeholder="Select end date" data-controller="datepicker" data-unavailable-dates="<%= @unavailable_dates&.map { |date| date.strftime('%Y-%m-%d') }&.join(',') %>">
+
+  <!-- Your existing hidden input fields -->
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="hidden" name="reservation[listing_id]" value="<%= @listing.id %>">
+  
+  <input type="submit" value="Reserve", class="btn btn-dark",  data: { turbo: false } >
+</form>
+
+
+
+

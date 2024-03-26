@@ -17,3 +17,16 @@
 // External libraries
 @import "bootstrap";
 @import "font-awesome";
+@import 'flatpickr/dist/flatpickr.css';
+
+
+
+
+.grayed-out {
+    opacity: 0.5; /* Adjust opacity to make the dates appear grayed out */
+
+    /* You can also add additional styles to make the dates visually distinct */
+  }
+  
+
+  

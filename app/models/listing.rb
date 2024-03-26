@@ -29,6 +29,7 @@ class Listing < ApplicationRecord
 
   belongs_to :host, class_name: 'User'
   has_many :rooms
+  has_many :calendar_events 
   has_many :photos, dependent: :destroy
   has_many :reservations, dependent: :destroy
 
@@ -66,7 +67,9 @@ class Listing < ApplicationRecord
     update(stripe_product_id: product.id)  #update locally when come back from stripe, check in rails c to confirm
   end
 
-
+  def unavailable_dates
+    calendar_events.pluck(:start_date, :end_date).map { |start_date, end_date| (start_date..end_date).to_a }.flatten
+  end
   
 end
 

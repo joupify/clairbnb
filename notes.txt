@@ -1,3 +1,6 @@
+http://localhost:3000/listings/11/reservations/75/messages
+
+
 <pre><%=JSON.pretty_generate (@listing.as_json)%></pre>
 
 

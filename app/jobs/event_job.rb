@@ -55,6 +55,28 @@ class EventJob < ApplicationJob
          raise "No Reservation Found with Checkout Session ID: #{checkout_session.d}"
       end
       reservation.update(status: :booked, stripe_payment_intent_id: checkout_session.payment_intent)
+      HostReservationBookedNotification.with(reservation: reservation, message: "New Booking! #{reservation.guest.email} is coming #{reservation.start_date}").deliver_later(reservation.host)
+      GuestReservationBookedNotification.with(reservation: reservation).deliver_later(reservation.guest)
+    when "checkout.session.expired"
+      checkout_session = event.data.object
+      reservation = Reservation.find_by(session_id: checkout_session.id)
+      if reservation.nil?
+        raise "No Reservation Found with Checkout Session ID: #{checkout_session.d}"
+     end
+     reservation.update(status: :expired)
+
+    when "identity_verification_session_verified"
+      session = event.data.object
+      user = User.find_by(id: session .metadata.user_id)
+      if user.nil?
+         raise "No User found with this  ID: #{session.metadata.user_id}"
+      end
+     if session.status == "verified"  
+      user.update(identity_verified: :true)
+     else
+      user.update(identity_verified: :false)
+     end
+
 
     when "charge.refunded"
       #do something with checkout  session and reservation

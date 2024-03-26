@@ -63,18 +63,7 @@
       </div>
     </div>
 
-
-
-    <div class="card">
-    <div class="card-body">
-      <h2 class="card-title">Make a Reservation</h2>
-     <%= simple_form_for([@listing, @reservation]) do |form| %>
-  <%= form.hidden_field :listing_id, value: @listing.id %>
-  <%= form.button :submit, 'Reserve ', class: 'btn btn-primary', data: { turbo: false } %>
-<% end %>
-
-    </div>
-  </div>
+  <%= link_to 'reserve', new_listing_reservation_path(listing_id: @listing), class: 'btn btn-primary'%>
 
   <%= link_to 'Back to listings', host_listings_path %>
 

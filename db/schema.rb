@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_18_132128) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_23_232659) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +20,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_18_132128) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["room_id"], name: "index_beds_on_room_id"
+  end
+
+  create_table "calendar_events", force: :cascade do |t|
+    t.bigint "listing_id", null: false
+    t.bigint "reservation_id"
+    t.integer "status", null: false
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["listing_id"], name: "index_calendar_events_on_listing_id"
+    t.index ["reservation_id"], name: "index_calendar_events_on_reservation_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -50,6 +62,30 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_18_132128) do
     t.integer "cleaning_fee"
     t.string "stripe_product_id"
     t.index ["host_id"], name: "index_listings_on_host_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.bigint "from_user_id", null: false
+    t.bigint "to_user_id", null: false
+    t.bigint "reservation_id", null: false
+    t.text "content", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["from_user_id"], name: "index_messages_on_from_user_id"
+    t.index ["reservation_id"], name: "index_messages_on_reservation_id"
+    t.index ["to_user_id"], name: "index_messages_on_to_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string "recipient_type", null: false
+    t.bigint "recipient_id", null: false
+    t.string "type", null: false
+    t.jsonb "params"
+    t.datetime "read_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["read_at"], name: "index_notifications_on_read_at"
+    t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
   end
 
   create_table "photos", force: :cascade do |t|
@@ -107,6 +143,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_18_132128) do
     t.boolean "is_host", default: false
     t.string "stripe_account_id"
     t.boolean "charges_enabled", default: false
+    t.string "phone_number"
+    t.boolean "identity_verified", default: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -114,7 +152,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_18_132128) do
   end
 
   add_foreign_key "beds", "rooms"
+  add_foreign_key "calendar_events", "listings"
+  add_foreign_key "calendar_events", "reservations"
   add_foreign_key "listings", "users", column: "host_id"
+  add_foreign_key "messages", "reservations"
+  add_foreign_key "messages", "users", column: "from_user_id"
+  add_foreign_key "messages", "users", column: "to_user_id"
   add_foreign_key "photos", "listings"
   add_foreign_key "reservations", "listings"
   add_foreign_key "reservations", "users", column: "guest_id"

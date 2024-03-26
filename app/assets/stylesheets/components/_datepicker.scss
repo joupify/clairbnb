@@ -1,0 +1,38 @@
+
+.grayed-out {
+    opacity: 0.5; /* Adjust opacity to make the dates appear grayed out */
+    color: red;
+    /* You can also add additional styles to make the dates visually distinct */
+  }
+  
+
+  /* Override default Flatpickr styles */
+.flatpickr-calendar {
+    background-color: #3c8fee; /* Set background color */
+    border: 1px solid #ccc; /* Set border color */
+  }
+  
+  .flatpickr-day {
+    color: #219d25; /* Set text color for days */
+  }
+  
+  .flatpickr-day.today {
+    background-color: #f0f0f0; /* Set background color for today's date */
+  }
+  
+  .flatpickr-day.disabled {
+    opacity: 0.5; /* Set opacity for disabled dates */
+  }
+  
+  /* Customize header */
+  .flatpickr-current-month,
+  .flatpickr-prev-month,
+  .flatpickr-next-month {
+    color: #d32020; /* Set text color for month navigation */
+  }
+  
+  /* Customize weekdays */
+  .flatpickr-weekday {
+    color: #333; /* Set text color for weekdays */
+  }
+  
