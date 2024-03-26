@@ -1,41 +1,56 @@
-<%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 
-<h1>Listings </h1>
-<ul>
-<div class="bg-white">
-  <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-    <h2 class="text-2xl font-bold tracking-tight text-gray-900">Customers also reserved</h2>
 
-    <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-    <% @listings.each do |listing| %>
+<div class='container py-2 mt-5'>
+  <h1 class='fw-bolder mb-5'> Listings</h1>
 
-      <div class="group relative">
-        
-        <a href =" listing_path(listing)", class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-                <%= image_tag "house1.png", class:"h-full w-full object-cover object-center lg:h-full lg:w-full" %>
-          
-        </a>
-        <div class="mt-4 flex justify-between ">
+  <div class="">
+    <div class="row">
+  <% if @listings.present? %>
+    <% @listings.each do |l| %>
+    <div class="col-md-6">
+
+      <div class="d-flex flex-wrap gap-2 justify-content-between mx-5 mb-5">
+        <% if l.photos.exists? %>
+          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <% l.photos.each_with_index do |photo, index| %>
+                <div class="carousel-item <%= 'active' if index == 0 %>">
+                  <% if photo.image.present? %>
+                    <%= image_tag photo.image.url, class:'image-fluid rounded-4', style: "width: 400px;" %>
+                  <% end %>         
+                </div>
+              <% end %>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        <% end %>
+
+        <div class="card-product-infos ">
+          <%= link_to l.title, host_listing_path(l), class:"text-dark fs-4 text-decoration-none" %>
+         <div class="mt-4 flex justify-between">
           <div>
             <h3 class="text-sm text-gray-700">
-          <%= link_to listing.title, listing_path(listing), class:"text-dark fs-text-decoration-none" %>
-                <span aria-hidden="true" class="absolute inset-0 fs-4"></span>
+              <%= link_to l.title, listing_path(l), class:"text-dark fs-text-decoration-none" %>
             </h3>
-            
-        <p class="fw-bold">Price/Night: <span class="fs-5"><%= number_to_currency(listing.nightly_price / 100, unit: '€', precision: 0 ) %></span></p>  
-
-
+            <p class="fw-bold">Price/Night: <span class="fs-5"><%= number_to_currency(l.nightly_price / 100, unit: '€', precision: 0) if l.nightly_price.present? %></span></p>  
           </div>
-          <p class="text-sm font-medium text-gray-900"><%= listing.city %></p>
+          <p class="text-sm font-medium text-gray-900"><%= l.city %></p>
+        </div>
         </div>
       </div>
-      <!-- More products... -->
-      <% end %>
-
     </div>
+    <% end %>
+
+    <% end %>
   </div>
+  </div>
+
+
 </div>
-
-
-</ul>
-<%== pagy_nav(@pagy) if @pagy.pages > 1 %>
