@@ -8,8 +8,6 @@ Rails.application.routes.draw do
   resources :listings, only: [:index, :show] do
     resources :reservations  do
       resources :messages, only: [:index, :create, :new]
-
-
     end
   end
 
@@ -17,6 +15,8 @@ Rails.application.routes.draw do
   get '/listings/:listing_id/reservations/:id/expire', to: 'reservations#expire', as: 'expire_listing_reservation'
 
   post '/webhooks/:source' => 'webhooks#create'
+  get '/listings/search', to: 'listings#search'
+
 
 
   namespace :host do

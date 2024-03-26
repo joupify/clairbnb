@@ -17,6 +17,10 @@ module Clairbnb
 
     Rails.application.default_url_options = {host: 'localhost', port: 3000}
     config.active_job.queue_adapter = :resque
+    
+    # Allow requests from any host - testing search
+    config.hosts.clear
+
 
 
 
