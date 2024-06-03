@@ -36,9 +36,8 @@ class BookListing
         customer: current_user.stripe_customer_id,
         mode: 'payment',
         allow_promotion_codes: true,
+        expires_at: 1.hour.from_now.to_i,
         submit_type: 'book',
-        expires_at:1.hour.from_now.to_i,
-        
         line_items: [{
           price_data: {
             unit_amount: listing.nightly_price,

@@ -135,12 +135,9 @@ class ReservationsController < ApplicationController
 
     def expire
       session_id = params[:session_id]  # Store it in a variable for clarity
-    
-      
       if session_id.present?  # Check if it's not nil
         Stripe::Checkout::Session.expire(session_id)
       end
-    
       redirect_to listings_path  # Redirect to listings_path regardless
     end
     

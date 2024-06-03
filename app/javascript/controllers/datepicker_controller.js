@@ -6,7 +6,7 @@ export default class extends Controller {
     const unavailableDates = this.element.dataset.unavailableDates.split(',').map(date => new Date(date));
     
     flatpickr(this.element, {
-      dateFormat: "Y-m-d", // Use the correct date format here
+      dateFormat: "Y-m-d", 
       disable: unavailableDates,
       onChange: this.handleDateChange.bind(this)
     });

@@ -15,7 +15,7 @@
           <%= link_to "Home", root_path, class: "nav-link text-white" %>
         </li>
         <li class="nav-item <%= 'active' if current_page?(listings_path) %>">
-          <%= link_to "Listings", listings_path, class: "nav-link text-white" %>
+          <%= link_to "My Listings", host_listings_path, class: "nav-link text-white" %>
         </li>
 
         <li class="nav-item <%= 'active' if current_page?(listing_reservations_path(:listing_id)) %>">
@@ -24,11 +24,8 @@
 
         <% if user_signed_in? %>
           <li class="nav-item <%= 'active' if current_page?(host_listings_path) %>">
-            <%= link_to "Dashbord", host_listings_path, class: "nav-link text-white" %>
-          </li>
-          <li class="nav-item <%= 'active' if current_page?('#') %>">
-            <%= link_to "Messages", "#", class: "nav-link text-white" %>
-          </li>
+            <%= link_to "Dashboard", static_pages_dashboard_path, class: "nav-link text-white" %>
+         
           <li class="nav-item dropdown">
             <%= image_tag "me.jpg", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">

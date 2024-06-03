@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'messages/index'
   root to: 'static_pages#home'
+  get 'static_pages/dashboard'
 
 
   resources :webhooks, only: [:create]
@@ -29,7 +30,9 @@ Rails.application.routes.draw do
     resources :listings do
       resources :photos, only: [:index, :create, :destroy]
       resources :rooms, only: [:index, :new, :create, :destroy]
-      resources :reservations, only: [:index, :show]
+      resources :reservations
+
+      
 
     end
   end
