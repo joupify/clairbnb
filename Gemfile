@@ -106,3 +106,6 @@ gem "validates_overlap", "~> 1.0"
 
 gem "pagy", "~> 7.0"
 gem "noticed", "~> 1.5"
+gem 'webpush'
+# for log time request and log in the browser
+gem 'lograge'

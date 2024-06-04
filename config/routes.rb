@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
+  get 'webpush_subs/index'
   get 'messages/index'
   root to: 'static_pages#home'
   get 'static_pages/dashboard'
 
 
   resources :webhooks, only: [:create]
+  resources :webpush_subs
 
   resources :listings, only: [:index, :show] do
     resources :reservations  do

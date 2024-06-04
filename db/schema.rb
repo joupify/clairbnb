@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_23_232659) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_04_001345) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -32,6 +32,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_23_232659) do
     t.datetime "updated_at", null: false
     t.index ["listing_id"], name: "index_calendar_events_on_listing_id"
     t.index ["reservation_id"], name: "index_calendar_events_on_reservation_id"
+  end
+
+  create_table "delivery_methods_webpushes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "events", force: :cascade do |t|
@@ -151,6 +156,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_23_232659) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  create_table "webpush_notifications", force: :cascade do |t|
+    t.string "endpoint"
+    t.string "auth_key"
+    t.string "p256dh_key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_webpush_notifications_on_user_id"
+  end
+
   add_foreign_key "beds", "rooms"
   add_foreign_key "calendar_events", "listings"
   add_foreign_key "calendar_events", "reservations"
@@ -162,4 +177,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_23_232659) do
   add_foreign_key "reservations", "listings"
   add_foreign_key "reservations", "users", column: "guest_id"
   add_foreign_key "rooms", "listings"
+  add_foreign_key "webpush_notifications", "users"
 end

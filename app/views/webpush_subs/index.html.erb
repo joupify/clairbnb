@@ -1,0 +1,73 @@
+<h1>Webpush Subscriptions</h1>
+
+<script>
+  // Base64 URL safe VAPID public key (no padding)
+  const base64UrlVapidPublicKey = 'BFW8VCewVHLvXq2DPWethWZMOwmN30ahPP7tFM34nY5w70ZlrOF1o5MvGCbdeolaQaFiyc0cp_nYaqdLKCMT2rI=';
+
+  // Convert the base64 URL safe string to a Uint8Array
+  function urlBase64ToUint8Array(base64String) {
+    const padding = '='.repeat((4 - base64String.length % 4) % 4);
+    const base64 = (base64String + padding)
+      .replace(/-/g, '+')
+      .replace(/_/g, '/');
+
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+
+    for (let i = 0; i < rawData.length; ++i) {
+      outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
+  }
+
+  const applicationServerKey = urlBase64ToUint8Array(base64UrlVapidPublicKey);
+
+  console.log(applicationServerKey); // Optional: to check the output
+
+  // Register the serviceWorker script at /service_worker.js from your server if supported
+  if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service_worker.js')
+    .then(function(reg) {
+      console.log('Service Worker registered with scope:', reg.scope);
+      return navigator.serviceWorker.ready;
+    })
+    .then(function(serviceWorkerRegistration) {
+      return serviceWorkerRegistration.pushManager.getSubscription()
+        .then(function(subscription) {
+          if (subscription) {
+            return subscription.unsubscribe().then(function() {
+              console.log('Unsubscribed successfully');
+              return serviceWorkerRegistration.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: applicationServerKey
+              });
+            });
+          } else {
+            return serviceWorkerRegistration.pushManager.subscribe({
+              userVisibleOnly: true,
+              applicationServerKey: applicationServerKey
+            });
+          }
+        });
+    })
+    .then(async function(subscription) {
+      // Extract relevant subscription data for JSON serialization
+      const subscriptionObject = await fetch('/webpush_subs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(subscription)
+      }).then(res => res.json());
+
+      console.log(subscriptionObject); // To check the extracted subscription object
+      console.log(JSON.stringify(subscriptionObject)); // To see the JSON string
+    })
+    .catch(function(error) {
+      console.error('Failed to subscribe the user: ', error);
+    });
+} else {
+  console.error('Service worker is not supported in this browser');
+}
+
+</script>
