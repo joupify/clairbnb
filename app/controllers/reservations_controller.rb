@@ -58,7 +58,16 @@ class ReservationsController < ApplicationController
     
       @booking = BookListing.new(current_user, reservation_params)
 
+      @reservation = @booking.reservation
+
+
       if @booking.save
+
+        # notification = GuestReservationBookedNotification.with(reservation: @reservation)
+
+        # notification.deliver(@reservation.guest) # Assuming guest is the recipient
+        # notification.deliver(@reservation.host)  # Assuming host is also a recipient
+
         redirect_to @booking.checkout_url, allow_other_host: true, status: :see_other
 
       else
@@ -142,6 +151,10 @@ class ReservationsController < ApplicationController
     end
     
     private
+
+    def set_reservation
+      @reservation = Reservation.find(params[:id])
+    end
   
     def set_listing
       @listing = Listing.find(params[:listing_id])

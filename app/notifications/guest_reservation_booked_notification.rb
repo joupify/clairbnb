@@ -8,7 +8,7 @@ class GuestReservationBookedNotification < Noticed::Base
   #
   deliver_by :database
   deliver_by :email, mailer: "ReservationMailer", method: :guest_booked
-  deliver_by :webpush, class: "DeliveryMethods::Webpush"
+  # deliver_by :webpush, class: "DeliveryMethods::Webpush"
 
   # deliver_by :slack
   # deliver_by :custom, class: "MyDeliveryMethod"
@@ -21,7 +21,12 @@ class GuestReservationBookedNotification < Noticed::Base
   #
  
   def message
-    "#{params[:reservation]} has booked your reservation"
+    "Reservation ##{params[:reservation].id} has been booked"
+  end
+
+
+  after_deliver do
+    Rails.logger.info "GuestReservationBookedNotification delivered to #{recipient.email}"
   end
   #
   # def url

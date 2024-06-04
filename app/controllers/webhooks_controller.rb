@@ -10,6 +10,8 @@ class WebhooksController < ApplicationController
             source: params[:source],
         )
         EventJob.perform_later(event)
+        WebpushJob.perform_later(event)
+
         render json: { message: "success"}
 
     end

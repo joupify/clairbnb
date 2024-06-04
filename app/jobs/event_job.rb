@@ -57,6 +57,12 @@ class EventJob < ApplicationJob
       reservation.update(status: :booked, stripe_payment_intent_id: checkout_session.payment_intent)
       HostReservationBookedNotification.with(reservation: reservation, message: "New Booking! #{reservation.guest.email} is coming #{reservation.start_date}").deliver_later(reservation.host)
       GuestReservationBookedNotification.with(reservation: reservation).deliver_later(reservation.guest)
+
+      HostReservationBookedNotification.with(reservation: @reservation).notify(@reservation.host)
+      GuestReservationBookedNotification.with(reservation: @reservation).notify(@reservation.guest)
+
+
+
     when "checkout.session.expired"
       checkout_session = event.data.object
       reservation = Reservation.find_by(session_id: checkout_session.id)

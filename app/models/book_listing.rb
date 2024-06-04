@@ -77,6 +77,7 @@ class BookListing
       )
       reservation.update(session_id: @checkout_session.id)
       checkout_session
+      
     end
   
     def calendar_event
