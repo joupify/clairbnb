@@ -52,29 +52,35 @@
               <i class="fa-regular fa-clock text-warning fw-bold fs-5 "></i>
             <%= l.status.capitalize %></p>
             <% end %>
-
-          <div class="d-flex gap-2">
-
-    <% if @reservations.any? %>
-
-      <% @reservations.each do |reservation| %>
-      <td><%= link_to reservation.l.title, listing_reservations_path(l) %></td>
-
-      <% end %>
-      <% end %>
+          <p><%= l.host.email %></p>
 
 
-      
-<% if l.reservations.any? %>
-  <%= link_to "View Reservations", listing_reservations_path(l), class: "btn btn-danger rounded-5" %>
-  
-<% end %>
-  <%= link_to "Reservations for #{l.title}", listing_reservations_path(l) %>
 
-   <p>  <%= link_to "Edit listing", edit_host_listing_path(l), class: "btn btn-dark rounded-5" %></p>
-            <p>  <%= link_to "Edit rooms", host_listing_rooms_path(l), class: "btn btn-dark rounded-5  " %></p>
-            <p><%= button_to "delete listing", host_listing_path(l), method: :delete, data: { confirm: "Are you sure?" }, class:"btn btn-dark rounded-5" %></p>
+
+            <% if @reservations.any?  &&  @listing.present?%>
+              <% @reservations.each do |reservation| %>
+              <td><%= link_to reservation.l.title, listing_reservations_path(l) %></td>
+              <% end %>
+            <% end %>
+            <p><%= link_to "See Reservations for  #{l.title}", listing_reservations_path(l), class:"text-dark fs-6 text-decoration-none" %></p>
+
+            <div class="d-flex justify-content-between gap-2  mb-3">
+
+              <!-- <% if l.reservations.any? %>
+                <%= link_to "View Reservations", listing_reservations_path(l), class: "btn btn-danger rounded-5" %>
+              <% end %> -->
+            
+
+            
+              <p>  <%= link_to "Edit listing", edit_host_listing_path(l), class: "btn btn-dark rounded-5" %></p>
+              <p>  <%= link_to "Edit rooms", host_listing_rooms_path(l), class: "btn btn-dark rounded-5  " %></p>
+              <p><%= button_to "delete listing", host_listing_path(l), method: :delete, data: { confirm: "Are you sure?" }, class:"btn btn-dark rounded-5" %></p>
+            
           </div>
+
+
+
+          
         </div>
       </div>
     </div>

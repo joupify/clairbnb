@@ -7,6 +7,15 @@ class ReservationsController < ApplicationController
     @host_reservations = current_user.host_reservations
     puts "@host_reservations: #{@host_reservations.inspect}" # Add this line for debugging
 
+
+    if params[:status]
+      @reservations = @reservations.where(status: params[:status])
+      @host_reservations = @host_reservations.where(status: params[:status])
+    else  
+      @reservations = @host_reservations
+    end
+
+
   end
   
   def show
@@ -15,6 +24,7 @@ class ReservationsController < ApplicationController
     # If there's no reservation found with the given id, @reservation will be nil
      @listing = @reservation.listing
      @message = Message.new
+
 
   end
 

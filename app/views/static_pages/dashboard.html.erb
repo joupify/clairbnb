@@ -1,3 +1,35 @@
-    <%= render 'host/listings/listing' %>
-    
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <%= link_to "My Listings", host_listings_path, class: "nav-link #{'active' if current_page?(host_listings_path)}" %>
+  </li>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle #{'active' if current_page?(listing_reservations_path(:listing_id))}" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">My Reservations</a>
+    <ul class="dropdown-menu">
+      <li>
+        <%= link_to "My Reservations", listing_reservations_path(:listing_id), class: "dropdown-item" %>
+      </li>
+      <li>
+        <a class="dropdown-item"
+        <%= link_to "Booked", listing_reservations_path(:listing_id, status: 'booked'), class: "dropdown-item" %>
+
+         </a>
+      </li>
+      <li>
+        <a class="dropdown-item"
+        <%= link_to "Pending", listing_reservations_path(:listing_id, status: 'pending'), class: "dropdown-item" %>
+         </a>
+      </li>
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+      <li>
+        <a class="dropdown-item" href="#">Other</a>
+      </li>
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Link</a>
+  </li>
+</ul>
+
 
