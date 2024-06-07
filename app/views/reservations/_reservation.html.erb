@@ -4,7 +4,7 @@
   <h1 class=" fs-4 fw-bold mt-4 mb-3">Reservation Details</h1>
   
   <pre><%= JSON.pretty_generate(@reservation.as_json(include: :calendar_event)) %></pre>
-  <% if @listing.reservation.present? %>
+  <% if @listing.reservations.present? %>
   <%= link_to "Messages", listing_reservation_messages_path(@listing.reservations, @reservation), class:"btn btn-primary" %>
 
   <div class="d-flex gap-3">

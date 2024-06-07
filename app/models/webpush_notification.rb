@@ -10,7 +10,6 @@ class WebpushNotification < ApplicationRecord
         auth: auth_key,
         vapid: {
           public_key: 'BFW8VCewVHLvXq2DPWethWZMOwmN30ahPP7tFM34nY5w70ZlrOF1o5MvGCbdeolaQaFiyc0cp_nYaqdLKCMT2rI=',
-          
           private_key: '_jiatFJaSAoXJGZ8ebPnZj5KffEaln696kl38pEjPHE='
 
           

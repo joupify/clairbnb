@@ -3,6 +3,9 @@ class MessagesController < ApplicationController
   before_action :set_reservation
 
   def index
+    @messages = Message.all
+    @message = Message.new
+
     @reservation = set_reservation
     if @reservation
       @messages = @reservation.messages.includes(:from_user).order(created_at: :desc)
@@ -14,6 +17,7 @@ class MessagesController < ApplicationController
     end
   end
 
+
   def create
     if @reservation
       @message = current_user.sent_messages.new(message_params)
@@ -22,6 +26,11 @@ class MessagesController < ApplicationController
     
       if @message.save
         flash.now[:notice] = "Message sent successfully"
+        respond_to do |format|
+          format.turbo_stream
+          format.html { redirect_to messages_index_path
+        }
+        end
       else
         # Display validation errors (if any)
         flash[:alert] = @message.errors.full_messages

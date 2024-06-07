@@ -84,7 +84,7 @@ group :development do
   gem "web-console"
   gem "letter_opener"
   gem 'annotate'
-  gem 'pry-rails'
+  # gem 'pry-rails'
   
 
 

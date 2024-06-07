@@ -3,8 +3,15 @@
   <h1 class="fs-4 fw-bold mt-4 mb-3"> <%= @listing.title %></h1>
 
 <h1 class=" fs-4 fw-bold mt-4 mb-3">Reservation Details</h1>
+    <pre><%= JSON.pretty_generate(@reservation.as_json(include: :calendar_event)) %></pre>
 
-<pre><%= JSON.pretty_generate(@reservation.as_json(include: :calendar_event)) %></pre>
+
+<!-- <%= turbo_stream_from @reservation %>
+<div id= '<%= dom_id(@reservation)%>' >
+  <%= render partial: "reservation"%>
+</div> -->
+
+
 
 <%= link_to "Messages", listing_reservation_messages_path(@listing.reservations, @reservation), class:"btn btn-primary" %>
 

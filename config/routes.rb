@@ -44,8 +44,9 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
+  # Resque gem
   require 'resque/server'
-  mount Resque::Server, at: '/jobs', as: 'public_resque'  # Unique name
+  mount Resque::Server.new, at: '/jobs', as: 'public_resque'  # Unique name
 
   authenticate :user do
     mount Resque::Server, at: '/private_resque', as: 'private_resque'  # Unique name

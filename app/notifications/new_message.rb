@@ -7,8 +7,8 @@ class NewMessage < Noticed::Base
   # Add your delivery methods
   #
   deliver_by :database
-  deliver_by :email, mailer: "MessageMailer", method: :new_message
-  deliver_by :twilio, format: :format_for_twilio
+  # deliver_by :email, mailer: "MessageMailer", method: :new_message
+  # deliver_by :twilio, format: :format_for_twilio
 
   # deliver_by :slack
   # deliver_by :custom, class: "MyDeliveryMethod"

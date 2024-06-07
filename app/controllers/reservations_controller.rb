@@ -14,6 +14,8 @@ class ReservationsController < ApplicationController
     # @reservation = current_user.listings.map { |listing| listing.reservations.find_by(id: params[:id]) }.compact.first
     # If there's no reservation found with the given id, @reservation will be nil
      @listing = @reservation.listing
+     @message = Message.new
+
   end
 
   def new
