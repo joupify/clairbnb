@@ -1,16 +1,15 @@
-<div id="message_<%= message.id %>">
-  <div>
-    <ul>
-      <li>
-        <div>
-          <div>
-            <a href="#"><%= message.from_user.email %></a>
-            <p>Sent <%= time_ago_in_words(message.created_at) %> ago</p>
-            <p><%= message.content %></p>
-            <% if message&.notifications_as_message&.first&.read_at %>
-              <p>Read <%= time_ago_in_words(message&.notifications_as_message&.first&.read_at) %></p>
-            <% end %>
-          </div>
+<div id="message_<%= message.id %>" class="mt-4 p-3 border rounded bg-light">
+
+  <div class="flow-root">
+    <ul class="list-unstyled">
+      <li class="media">
+        <div class="media-body">
+          <h5 class="mt-0 mb-1"><a href="#" class="text-primary"><%= message.from_user.email %></a></h5>
+          <p class="mb-2 text-muted">Sent <%= time_ago_in_words(message.created_at) %> ago</p>
+          <p class="mb-2"><%= message.content %></p>
+          <% if message&.notifications_as_message&.first&.read_at %>
+            <p class="text-muted">Read <%= time_ago_in_words(message&.notifications_as_message&.first&.read_at) %></p>
+          <% end %>
         </div>
       </li>
     </ul>
