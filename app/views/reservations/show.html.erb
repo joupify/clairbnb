@@ -6,17 +6,15 @@
     <pre><%= JSON.pretty_generate(@reservation.as_json(include: :calendar_event)) %></pre>
 
 
-<!-- <%= turbo_stream_from @reservation %>
-<div id= '<%= dom_id(@reservation)%>' >
-  <%= render partial: "reservation"%>
-</div> -->
-
 
 
 <%= link_to "Messages", listing_reservation_messages_path(@listing.reservations, @reservation), class:"btn btn-primary" %>
 
 <div class="d-flex gap-3">
-  <%= button_to "Cancel Reservation", cancel_listing_reservation_path(@listing, @reservation), method: :post, class:"btn btn-primary" %>
+  <% if current_user == @listing.host %>
+  <%= button_to "Cancel Reservation", cancel_listing_reservation_path(@listing, @reservation), method: :post, class: "btn btn-primary" %>
+<% end %>
+
   <%= link_to "back to reservations", listing_reservations_path(@listing), class:"btn btn-primary" %>
 <div>
 

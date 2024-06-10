@@ -1,4 +1,6 @@
-<%= turbo_stream.append "messages" do %>
+<%= turbo_stream.append [@message.reservation, :messages] do %>
   <%= render partial: "message", locals: { message: @message } %>
+
+  <%= render partial: "shared/flash", locals: { flash: flash } %>
 <% end %>
 

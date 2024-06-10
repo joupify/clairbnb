@@ -1,6 +1,8 @@
 <h1 class="text-2xl mb-6">Messages</h1>
 
-<%= turbo_stream_from "messages" %>  
+<%= turbo_stream_from [@reservation, :messages] %>
+
+
 <div id="messages">
   <%= render partial: "message", collection: @messages %>
 </div>

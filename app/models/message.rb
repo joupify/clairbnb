@@ -3,16 +3,19 @@ class Message < ApplicationRecord
   belongs_to :to_user, class_name: 'User'
   belongs_to :reservation, optional: true
   has_noticed_notifications
-  # after_create_commit :broadcast_message
+
+  # # Alternatively, using the synchronous methods directly
+  # after_create_commit -> { broadcast_prepend_to "messages" }
+  # after_update_commit -> { broadcast_replace_to "messages" }
+  # after_destroy_commit -> { broadcast_remove_to "messages" }
+
+  # after_create_commit { broadcast_prepend_later_to "messages" }
+  # after_update_commit { broadcast_replace_later_to "messages" }
+  # after_destroy_commit { broadcast_remove "messages" }
 
 
-  after_create_commit -> { broadcast_append_to "messages" }
-  after_update_commit { broadcast_replace_to "messages" }
-  after_destroy_commit -> { broadcast_remove_to "messages" }
-
-  broadcasts_to ->(quote) { "quotes" }, inserts_by: :prepend
-
-
+  # broadcasts_to ->(message) { "reservation_#{message.reservation_id}_messages" }, inserts_by: :prepend
+  broadcasts_to ->(message) { [message.reservation, "messages"] }, inserts_by: :prepend
 
 
 

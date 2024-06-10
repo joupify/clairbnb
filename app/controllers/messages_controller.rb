@@ -3,7 +3,11 @@ class MessagesController < ApplicationController
   before_action :set_reservation
 
   def index
-    @messages = Message.all
+    #  @messages = Message.all
+     @messages = @reservation.messages.includes(:user)
+    #  @messages = @reservation.messages.includes(:from_user).order(created_at: :desc)
+
+    # @messages = @reservation.messages.includes(:from_user).order(created_at: :desc)
     @message = Message.new
 
     @reservation = set_reservation
@@ -23,13 +27,13 @@ class MessagesController < ApplicationController
       @message = current_user.sent_messages.new(message_params)
       @message.to_user = @reservation.guest == current_user ? @reservation.host : @reservation.guest
       @message.from_user = current_user
+      
     
       if @message.save
         flash.now[:notice] = "Message sent successfully"
         respond_to do |format|
           format.turbo_stream
-          format.html { redirect_to messages_index_path
-        }
+          format.html { redirect_to messages_index_path }
         end
       else
         # Display validation errors (if any)
@@ -54,3 +58,5 @@ class MessagesController < ApplicationController
     params.require(:message).permit(:content, :reservation_id)
   end
 end
+
+

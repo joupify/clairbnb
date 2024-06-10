@@ -12,7 +12,7 @@ class ReservationsController < ApplicationController
       @reservations = @reservations.where(status: params[:status])
       @host_reservations = @host_reservations.where(status: params[:status])
     else  
-      @reservations = @host_reservations
+      @reservations = @reservations
     end
 
 
