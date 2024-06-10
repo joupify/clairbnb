@@ -34,6 +34,8 @@ class MessagesController < ApplicationController
         respond_to do |format|
           format.turbo_stream
           format.html { redirect_to messages_index_path }
+          format.turbo_stream { render turbo_stream: turbo_stream.replace("message_form", partial: "form", locals: { reservation: @reservation, message: Message.new }) }
+
         end
       else
         # Display validation errors (if any)

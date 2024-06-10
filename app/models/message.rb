@@ -1,6 +1,6 @@
 class Message < ApplicationRecord
-  belongs_to :from_user, class_name: 'User'  ## we do not need to sepcify foreign key because it is default "from_user"
-  belongs_to :to_user, class_name: 'User'
+  belongs_to :from_user, class_name: 'User', foreign_key: "from_user_id"  ## we do not need to sepcify foreign key here because it is default "from_user"
+  belongs_to :to_user, class_name: 'User', foreign_key: "to_user_id"
   belongs_to :reservation, optional: true
   has_noticed_notifications
 

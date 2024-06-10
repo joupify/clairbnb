@@ -4,3 +4,6 @@
   <%= render partial: "shared/flash", locals: { flash: flash } %>
 <% end %>
 
+<%= turbo_stream.replace 'message_form' do %>
+  <%= render partial: 'messages/form', locals: { reservation: @reservation, message: Message.new } %>
+<% end %>
