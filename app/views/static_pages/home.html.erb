@@ -38,8 +38,7 @@
           <div class="input-group">
             <%= number_field_tag :guests,
               params[:guests],
-              class: "form-control",
-              placeholder: "1 guest"
+              class: "form-control"
             %>
             <%= select_tag :guestType,
               options_for_select(["Adults", "Children", "Infants"], selected: "Adults"),

@@ -4,8 +4,8 @@ include Pagy::Backend
 def index
   @listings = Listing.published
 
-  if params[:query].present?
-    @listings = @listings.where("city ILIKE ?", "%#{params[:query]}%")
+  if params[:city].present?
+    @listings = @listings.where("city ILIKE ?", "%#{params[:city]}%")
   end
 
   if params[:checkin].present? && params[:checkout].present?
@@ -24,8 +24,8 @@ def index
     @listings = @listings.where.not(id: overlapping_booked_reservations.pluck(:listing_id))
   end
 
-  if params[:guests].present?
-  # Convert the guest count to an integer
+  if params[:guests].present? && !params[:guests].empty?
+    # Convert the guest count to an integer
   guest_count = params[:guests].to_i
 
   # Bed sizes array from the enum values
@@ -36,7 +36,6 @@ def index
                        .group('listings.id')
                        .having('SUM(CASE WHEN beds.bed_size IN (?) THEN 1 ELSE 2 END) >= ?', bed_sizes, guest_count)
 end
-
     
 end
 
@@ -67,4 +66,15 @@ end
     # Perform the search query
     # Display the search results
   
+    def show_more_photos
+      @listing = Listing.find(params[:id])
+      @additional_photos = @listing.photos.drop(5) 
+  
+      # respond_to do |format|
+      #   # format.turbo_stream
+      #   format.html { redirect_to listing_path(@listing) } # Fallback for non-Turbo requests
+      # end
+    end
+
+
 end

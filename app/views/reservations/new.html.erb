@@ -1,10 +1,11 @@
+<div class="conrainer p-2">
+<div class="card m-auto d-flex flex-column align-items-center gap-2" style="width: 20rem;">
 <%= render partial: 'shared/errors' %>
-
 <ul>
   <% if @calendar_events.present? %>
   <% @calendar_events.each do |calendar_event| %>
     <li>
-      <%= calendar_event.start_date %> - <%= calendar_event.end_date %>
+       <%= calendar_event.start_date %> - <%= calendar_event.end_date %>
       <%= calendar_event.status %>
       <%= calendar_event.try(:reservation).try(:status) %>
     
@@ -15,6 +16,19 @@
     <% end %>
 </ul>
 
+
+<%= simple_form_for [@listing, @reservation], url: listing_reservations_path(@listing), html: { data: { turbo: false } } do |f| %>
+  <%= f.input :start_date, as: :string, input_html: { id: 'start_date', placeholder: 'Select start date', data: { controller: 'datepicker', 'unavailable-dates': @unavailable_dates&.map { |date| date.strftime('%Y-%m-%d') }&.join(',') } } %>
+
+  <%= f.input :end_date, as: :string, input_html: { id: 'end_date', placeholder: 'Select end date', data: { controller: 'datepicker', 'unavailable-dates': @unavailable_dates&.map { |date| date.strftime('%Y-%m-%d') }&.join(',') } } %>
+
+  <%= f.hidden_field :listing_id, value: @listing.id %>
+
+  <%= f.button :submit, 'Reserve', class: 'btn btn-warning', data: { turbo: false } %>
+<% end %>
+
+
+
 <form action="<%= listing_reservations_path(@listing) %>" method="post" data-turbo="false">
   <!-- Replace type="date" with type="text" and add IDs -->
   <input type="date" id="start_date" name="reservation[start_date]" placeholder="Select start date" data-controller="datepicker" data-unavailable-dates="<%= @unavailable_dates&.map { |date| date.strftime('%Y-%m-%d') }&.join(',') %>">
@@ -24,9 +38,9 @@
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
   <input type="hidden" name="reservation[listing_id]" value="<%= @listing.id %>">
   
-  <input type="submit" value="Reserve", class="btn btn-dark",  data: { turbo: false } >
+  <input type="submit" value="Reserve", class="btn btn-warning",  data: { turbo: false } >
 </form>
 
-
-
+</div>
+</div>
 

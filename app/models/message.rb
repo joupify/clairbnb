@@ -17,31 +17,19 @@ class Message < ApplicationRecord
   # broadcasts_to ->(message) { "reservation_#{message.reservation_id}_messages" }, inserts_by: :prepend
   broadcasts_to ->(message) { [message.reservation, "messages"] }, inserts_by: :prepend
 
-
-
   after_create_commit :notify_to_user
-
-
-  def self.mark_as_read!
-    all.map(&:notifications_as_message).flatten.each(&:mark_as_read!)
-  end
-
 
 
   def notify_to_user
     NewMessage.with(message: self).deliver_later(to_user)
   end
 
+  def self.mark_as_read!
+    all.map(&:notifications_as_message).flatten.each(&:mark_as_read!)
+  end
+
   private
 
-  # def broadcast_message
-  #   broadcast_append_to(
-  #     "messages",
-  #     target: "messages",
-  #     partial: "messages/message",
-  #     locals: { message: self }
-  #   )
-  # end
 
 end
 

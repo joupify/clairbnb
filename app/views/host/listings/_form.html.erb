@@ -19,7 +19,7 @@
     <%= f.select :status, options_for_select(Listing.statuses.keys.map { |status| [status.capitalize, status] }, @listing.status), {}, class: "form-select" %>
 
     <%= f.fields_for :photos do |photo_fields| %>
-      Add photos: <%= photo_fields.file_field :image %>
+      Add photos: <%= photo_fields.file_field :photo%>
     <% end %>
 
     <% if @show_address %>

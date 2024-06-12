@@ -5,6 +5,12 @@ Rails.application.routes.draw do
   get 'static_pages/dashboard'
 
 
+  resources :listings, only: [] do
+    member do
+      get :show_more_photos
+    end
+  end
+
   resources :webhooks, only: [:create]
   resources :webpush_subs
 

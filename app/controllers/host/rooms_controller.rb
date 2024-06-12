@@ -6,6 +6,8 @@ class Host::RoomsController < ApplicationController
     @listing = current_user.listings.find(params[:listing_id])
     @rooms = @listing.rooms.all
     @room = Room.new  # Ensure @room is initialized
+    render partial: "host/rooms/room", locals: { listing: @listing, show_rooms: @show_rooms }
+
 
   end
 

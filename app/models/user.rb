@@ -55,7 +55,6 @@ class User < ApplicationRecord
 
   def all_reservations
     Reservation.where(guest: self).or(Reservation.where(listing: listings))
-
   end
 
   def may_be_create_stripe_customer

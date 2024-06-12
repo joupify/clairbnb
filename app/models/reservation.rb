@@ -22,7 +22,7 @@ class Reservation < ApplicationRecord
   enum status: {pending: 0, booked:1, canceling:3, cancelled:2, expired: 4}
 
 
-  delegate :start_date, :end_date, :nights, to: :calendar_event
+  delegate :start_date, :end_date, :nights, to: :calendar_event, allow_nil: true
 
   validate :host_cannot_reserve_own_listing
 

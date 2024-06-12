@@ -7,7 +7,9 @@ class NewMessage < Noticed::Base
   # Add your delivery methods
   #
   deliver_by :database
-  # deliver_by :email, mailer: "MessageMailer", method: :new_message
+  deliver_by :email, mailer: "MessageMailer", method: :new_message
+  deliver_by :webpush, class: "DeliveryMethods::Webpush"
+
   # deliver_by :twilio, format: :format_for_twilio
 
   # deliver_by :slack
@@ -16,6 +18,8 @@ class NewMessage < Noticed::Base
   # Add required params
   #
   param :message
+
+  
 
   def format_for_twilio
     {
@@ -27,9 +31,9 @@ class NewMessage < Noticed::Base
 
   # Define helper methods to make rendering easier.
   #
-  # def message
-  #   t(".message")
-  # end
+  def message
+    params[:message].content
+  end
   #
   # def url
   #   post_path(params[:post])

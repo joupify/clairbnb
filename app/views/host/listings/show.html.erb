@@ -1,69 +1,97 @@
 <div class="container py-2 mt-5">
-  <div class="card-product">
+  <!-- <div class="card-product"> -->
 
 
-  <div class="d-flex gap-2 justify-content-between mx-5 mb-5">
-
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <% @listing.photos.each_with_index do |photo, index| %>
-          <div class="carousel-item <%= 'active' if index == 0 %>">
-            <%= image_tag photo.image.url, class: 'd-block w-100' if photo.image.present? %>
+    <div class="container py-2 mt-5">
+      <div class="container mb-3">
+        <div class="row">
+          <!-- Left half with the first photo -->
+          <div class="col-md-6">
+            <% if @listing.photos.any? %>
+              <% first_photo = @listing.photos.first %>
+              <div class="h-100">
+                <%= image_tag first_photo.image.url, class: 'd-block w-100 h-100' if first_photo.image.present? %>
+              </div>
+            <% end %>
           </div>
-        <% end %>
+          <!-- Right half with remaining photos -->
+          <div class="col-md-6 position-relative">
+            <div class="row">
+              <% @listing.photos.drop(1).each_with_index do |photo, index| %>
+                <div class="col-6 mb-2">
+                  <%= image_tag photo.image.url, class: 'd-block w-100' if photo.image.present? %>
+                </div>
+              <% end %>
+            </div>
+            <!-- Show more photos link -->
+            <div class="position-absolute bottom-0 end-0 mb-2 me-2">
+              <%= link_to 'Show more photos', host_listing_photos_path(@listing), class: 'btn btn-primary' %>
+            </div>
+          </div>
+        </div>
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
     </div>
+    
+        
+
+       <div class="d-flex gap-5 mx-5 mt-5 mb-5">
+        <div class="col-md-6 ">
+            <h1><%= @listing.title %></h1>
+            <p><%= @listing.description %></p>
+
+          <p>
+          <i class="fa-solid fa-location-dot"></i>
+          <%= @listing.address %></p>
+          <p>
+          <i class="fa-solid fa-map "></i>
+            lat : <%= @listing.latitude if @listing.latitude.present? %>,
+            lng : <%= @listing.longitude if @listing.longitude.present? %></p>
+
+            <% if @listing.published? %>
+            <p  class="fw-bold ">
+            <i class="fa-regular fa-circle-check text-success fw-bold fs-5 mr-2 "></i>
+            <%= @listing.status.capitalize %></p>
+            <% else %>
+            <p  class="fw-bold">
+              <i class="fa-regular fa-clock text-warning fw-bold fs-5 "></i>
+            <%= @listing.status.capitalize %></p>
+            <i class="fa-regular fa-bed text-warning fw-bold fs-5"></i>
+            <% @listing.rooms.each do |r| %>
+              <%= r.beds.count %>
+              <% end %>
+            <% end %>
+          </div>
+
+          <div class="col-md-6 ">
+            
+            <p class="fw-bold">Price/Night: <span class="fs-5"><%= number_to_currency(@listing.nightly_price / 100, unit: '€', precision: 0 ) %></span></p>  
+              <p class="fw-bold">Cleaning Fee: <span class="fs-5"><%= number_to_currency(@listing.cleaning_fee / 100, unit: '€', precision: 0) %></span></p>
+          </div>
+        </div>
 
 
-    </div>
-    <div class="card-product-infos ">
-        <h1><%= @listing.title %></h1>
-        <p><%= @listing.description %></p>
-
-      <p>
-      <i class="fa-solid fa-location-dot"></i>
-      <%= @listing.address %></p>
-      <p>
-      <i class="fa-solid fa-map "></i>
-        lat : <%= @listing.latitude if @listing.latitude.present? %>,
-        lng : <%= @listing.longitude if @listing.longitude.present? %></p>
-
-        <% if @listing.published? %>
-        <p  class="fw-bold ">
-        <i class="fa-regular fa-circle-check text-success fw-bold fs-5 mr-2 "></i>
-        <%= @listing.status.capitalize %></p>
-        <% else %>
-        <p  class="fw-bold">
-          <i class="fa-regular fa-clock text-warning fw-bold fs-5 "></i>
-        <%= @listing.status.capitalize %></p>
-        <% end %>
+          <div class="d-flex gap-2">
+            <p>  <%= link_to "Edit listing", edit_host_listing_path(@listing), class: "btn btn-secondary  " %></p>
 
         
-        <p class="fw-bold">Price/Night: <span class="fs-5"><%= number_to_currency(@listing.nightly_price / 100, unit: '€', precision: 0 ) %></span></p>  
-        <p class="fw-bold">Cleaning Fee: <span class="fs-5"><%= number_to_currency(@listing.cleaning_fee / 100, unit: '€', precision: 0) %></span></p>
 
+            <p><%= button_to "delete listing", host_listing_path(@listing), method: :delete, data: { confirm: "Are you sure?" }, class:"btn btn-warning" %></p>
+          </div>
 
+          <!-- <p>  <%= link_to "Edit rooms", host_listing_rooms_path(@listing), class: "btn btn-dark  " %></p> -->
 
+          <div class=" d-flex flex-column justify-content-between mb-3">
+            <div class ="mb-3 mt-3">
+            <i class="fa-regular fa-bed text-warning fw-bold fs-5"></i>
+            <span class="fs-2 bold mb-3">Où dormez vous?</span> 
+          </div>
+            <%= render 'host/rooms/room' %>
+          </div>
+        </div>
+      <!-- </div> -->
+  <!-- </div> -->
 
-      <div class="d-flex gap-2">
-        <p>  <%= link_to "Edit listing", edit_host_listing_path(@listing), class: "btn btn-secondary  " %></p>
-        <p>  <%= link_to "Edit rooms", host_listing_rooms_path(@listing), class: "btn btn-dark  " %></p>
-        <p><%= button_to "delete listing", host_listing_path(@listing), method: :delete, data: { confirm: "Are you sure?" }, class:"btn btn-warning" %></p>
-      </div>
-    
-    </div>
-  </div>
-    </div>
-
-<%= link_to 'Add Room', host_listing_rooms_path(@listing) %> 
+  <%= link_to 'Add Room', host_listing_rooms_path(@listing) %> 
   <%= link_to 'Back to listings', host_listings_path %>
 
-  </div>
+ </div>

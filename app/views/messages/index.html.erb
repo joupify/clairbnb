@@ -2,7 +2,6 @@
 
 <%= turbo_stream_from [@reservation, :messages] %>
 
-
 <div id="messages">
   <%= render partial: "message", collection: @messages %>
 </div>
@@ -12,9 +11,6 @@
 <div class="container">
 
   <%= render 'messages/form' %>
-
-
-
 
 </div>
 
