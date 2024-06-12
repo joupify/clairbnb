@@ -19,7 +19,6 @@ class Host::ListingsController < ApplicationController
     @listing = Listing.new
     @show_address = true # or false, depending on your logic
     # render 'host/listings/_form'
-
   end
 
   def create

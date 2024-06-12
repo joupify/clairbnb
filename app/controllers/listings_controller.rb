@@ -42,13 +42,11 @@ end
   def show
     @listing = Listing.published.find(params[:id])
     @reservation = Reservation.new
-    # @unavailable_dates = @listing.calendar_events.unavailable_dates
-    # @unavailable_dates = @listing.calendar_events.map(&:unavailable_dates) # call on each calendar_event
     @unavailable_dates = @listing.unavailable_dates
 
   rescue ActiveRecord::RecordNotFound
     flash[:error] = "Listing not found or not published"
-    redirect_to root_path # or any other path you prefer
+    redirect_to root_path 
   end
 
   def search
@@ -66,6 +64,9 @@ end
     # Perform the search query
     # Display the search results
   
+
+
+    # used to display the next  photos
     def show_more_photos
       @listing = Listing.find(params[:id])
       @additional_photos = @listing.photos.drop(5) 
@@ -75,6 +76,5 @@ end
       #   format.html { redirect_to listing_path(@listing) } # Fallback for non-Turbo requests
       # end
     end
-
 
 end
