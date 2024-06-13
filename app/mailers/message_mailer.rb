@@ -8,6 +8,7 @@ class MessageMailer < ApplicationMailer
   def new_message
     @message = params[:message]
 
-    mail to: @message.to_user.email, subject: "You have a new message from #{@message.from_user.email}"
+    mail(to: @message.to_user.email, from: @message.from_user.email, subject: "You have a new message from #{@message.from_user.email}")
+
   end
 end
