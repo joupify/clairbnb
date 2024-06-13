@@ -22,6 +22,6 @@ class ReservationMailer < ApplicationMailer
 
     @greeting = "Hi"
 
-    mail to: @reservation.guest.email, subject: "Your  reservation is confirmed"
+    mail to: @reservation.guest.email, subject: "Your reservation is confirmed"
   end
 end
