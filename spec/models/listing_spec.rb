@@ -44,6 +44,7 @@ RSpec.describe Listing, type: :model do
     it { should have_many(:reservations)}
     it { should have_many(:calendar_events)}
     it { should have_many(:photos)}
+    it { should have_many(:rooms)}
 
   end
 end

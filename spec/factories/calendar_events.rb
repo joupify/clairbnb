@@ -14,8 +14,8 @@
 FactoryBot.define do
   factory :calendar_event do
     association :listing
-    association :reservation
-    status { :pending }
+    # association :reservation
+    status { 0 }
     start_date { Date.today }
     end_date { Date.today + 1 }
     

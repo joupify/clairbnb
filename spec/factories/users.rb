@@ -36,6 +36,11 @@ FactoryBot.define do
     email { Faker::Internet.email }
     password { Faker::Internet.password(min_length: 8) }
     name { Faker::Name.name }
+
+
+    trait :guest do
+      # Define guest-specific attributes here if needed
+    end
     
     factory :host do
       is_host { true }

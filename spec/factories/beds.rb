@@ -1,17 +1,3 @@
-class Bed < ApplicationRecord
-  validates :bed_size, presence: true
-  belongs_to :room
-
-  enum bed_size: {
-  twin: 0,
-  twin_xl: 1,
-  full: 2,
-  queen: 3,
-  king: 4,
-
-
-  }
-end
 # == Schema Information
 #
 # Table name: beds
@@ -22,4 +8,9 @@ end
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-
+FactoryBot.define do
+  factory :bed do
+    association :room, factory: :room
+    
+  end
+end

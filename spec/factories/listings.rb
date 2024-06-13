@@ -22,7 +22,6 @@
 #
 FactoryBot.define do
   factory :listing do
-    # association :host, factory: :user
     association :host, factory: :host
 
     title { "Test Listing" }
