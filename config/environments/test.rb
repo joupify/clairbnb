@@ -57,4 +57,26 @@ Rails.application.configure do
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+
+   # Use the test lookup for Geocoder in the test environment
+   Geocoder.configure(
+    lookup: :test,
+    timeout: 5,         # You can set the timeout here if you need it
+    ip_lookup: :test
+  )
+
+  # Set default test stubs
+  Geocoder::Lookup::Test.set_default_stub(
+    [
+      {
+        'latitude'     => 40.7143528,
+        'longitude'    => -74.0059731,
+        'address'      => 'New York, NY, USA',
+        'state'        => 'New York',
+        'state_code'   => 'NY',
+        'country'      => 'United States',
+        'country_code' => 'US'
+      }
+    ]
+  )
 end
