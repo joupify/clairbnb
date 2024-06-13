@@ -30,13 +30,15 @@
 #  phone_number           :string
 #  identity_verified      :boolean          default(FALSE)
 #
-
-# This model initially had no columns defined. If you add columns to the
-# model remove the "{}" from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+# spec/factories/users.rb
+FactoryBot.define do
+  factory :user do
+    email { Faker::Internet.email }
+    password { Faker::Internet.password(min_length: 8) }
+    name { Faker::Name.name }
+    
+    factory :host do
+      is_host { true }
+    end
+  end
+end

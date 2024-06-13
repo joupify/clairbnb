@@ -7,11 +7,9 @@ def index
   if params[:city].present?
     @listings = @listings.where("city ILIKE ?", "%#{params[:city]}%")
   end
-
   if params[:checkin].present? && params[:checkout].present?
     checkin_date = Date.parse(params[:checkin])
     checkout_date = Date.parse(params[:checkout])
-
     # Find reservations that overlap with the specified date range and are booked
     overlapping_booked_reservations = Reservation.joins(:calendar_event)
                                                   .where("(calendar_events.start_date <= ? AND calendar_events.end_date >= ?) OR 
@@ -23,7 +21,6 @@ def index
     # Exclude listings with overlapping booked reservations
     @listings = @listings.where.not(id: overlapping_booked_reservations.pluck(:listing_id))
   end
-
   if params[:guests].present? && !params[:guests].empty?
     # Convert the guest count to an integer
   guest_count = params[:guests].to_i
@@ -35,8 +32,7 @@ def index
   @listings = @listings.joins(rooms: :beds)
                        .group('listings.id')
                        .having('SUM(CASE WHEN beds.bed_size IN (?) THEN 1 ELSE 2 END) >= ?', bed_sizes, guest_count)
-end
-    
+  end
 end
 
   def show

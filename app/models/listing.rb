@@ -22,10 +22,13 @@
 #
 
 class Listing < ApplicationRecord
-  validates  :title, presence: true
-  validates :max_guests, numericality: { greater_than: 0, less_than_or_equal_to: 100 }
+  validates :max_guests, presence: true, numericality: {greater_than: 0, less_than_or_equal_to: 10  }
+
+  # validates :max_guests, numericality: { greater_than: 0, less_than_or_equal_to: 10 }
   validates :nightly_price, numericality: { greater_than: 0 }
   validates :cleaning_fee, numericality: { greater_than: 0 }
+  validates :title, :address, :city, :country, :description, :postal_code, :host, presence: true
+
 
   belongs_to :host, class_name: 'User'
   has_many :rooms
@@ -43,7 +46,6 @@ class Listing < ApplicationRecord
   after_validation :geocode, if: :will_save_change_to_address?
 
   after_commit :may_be_create_stripe_product, on: [:create, :update]
-  
 
   def may_be_create_stripe_product
     return if !stripe_product_id.blank?

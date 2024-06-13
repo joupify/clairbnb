@@ -68,7 +68,6 @@ class BookListing
           metadata: {
             reservation_id: reservation.id,
             listing_id: listing.id,
-            reservation_id: reservation.id,
             guest_id: current_user.id,
             start_date: start_date,
             end_date: end_date,

@@ -30,13 +30,20 @@
 #  phone_number           :string
 #  identity_verified      :boolean          default(FALSE)
 #
+require 'rails_helper'
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the "{}" from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+RSpec.describe User, type: :model do
+
+  context "validations" do
+    it { should validate_presence_of(:email)}
+    it { should validate_uniqueness_of(:email).case_insensitive }
+
+    it { should validate_presence_of(:password)}
+    it { should validate_length_of(:password).is_at_least(6) }
+
+  end
+  context "associations" do
+    it {should have_many(:listings)}
+  end
+  
+end

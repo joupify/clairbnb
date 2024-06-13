@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: messages
+#
+#  id             :bigint           not null, primary key
+#  from_user_id   :bigint           not null
+#  to_user_id     :bigint           not null
+#  reservation_id :bigint           not null
+#  content        :text             default(""), not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
 class Message < ApplicationRecord
   belongs_to :from_user, class_name: 'User', foreign_key: "from_user_id"  ## we do not need to sepcify foreign key here because it is default "from_user"
   belongs_to :to_user, class_name: 'User', foreign_key: "to_user_id"

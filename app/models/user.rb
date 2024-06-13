@@ -27,9 +27,12 @@
 #  is_host                :boolean          default(FALSE)
 #  stripe_account_id      :string
 #  charges_enabled        :boolean          default(FALSE)
+#  phone_number           :string
+#  identity_verified      :boolean          default(FALSE)
 #
 
 class User < ApplicationRecord
+  validates :email, presence: true
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

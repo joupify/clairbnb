@@ -76,6 +76,10 @@ group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem "faker"
   gem "dotenv-rails"
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+  gem 'database_cleaner-active_record'
+
 
 end
 
@@ -84,6 +88,7 @@ group :development do
   gem "web-console"
   gem "letter_opener"
   gem 'annotate'
+
   # gem 'pry-rails'
   
 
@@ -99,6 +104,7 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem 'shoulda-matchers', '~> 5.0'
 
 end
 
