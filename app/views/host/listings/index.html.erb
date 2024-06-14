@@ -52,6 +52,7 @@
               <i class="fa-regular fa-clock text-warning fw-bold fs-5 "></i>
             <%= l.status.capitalize %></p>
             <% end %>
+            <p class="text-sm font-medium text-gray-900">Host: <%= l.host.email %></p>
 
           <div class="d-flex gap-2">
             <p>  <%= link_to "Edit listing", edit_host_listing_path(l), class: "btn btn-secondary  " %></p>

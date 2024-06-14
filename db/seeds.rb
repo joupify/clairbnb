@@ -1,7 +1,8 @@
 require 'open-uri'
 Listing.destroy_all
+
 # Default set of photos to be added to each listing
-DEFAULT_PHOTO_FILENAMES = ["home1.png", "bathroom.jpg", "home2.png", "home3.png", "bedroom.jpg"]
+DEFAULT_PHOTO_FILENAMES = ["home1.png", "bathroom.jpg", "house1.png","home2.png", "home3.png", "bedroom.jpg"]
 
 # Method to get the full path of an image file
 def get_image_path(filename)
@@ -30,7 +31,10 @@ end
     cleaning_fee: rand(1000..10000)        # Adding cleaning fee
   )
 
-  # Create photos for the listing using the default set of images
+  # Shuffle the DEFAULT_PHOTO_FILENAMES array to randomize image assignment
+  DEFAULT_PHOTO_FILENAMES.shuffle!
+
+  # Create photos for the listing using a subset of images
   DEFAULT_PHOTO_FILENAMES.each do |filename|
     image_path = get_image_path(filename)
     if File.exist?(image_path)
@@ -64,10 +68,13 @@ end
       country: 'FR',
       status: [:draft, :published].sample,
       nightly_price: rand(5000..50000),      # Adding nightly price
-    cleaning_fee: rand(1000..10000)       # Adding cleaning fee
+      cleaning_fee: rand(1000..10000)        # Adding cleaning fee
     )
 
-    # Create photos for the listing using the default set of images
+    # Shuffle the DEFAULT_PHOTO_FILENAMES array to randomize image assignment
+    DEFAULT_PHOTO_FILENAMES.shuffle!
+
+    # Create photos for the listing using a subset of images
     DEFAULT_PHOTO_FILENAMES.each do |filename|
       image_path = get_image_path(filename)
       if File.exist?(image_path)

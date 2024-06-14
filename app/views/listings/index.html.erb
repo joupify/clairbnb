@@ -44,6 +44,8 @@
             <p class="fw-bold">Price/Night: <span class="fs-5"><%= number_to_currency(l.nightly_price / 100, unit: '€', precision: 0) if l.nightly_price.present? %></span></p>  
           </div>
           <p class="text-sm font-medium text-gray-900"><%= l.city %></p>
+          <%= l.host.email %>
+
         </div>
         </div>
       </div>
