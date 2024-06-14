@@ -11,11 +11,11 @@
 #
 
 one:
-  listings: one
+  listing: one
   image: MyString
   caption: MyString
 
 two:
-  listings: two
+  listing: two
   image: MyString
   caption: MyString

@@ -18,6 +18,6 @@ FactoryBot.define do
     status { 0 }
     start_date { Date.today }
     end_date { Date.today + 1 }
-    
+     
   end
 end

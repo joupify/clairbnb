@@ -15,5 +15,9 @@ class Photo < ApplicationRecord
 
 
 
+  def image_path
+    Rails.root.join('app', 'assets', 'images', image)
+  end
+
 end
 

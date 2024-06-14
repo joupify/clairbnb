@@ -73,5 +73,7 @@ class Listing < ApplicationRecord
     calendar_events.pluck(:start_date, :end_date).map { |start_date, end_date| (start_date..end_date).to_a }.flatten
   end
   
+  
+  
 end
 

@@ -9,8 +9,8 @@ class Host::ListingsController < ApplicationController
     
     @markers = @listings.geocoded.map do |listing|
       {
-        lat: listing.latitude,
-        lng: listing.longitude
+        latitude: listing.latitude,
+        longitude: listing.longitude
       }
     end
   end

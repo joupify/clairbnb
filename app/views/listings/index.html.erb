@@ -39,7 +39,7 @@
          <div class="mt-4 flex justify-between">
           <div>
             <h3 class="text-sm text-gray-700">
-              <%= link_to l.title, listing_path(l), class:"text-dark fs-text-decoration-none" %>
+              <%= link_to l.title, host_listing_path(l), class:"text-dark fs-4 text-decoration-none" %>
             </h3>
             <p class="fw-bold">Price/Night: <span class="fs-5"><%= number_to_currency(l.nightly_price / 100, unit: '€', precision: 0) if l.nightly_price.present? %></span></p>  
           </div>

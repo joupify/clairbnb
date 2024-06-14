@@ -20,17 +20,17 @@
 #  cleaning_fee      :integer
 #  stripe_product_id :string
 #
-
+ 
 one:
   host: one
   title: MyString
   description: MyString
-  adress: MyString
+  address: MyString
   city: MyString
   postal_code: MyString
   country: MyString
-  lat: MyString
-  lng: MyString
+  latitude: MyString
+  longitude: MyString
   max_guests: 1
   status: 1
 
@@ -38,11 +38,11 @@ two:
   host: two
   title: MyString
   description: MyString
-  adress: MyString
+  address: MyString
   city: MyString
   postal_code: MyString
   country: MyString
-  lat: MyString
-  lng: MyString
+  latitude: MyString
+  longitude: MyString
   max_guests: 1
   status: 1
