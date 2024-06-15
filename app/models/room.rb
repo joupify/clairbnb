@@ -1,7 +1,7 @@
 class Room < ApplicationRecord
   belongs_to :listing
   has_many :beds, dependent: :destroy
-  accepts_nested_attributes_for :beds, allow_destroy: true
+  accepts_nested_attributes_for :beds,  allow_destroy: true
   validates :room_type, presence: :true
 
 

@@ -25,9 +25,13 @@ class Host::ListingsController < ApplicationController
     @listing = current_user.listings.new(listing_create_params)
     if @listing.save
       redirect_to host_listing_path(@listing), notice: "Listing was successfully created."
+      format.turbo_stream
+
     else
       flash[:errors] = @listing.errors.full_messages
       render :new
+      # format.turbo_stream { render turbo_stream: turbo_stream.replace("room_form", partial: "host/rooms/form", locals: { listing: @listing, room: @room }) }
+
     end
   end
 

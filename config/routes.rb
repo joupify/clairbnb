@@ -35,6 +35,7 @@ Rails.application.routes.draw do
         get 'connect' => 'merchant_settings#connect'
       end
     end
+    
     resources :listings do
       resources :photos, only: [:index, :create, :destroy]
       resources :rooms, only: [:index, :new, :create, :destroy]
