@@ -46,11 +46,8 @@ Rails.application.routes.draw do
     end
   end
 
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
-
-  devise_for :users, controllers: {
-    omniauth_callbacks: 'users/omniauth_callbacks'
-  }
 
   # Resque gem
   require 'resque/server'
@@ -59,4 +56,5 @@ Rails.application.routes.draw do
   authenticate :user do
     mount Resque::Server, at: '/private_resque', as: 'private_resque'  # Unique name
   end
+  
 end

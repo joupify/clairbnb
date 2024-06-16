@@ -37,8 +37,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :lockable, :timeoutable, :trackable, :omniauthable
-  devise :omniauthable, omniauth_providers: [:google_oauth2]
+         :lockable, :timeoutable, :trackable,
+          :omniauthable, omniauth_providers: [:google]
+
 
   has_many :listings, foreign_key: :host_id
   has_many :reservations, foreign_key: :guest_id
@@ -76,18 +77,21 @@ class User < ApplicationRecord
   end
 
 
-    def self.from_omniauth(access_token)
+  def self.from_omniauth(access_token)
     data = access_token.info
+    Rails.logger.debug "User data from OmniAuth: #{data.to_yaml}"
     user = User.where(email: data['email']).first
 
-    # Uncomment the section below if you want users to be created if they don't exist
     unless user
-        user = User.create(name: data['name'],
-           email: data['email'],
-           password: Devise.friendly_token[0,20]
-        )
+      user = User.create(
+        email: data['email'],
+        password: Devise.friendly_token[0, 20]
+      )
+      Rails.logger.debug "Created new user: #{user.to_yaml}"
+    else
+      Rails.logger.debug "Found existing user: #{user.to_yaml}"
     end
     user
-      end
+  end
          
 end
