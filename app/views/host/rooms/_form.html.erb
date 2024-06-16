@@ -1,4 +1,5 @@
 <%= turbo_frame_tag "room" do %>
+<div data-controller="reset">
 
 <div data-controller="room">
   <template data-room-target="bedFields">
@@ -8,16 +9,15 @@
         <option><%= bed_size %></option>
       <% end %>
     </select> 
-  </template>
+  </template> 
 
-  <%= form_with(model: [:host, @listing, @room], local: true) do |form| %>
-    <div class="field">
+  <%= form_with(model: [:host, @listing, @room], local: true, data: { action: "turbo:submit-end->room#reset" }) do |form| %>
+  <div class="field">
       <%= form.label :room_type %>
       <%= form.select :room_type, options_for_select(Room.room_types.keys), {} %>
   </div>
 
-
-  <fieldset data-room-target="beds">
+  <fieldset data-reset-target="beds", data-room-target="beds">
    <legend>Beds</legend>
   </fieldset>
 
@@ -27,5 +27,7 @@
     <%= form.submit "Add room", class: "btn btn-primary" %>
   <% end %>
 </div>
+</div>
+
 
   <% end %>

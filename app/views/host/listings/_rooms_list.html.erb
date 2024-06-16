@@ -1,0 +1,5 @@
+<!-- app/views/host/listings/_rooms_list.html.erb -->
+    <% listing.rooms.each do |room| %>
+      <%= render partial: 'host/rooms/room', locals: { room: room, listing: listing } %>
+    <% end %>
+  

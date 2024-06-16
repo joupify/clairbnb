@@ -22,24 +22,68 @@ class Host::RoomsController < ApplicationController
     @listing = Listing.find(params[:listing_id])
     @room = @listing.rooms.new(room_params)
   
-    respond_to do |format|
-      if @room.save
-        format.html { redirect_to host_listing_rooms_path(@listing), notice: 'Room successfully created.' }
-        format.turbo_stream { render turbo_stream: turbo_stream.append('rooms', partial: 'host/rooms/room', locals: { room: @room }) }
+    if @room.save
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: [
+            # turbo_stream.append("rooms", partial: "host/rooms/room", locals: { room: @room, listing: @listing }),
+            turbo_stream.prepend("rooms", partial: "host/listings/rooms_list", locals: { listing: @listing })
+          ]
+        end
+        format.html { redirect_to host_listing_path(@listing), notice: 'Room was successfully created.' }
+      end
       else
         flash[:errors] = @room.errors.full_messages
-        format.html { render :new } # Render the new room form again
+        format.html { render :new } 
       end
     end
-  end
+
 
   def destroy
-    @listing = Listing.find(params[:listing_id])
-    @room = @listing.rooms.find(params[:id])
-    @room.destroy
+    @room = Room.find(params[:id])
+    @listing = @room.listing
 
-    redirect_to host_listing_rooms_path(@listing), notice: 'Room successfully detroyed.'
+    if @room.destroy
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.remove(@room),
+            turbo_stream.replace(
+              "rooms",
+              partial: 'host/listings/rooms_list',
+              locals: { listing: @listing }
+            )
+          ]
+        end
+      end
+    else
+      flash[:errors] = @room.errors.full_messages
+      format.html { redirect_to host_listing_path(@listing) }
   end
+  end
+  
+  # def destroy
+  #   @listing = Listing.find(params[:listing_id])
+  #   @room = @listing.rooms.find(params[:id])
+  #   @room.destroy
+    
+  #   respond_to do |format|
+  #     format.turbo_stream { render turbo_stream: turbo_stream.remove(@room) }
+  #     format.html { redirect_to host_listing_path(@listing), notice: 'Room was successfully deleted.' }
+  #   end
+  # end
+
+
+
+
+
+  # def destroy
+  #   @listing = Listing.find(params[:listing_id])
+  #   @room = @listing.rooms.find(params[:id])
+  #   @room.destroy
+
+  #   redirect_to host_listing_rooms_path(@listing), notice: 'Room successfully detroyed.'
+  # end
   
 
   private

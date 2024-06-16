@@ -1,38 +1,32 @@
-<%= turbo_frame_tag "room" do %>
-<div class="container d-flex gap-3">
+<!-- app/views/host/rooms/_room.html.erb -->
 
-  <% if @listing.rooms.present? %>
-    <% @listing.rooms.each do |room| %>
-      <div class="d-flex">
-        <div class="d-flex gap-3">
-          <div class="card mb-3">
-            <div class="card-header">
-              <h4 class="text-capitalize"><%= room.room_type %></h4>
-              <h6 > <i class="fa-regular fa-bed text-warning fw-bold fs-5"></i>
-                <span class="bg-dark text-white fs-5 p-2 rounded-pill"><%= room.beds.count %></span></h6>
-
-            </div>
-            <% if room.beds.present? %>
-              <div class="card-body">
-                <ul class="list-group">
-                  <% room.beds.each do |bed| %>
-                    <li class="list-group-item fw-bold text-capitalize"><%= bed.bed_size %></li>
-                  <% end %>
-                </ul>
-
-              </div>
-
-            <% else %>
-                <p>No beds in this room.</p>
-            <% end %>
-          </div>
+    <%= turbo_frame_tag "room" do %>
+  <div class="container d-flex flex-wrap gap-3">
+    <div class="d-flex">
+      <div class="card mb-3">
+        <div class="card-header">
+          <h4 class="text-capitalize"><%= room.room_type %></h4>
+          <h6>
+            <i class="fa-regular fa-bed text-warning fw-bold fs-5"></i>
+            <span class="bg-dark text-white fs-5 p-2 rounded-pill"><%= room.beds.count %></span>
+          </h6>
         </div>
-      </div>
-      
-    <% end %>
-  <% else %>
-    <p>No rooms available for this listing.</p>
-  <% end %>
-</div>
-<% end %>
+        <% if room.beds.present? %>
+          <div class="card-body">
+            <ul class="list-group">
+              <% room.beds.each do |bed| %>
+                <li class="list-group-item fw-bold text-capitalize"><%= bed.bed_size %></li>
+              <% end %>
+            </ul>
+          </div>
+          <p>
+            <%= button_to 'Delete room', host_listing_room_path(@listing, room), method: :delete, class: "btn btn-danger", remote: true, data: { turbo_frame: "_top" } %>
 
+          </p>
+        <% else %>
+          <p>No beds in this room.</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

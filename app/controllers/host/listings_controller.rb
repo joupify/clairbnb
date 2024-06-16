@@ -38,9 +38,13 @@ class Host::ListingsController < ApplicationController
 
   def show
     # Find a specific room or create a new one if none exists for this listing
-    @room = @listing.rooms.new
+    # @room = @listing.rooms.new
+    @room = Room.new
+
     @bed = @room.beds.new
     @photo = @listing.photos.new
+    @rooms = @listing.rooms
+
   end
 
 

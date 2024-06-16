@@ -1,9 +1,5 @@
-
-
-
+<!-- app/views/host/listings/show.html.erb -->
 <div class="container py-2 mt-5">
-  <!-- <div class="card-product"> -->
-
   <div class="container py-2 mt-5">
     <div class="container mb-3">
       <div class="row">
@@ -33,64 +29,72 @@
       </div>
     </div>
   </div>
-    
-  <div class="d-flex gap-5 mx-5 mt-5 mb-5">
-  <div class="col-md-6 ">
-    <h1><%= @listing.title %></h1>
-    <p><%= @listing.description %></p>
 
-    <p>
-    <i class="fa-solid fa-location-dot"></i>
-    <%= @listing.address %></p>
-    <p>
-    <i class="fa-solid fa-map "></i>
-      lat : <%= @listing.latitude if @listing.latitude.present? %>,
-      lng : <%= @listing.longitude if @listing.longitude.present? %></p>
+  <div class="d-flex gap-5 mx-5 mt-5 mb-5">
+    <div class="col-md-6">
+      <h1><%= @listing.title %></h1>
+      <p><%= @listing.description %></p>
+
+      <p>
+        <i class="fa-solid fa-location-dot"></i>
+        <%= @listing.address %>
+      </p>
+      <p>
+        <i class="fa-solid fa-map"></i>
+        lat : <%= @listing.latitude if @listing.latitude.present? %>,
+        lng : <%= @listing.longitude if @listing.longitude.present? %>
+      </p>
 
       <% if @listing.published? %>
-      <p  class="fw-bold ">
-      <i class="fa-regular fa-circle-check text-success fw-bold fs-5 mr-2 "></i>
-      <%= @listing.status.capitalize %></p>
+        <p class="fw-bold">
+          <i class="fa-regular fa-circle-check text-success fw-bold fs-5 mr-2"></i>
+          <%= @listing.status.capitalize %>
+        </p>
       <% else %>
-      <p  class="fw-bold">
-        <i class="fa-regular fa-clock text-warning fw-bold fs-5 "></i>
-      <%= @listing.status.capitalize %></p>
-      <i class="fa-regular fa-bed text-warning fw-bold fs-5"></i>
-      <% @listing.rooms.each do |r| %>
-        <%= r.beds.count %>
+        <p class="fw-bold">
+          <i class="fa-regular fa-clock text-warning fw-bold fs-5"></i>
+          <%= @listing.status.capitalize %>
+        </p>
+        <i class="fa-regular fa-bed text-warning fw-bold fs-5"></i>
+        <% @listing.rooms.each do |r| %>
+          <%= r.beds.count %>
         <% end %>
       <% end %>
-  </div>
-  <div class="col-md-6 ">
-    
-    <p class="fw-bold">Price/Night: <span class="fs-5"><%= number_to_currency(@listing.nightly_price / 100, unit: '€', precision: 0 ) %></span></p>  
+    </div>
+    <div class="col-md-6">
+      <p class="fw-bold">Price/Night: <span class="fs-5"><%= number_to_currency(@listing.nightly_price / 100, unit: '€', precision: 0) %></span></p>
       <p class="fw-bold">Cleaning Fee: <span class="fs-5"><%= number_to_currency(@listing.cleaning_fee / 100, unit: '€', precision: 0) %></span></p>
-  </div>
-  </div>
-  </div>
-
-  <div class="container py-2">
-   <div class="container">
-      <div class="d-flex gap-2">
-        <p> <%= link_to "Edit listing", edit_host_listing_path(@listing), class: "btn btn-secondary" %></p>
-        <p> <%= link_to "Edit photos", host_listing_photos_path(@listing),class: "btn btn-secondary" %></p>
-        <p><%= button_to "delete listing", host_listing_path(@listing), method: :delete, data: { confirm: "Are you sure?" }, class:"btn btn-warning" %></p>
-      </div>
-      <div class ="mb-3 mt-3">
-        <span class="fs-2 bold mb-3">Rooms</span> 
-      </div>
-
-        <%= turbo_frame_tag "rooms" do %>
-          <%= render'host/rooms/room' %>
-        <% end %>
-        <%= turbo_frame_tag "room" do %>
-          <%= link_to "Edit rooms", host_listing_rooms_path(@listing) %>
-        <% end %>
     </div>
   </div>
+</div>
+
+<div class="container py-2">
+  <div class="container">
+    <div class="d-flex gap-2">
+      <p><%= link_to "Edit listing", edit_host_listing_path(@listing), class: "btn btn-secondary" %></p>
+      <p><%= link_to "Edit photos", host_listing_photos_path(@listing), class: "btn btn-secondary" %></p>
+      <p><%= button_to "delete listing", host_listing_path(@listing), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-warning" %></p>
+    </div>
+</div>
+<div class="container py-2">
+
+    <div class="mb-3 mt-3">
+      <span class="fs-2 bold mb-3">Rooms</span>
+    </div>
 
 
+    <%= turbo_frame_tag "rooms" do %>
+      <div class="d-flex flex-wrap">
+          <%= render partial: "host/rooms/room", collection: @rooms, locals: { listing: @listing } %>
+        </div>
 
-  <%= link_to 'Back to listings', host_listings_path %>
+    <% end %>
 
- </div>
+    <%= turbo_frame_tag "room" do %>
+      <%= link_to "Edit rooms", host_listing_rooms_path(@listing) %>
+    <% end %>
+  </div>
+</div>
+</div>
+
+<%= link_to 'Back to listings', host_listings_path %>

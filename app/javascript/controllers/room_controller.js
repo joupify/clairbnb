@@ -17,6 +17,15 @@ export default class extends Controller {
     'beforeend',
     this.bedFieldsTarget.innerHTML
   )
-
   }
+
+  reset() {
+    this.bedsTargets.forEach((bedField) => {
+      bedField.innerHTML = ""; // Reset bed fields content
+    });
+  }
+
+
+
+
 }
