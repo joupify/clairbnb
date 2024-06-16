@@ -85,16 +85,17 @@
 
     <%= turbo_frame_tag "rooms" do %>
       <div class="d-flex flex-wrap">
-          <%= render partial: "host/rooms/room", collection: @rooms, locals: { listing: @listing } %>
+        <%= render partial: "host/rooms/room", collection: @rooms, locals: { listing: @listing } %>
         </div>
 
     <% end %>
 
     <%= turbo_frame_tag "room" do %>
-      <%= link_to "Edit rooms", host_listing_rooms_path(@listing) %>
+      <%= link_to "Add rooms", host_listing_rooms_path(@listing) %>
     <% end %>
   </div>
+  <%= link_to 'Back to listings', host_listings_path %>
+
 </div>
 </div>
 
-<%= link_to 'Back to listings', host_listings_path %>

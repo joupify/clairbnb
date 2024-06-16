@@ -16,11 +16,12 @@
             <ul class="list-group">
               <% room.beds.each do |bed| %>
                 <li class="list-group-item fw-bold text-capitalize"><%= bed.bed_size %></li>
+
               <% end %>
             </ul>
           </div>
           <p>
-            <%= button_to 'Delete room', host_listing_room_path(@listing, room), method: :delete, class: "btn btn-danger", remote: true, data: { turbo_frame: "_top" } %>
+            <%= button_to 'Delete room', host_listing_room_path(@listing, room), method: :delete, class: "btn btn-danger", remote: true %>
 
           </p>
         <% else %>
