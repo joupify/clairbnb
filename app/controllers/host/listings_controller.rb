@@ -5,6 +5,7 @@ class Host::ListingsController < ApplicationController
 
 
   def index
+    
     @pagy, @listings = pagy(current_user.listings.all)
     
     @markers = @listings.geocoded.map do |listing|

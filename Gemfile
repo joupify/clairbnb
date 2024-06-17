@@ -35,6 +35,8 @@ gem "geocoder"
 gem 'carrierwave'
 gem 'stripe'
 gem 'resque'
+gem 'phlex_ui'
+
 
 
 
@@ -105,6 +107,8 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem 'shoulda-matchers', '~> 5.0'
+  gem 'rails-controller-testing'
+
 
 end
 
