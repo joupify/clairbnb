@@ -26,7 +26,7 @@
           <li class="nav-item <%= 'active' if current_page?(host_listings_path) %>">
             <%= link_to "Dashboard", static_pages_dashboard_path, class: "nav-link text-white" %>
          
-          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="accountDropdownLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
             <%= image_tag "me.jpg", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <a href="<%= edit_user_registration_path %>" class="nav-link fw-bolder">

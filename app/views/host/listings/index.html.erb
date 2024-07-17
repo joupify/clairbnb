@@ -1,72 +1,57 @@
-<%== pagy_nav(@pagy) if @pagy.pages > 1 %>
-
-
 <div class='container py-2 mt-5'>
   <h1 class='fw-bolder mb-5'>Yours Listings</h1>
 
   <div class="">
     <div class="row">
-
-    <% @listings.each do |l| %>
-    <div class="col-md-6">
-
-      <div class="d-flex flex-wrap gap-2 justify-content-between mx-5 mb-5">
-        <% if l.photos.exists? %>
-          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-              <% l.photos.each_with_index do |photo, index| %>
-                <div class="carousel-item <%= 'active' if index == 0 %>">
-                  <% if photo.image.present? %>
-                    <%= image_tag photo.image.url, class:'image-fluid rounded-4', style: "width: 400px;" %>
-                  <% end %>         
-                </div>
-              <% end %>
+      <% @listings.each do |l| %>
+        <div class="col-md-6">
+          <div class="d-flex flex-wrap gap-2 justify-content-between mx-5 mb-5">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                <% l.photos.each_with_index do |photo, index| %>
+                  <div class="carousel-item <%= 'active' if index == 0 %>">
+                    <% if photo.image.present? %>
+                      <%= image_tag photo.image.url, class:'image-fluid rounded-4', style: "width: 400px;" %>
+                    <% end %>         
+                  </div>
+                <% end %>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-        <% end %>
 
-        <div class="card-product-infos ">
-          <%= link_to l.title, host_listing_path(l), class:"text-dark fs-4 text-decoration-none" %>
-          <p>
-          <i class="fa-solid fa-location-dot"></i>
-          <%= l.address %></p>
-          <p>
-          <i class="fa-solid fa-map "></i>
-           lat : <%= l.latitude if l.latitude.present? %>,
-           lng : <%= l.longitude if l.longitude.present? %></p>
+            <div class="card-product-infos">
+              <%= link_to l.title, host_listing_path(l), class:"text-dark fs-4 text-decoration-none" %>
+              <p><i class="fa-solid fa-location-dot"></i> <%= l.address %></p>
+              <p><i class="fa-solid fa-map"></i> lat : <%= l.latitude if l.latitude.present? %>, lng : <%= l.longitude if l.longitude.present? %></p>
 
-           <% if l.published? %>
-            <p  class="fw-bold ">
-            <i class="fa-regular fa-circle-check text-success fw-bold fs-5 mr-2 "></i>
-            <%= l.status.capitalize %></p>
-            <% else %>
-            <p  class="fw-bold">
-              <i class="fa-regular fa-clock text-warning fw-bold fs-5 "></i>
-            <%= l.status.capitalize %></p>
-            <% end %>
-            <p class="text-sm font-medium text-gray-900">Host: <%= l.host.email %></p>
+              <% if l.published? %>
+                <p class="fw-bold"><i class="fa-regular fa-circle-check text-success fw-bold fs-5 mr-2"></i><%= l.status.capitalize %></p>
+              <% else %>
+                <p class="fw-bold"><i class="fa-regular fa-clock text-warning fw-bold fs-5"></i><%= l.status.capitalize %></p>
+              <% end %>
 
-          <div class="d-flex gap-2">
-            <p>  <%= link_to "Edit listing", edit_host_listing_path(l), class: "btn btn-secondary  " %></p>
-            <p>  <%= link_to "Edit rooms", host_listing_rooms_path(l), class: "btn btn-dark  " %></p>
-            <p><%= button_to "delete listing", host_listing_path(l), method: :delete, data: { confirm: "Are you sure?" }, class:"btn btn-warning" %></p>
+              <p class="text-sm font-medium text-gray-900">Host: <%= l.host.email %></p>
+
+              <div class="d-flex gap-2">
+                <p><%= link_to "Edit listing", edit_host_listing_path(l), class: "btn btn-secondary" %></p>
+                <p><%= link_to "Edit rooms", host_listing_rooms_path(l), class: "btn btn-dark" %></p>
+                <p><%= button_to "delete listing", host_listing_path(l), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-warning" %></p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
     </div>
-
-    <% end %>
-  </div>
   </div>
 
-  <%= link_to "Add listing", new_host_listing_path, class: "btn btn-dark mt-3 " %>
+  <%= pagy_nav(@pagy) if @pagy.pages > 1 %>
+
+  <%= link_to "Add listing", new_host_listing_path, class: "btn btn-dark mt-3" %>
 </div>
-<%== pagy_nav(@pagy) if @pagy.pages > 1 %>

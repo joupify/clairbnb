@@ -10,7 +10,7 @@
 #  updated_at :datetime         not null
 #
 class Photo < ApplicationRecord
-  belongs_to :listing
+  belongs_to :listing, counter_cache: true
   mount_uploader :image, ImageUploader
 
 

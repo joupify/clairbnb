@@ -1,6 +1,8 @@
 <!-- app/views/host/rooms/_room.html.erb -->
 
     <%= turbo_frame_tag "room" do %>
+    <% @listing.rooms.each do |room| %>
+
   <div class="container d-flex flex-wrap gap-3">
     <div class="d-flex">
       <div class="card mb-3">
@@ -31,3 +33,5 @@
     </div>
   </div>
 <% end %>
+<% end %>
+

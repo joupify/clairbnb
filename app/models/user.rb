@@ -38,7 +38,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :lockable, :timeoutable, :trackable,
-          :omniauthable, omniauth_providers: [:google]
+        :omniauthable, omniauth_providers: [:google]
 
 
   has_many :listings, foreign_key: :host_id

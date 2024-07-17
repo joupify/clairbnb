@@ -442,7 +442,7 @@ DEPENDENCIES
   omniauth
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
-  pagy (~> 7.0)
+  pagy
   pg (~> 1.1)
   phlex-rails
   puma (~> 5.0)
