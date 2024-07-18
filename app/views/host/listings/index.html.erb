@@ -51,7 +51,7 @@
     </div>
   </div>
 
-  <%= pagy_nav(@pagy) if @pagy.pages > 1 %>
+  <%== pagy_bulma_nav(@pagy) if @pagy.pages > 1 %>
 
   <%= link_to "Add listing", new_host_listing_path, class: "btn btn-dark mt-3" %>
 </div>
