@@ -8,14 +8,14 @@
   <div class="container d-flex gap-3 mt-5">
 
   <% if @listing.rooms.present? %>
-    <% @listing.rooms.each do |room| %>
+    <% @listing.rooms.includes([:beds]).each do |room| %>
     
       <div class="d-flex">
         <div class="d-flex gap-3">
           <div class="card mb-3">
             <div class="card-header">
               <h3><%= room.room_type %></h3>
-              <h6 >Number of beds: <span class="bg-success text-white fs-5 p-2 rounded-circle"><%= room.beds.count %></span></h6>
+              <h6 >Number of beds: <span class="bg-success text-white fs-5 p-2 rounded-circle"><%= room.beds_count %></span></h6>
             </div>
             <% if room.beds.present? %>
               <div class="card-body">

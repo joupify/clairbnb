@@ -1,6 +1,6 @@
 class Bed < ApplicationRecord
   validates :bed_size, presence: true
-  belongs_to :room
+  belongs_to :room, counter_cache: true
 
   enum bed_size: {
   twin: 0,
