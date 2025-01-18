@@ -63,7 +63,7 @@ class EventJob < ApplicationJob
       reservation = Reservation.find_by(session_id: checkout_session.id)
       if reservation.nil?
         raise "No Reservation Found with Checkout Session ID: #{checkout_session.d}"
-     end
+      end
      reservation.update(status: :expired)
 
     when "identity_verification_session_verified"

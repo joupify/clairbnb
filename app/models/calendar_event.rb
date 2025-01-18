@@ -40,6 +40,12 @@ class CalendarEvent < ApplicationRecord
     message_content: 'is already booked for this date range'
   }
 
+    # Définir expires_at pour les réservations "pending"
+    before_create :set_expiration, if: :pending_reservation?
+
+    def set_expiration
+      self.expire_at = Time.now + 24.hours
+    end
   def nights
     (start_date...end_date).count
   end
