@@ -1,4 +1,5 @@
 
+<%= turbo_frame_tag "rooms_list" do %>
 
 <div class="container py-2">
 
@@ -48,11 +49,17 @@
 </div>
 
 </div>
+<% end %>
 
 
 <div class="container py-2 ">
+  <%= turbo_frame_tag "room" do %>
+
   <%= render 'host/rooms/form', listing: @listing %>
+
+  <% end %>
 <br>
 <%= link_to 'Edit', edit_host_listing_path(@listing) %><br>
 
 </div>
+

@@ -31,7 +31,7 @@ class Host::RoomsController < ApplicationController
       respond_to do |format|
         format.turbo_stream do
           render turbo_stream: [
-            #  turbo_stream.append("rooms", partial: "host/rooms/room", locals: { room: @room, listing: @listing }),
+            turbo_stream.append("rooms", partial: "host/rooms/room", locals: { room: @room, listing: @listing }),
             turbo_stream.append("rooms", partial: "host/listings/rooms_list", locals: { listing: @listing })
           ]
         end

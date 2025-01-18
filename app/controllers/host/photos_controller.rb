@@ -14,7 +14,7 @@ class Host::PhotosController < ApplicationController
 
   def show
     @listing = current_user.listings.find(params[:listing_id])
-    @photo = @listing.photoss.find(params[:id])
+    @photo = @listing.photos.find(params[:id])
 
   end
 

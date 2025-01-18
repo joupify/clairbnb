@@ -3,8 +3,8 @@ class ReservationsController < ApplicationController
   before_action :set_listing, only: %i[new create]
 
   def index
-    @reservations = current_user.reservations.order(id: :desc)
-    @host_reservations = current_user.host_reservations.order(id: :desc)
+    @reservations = current_user.reservations.order(id: :desc).includes(:listing, :calendar_events)
+    @host_reservations = current_user.host_reservations.order(id: :desc).includes(:guest, :calendar_events)
     puts "@host_reservations: #{@host_reservations.inspect}" # Add this line for debugging
 
 
