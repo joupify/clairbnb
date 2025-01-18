@@ -6,7 +6,8 @@ class Host::ListingsController < ApplicationController
 
   def index
     
-    @pagy, @listings = pagy(current_user.listings.all)
+    @pagy, @listings = pagy(current_user.listings.includes([:photos, :host]).where('photos_count > 0'))
+
     
     @markers = @listings.geocoded.map do |listing|
       {

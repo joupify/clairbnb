@@ -1,5 +1,5 @@
 
-
+<% cache @listing  do %>
 <div class='container py-2 mt-5'>
   <h1 class='fw-bolder mb-5'> Listings</h1>
 
@@ -13,7 +13,6 @@
     <div class="col-md-4">
 
       <div class="d-flex flex-wrap gap-2 justify-content-between mx-5 mb-5">
-        <% if l.photos.exists? %>
          <div id="carouselExampleIndicators<%= l.id %>" class="carousel slide pointer-event" data-bs-ride="carousel">
             <div class="carousel-inner">
               <% l.photos.each_with_index do |photo, index| %>
@@ -33,7 +32,6 @@
               <span class="visually-hidden">Next</span>
             </button>
           </div>
-        <% end %>
 
         <div class="card-product-infos ">
          <div class="mt-4 flex justify-between">
@@ -61,4 +59,7 @@
 
 </div>
 
+<% end %>
+
+<%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
 

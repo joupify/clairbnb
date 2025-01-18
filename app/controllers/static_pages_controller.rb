@@ -1,6 +1,10 @@
 class StaticPagesController < ApplicationController
+  include Pagy::Backend
+
   def home
-    @listings = Listing.includes(:photos).where.not(photos: { id: nil })
+    @pagy, @listings = pagy(Listing.includes([:photos]).where('photos_count > 0'))
+
+
   end
 
   def dashboard

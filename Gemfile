@@ -35,8 +35,7 @@ gem "geocoder"
 gem 'carrierwave'
 gem 'stripe'
 gem 'resque'
-gem 'phlex_ui'
-
+gem 'phlex-rails'
 
 
 
@@ -90,13 +89,15 @@ group :development do
   gem "web-console"
   gem "letter_opener"
   gem 'annotate'
+  gem "bullet", "~> 7.2"
+
 
   # gem 'pry-rails'
   
 
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
-  # gem "rack-mini-profiler"
+   gem "rack-mini-profiler"
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
@@ -114,8 +115,10 @@ end
 
 gem "validates_overlap", "~> 1.0"
 
-gem "pagy", "~> 7.0"
+gem "pagy"
+
 gem "noticed", "~> 1.5"
 gem 'webpush'
 # for log time request and log in the browser
 gem 'lograge'
+

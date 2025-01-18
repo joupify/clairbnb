@@ -2,7 +2,8 @@ class ListingsController < ApplicationController
 include Pagy::Backend
 
 def index
-  @listings = Listing.published
+  @pagy, @listings = pagy(Listing.published.includes([:photos, :host]).where('photos_count > 0'))
+
 
   if params[:city].present?
     @listings = @listings.where("city ILIKE ?", "%#{params[:city]}%")

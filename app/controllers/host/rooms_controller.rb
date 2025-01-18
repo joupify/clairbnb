@@ -4,7 +4,10 @@ class Host::RoomsController < ApplicationController
 
   def index
     @listing = current_user.listings.find(params[:listing_id])
-    @rooms = @listing.rooms.all
+    @rooms = @listing.rooms.includes(:beds) # Eager loading beds
+
+    
+
     @room = Room.new  # Ensure @room is initialized
     # render partial: "host/rooms/room", locals: { listing: @listing, show_rooms: @show_rooms }
 
@@ -23,10 +26,12 @@ class Host::RoomsController < ApplicationController
     @room = @listing.rooms.new(room_params)
   
     if @room.save
+      @rooms = @listing.rooms.includes(:beds) # Eager loading beds
+
       respond_to do |format|
         format.turbo_stream do
           render turbo_stream: [
-            #  turbo_stream.append("rooms", partial: "host/rooms/room", locals: { room: @room, listing: @listing }),
+            turbo_stream.append("rooms", partial: "host/rooms/room", locals: { room: @room, listing: @listing }),
             turbo_stream.append("rooms", partial: "host/listings/rooms_list", locals: { listing: @listing })
           ]
         end

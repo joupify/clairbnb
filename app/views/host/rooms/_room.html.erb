@@ -1,6 +1,8 @@
 <!-- app/views/host/rooms/_room.html.erb -->
-
+<% cache @room do %>
     <%= turbo_frame_tag "room" do %>
+    <% @listing.rooms.includes([:beds]).each do |room| %>
+
   <div class="container d-flex flex-wrap gap-3">
     <div class="d-flex">
       <div class="card mb-3">
@@ -8,7 +10,7 @@
           <h4 class="text-capitalize"><%= room.room_type %></h4>
           <h6>
             <i class="fa-regular fa-bed text-warning fw-bold fs-5"></i>
-            <span class="bg-dark text-white fs-5 p-2 rounded-pill"><%= room.beds.count %></span>
+            <span class="bg-dark text-white fs-5 p-2 rounded-pill"><%= room.beds_count %></span>
           </h6>
         </div>
         <% if room.beds.present? %>
@@ -30,4 +32,12 @@
       </div>
     </div>
   </div>
+  <!-- app/views/host/rooms/_room.html.erb -->
+<div>
+
+</div>
+
+<% end %>
+<% end %>
+
 <% end %>
