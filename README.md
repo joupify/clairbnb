@@ -46,7 +46,7 @@ Ce projet a été conçu pour renforcer mes compétences full-stack en Ruby on R
 
 ## 📸 Aperçu (Screenshots)
 
-*Ajoutez ici des captures d’écran de l’interface utilisateur (accueil, fiche logement, paiement, etc.) si disponibles.*
+*captures d’écran de l’interface utilisateur (accueil, fiche logement, paiement, etc.)*
 
 ---
 
