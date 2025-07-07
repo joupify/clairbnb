@@ -2,7 +2,7 @@ class StaticPagesController < ApplicationController
   include Pagy::Backend
 
   def home
-    @pagy, @listings = pagy(Listing.includes([:photos]).where('photos_count > 0'))
+    @pagy, @listings = pagy(Listing.includes(:host, [:photos]).where('photos_count > 0'))
 
 
   end

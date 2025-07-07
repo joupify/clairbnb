@@ -52,7 +52,7 @@ class EventJob < ApplicationJob
       checkout_session = event.data.object
       reservation = Reservation.find_by(session_id: checkout_session.id)
       if reservation.nil?
-         raise "No Reservation Found with Checkout Session ID: #{checkout_session.d}"
+         raise "No Reservation Found with Checkout Session ID: #{checkout_session.id}"
       end
       reservation.update(status: :booked, stripe_payment_intent_id: checkout_session.payment_intent)
       HostReservationBookedNotification.with(reservation: reservation, message: "New Booking! #{reservation.guest.email} is coming #{reservation.start_date}").deliver_later(reservation.host)

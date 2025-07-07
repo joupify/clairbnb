@@ -1,94 +1,74 @@
-
-
-<div class='container py-2 mt-5'>
-  <h1 class='fw-bolder mb-5'>Yours Listings</h1>
-
-  <div class="">
-    <div class="row">
- <% if  @listings.present? %>
-
-    <% @listings.each do |l| %>
-    <div class="col-md-6">
-
-      <div class="d-flex flex-wrap gap-2 justify-content-between mx-5 mb-5">
-        <% if l.photos.exists? %>
-          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-              <% l.photos.each_with_index do |photo, index| %>
-                <div class="carousel-item <%= 'active' if index == 0 %>">
-                  <% if photo.image.present? %>
-                    <%= image_tag photo.image.url, class:'image-fluid rounded-4', style: "width: 400px;" %>
-                  <% end %>         
-                </div>
-              <% end %>
+<%# app/views/listings/_listing.html.erb %>
+<div class="col-md-6 col-lg-4 col-xl-3 mb-4">
+  <div class="card h-100 shadow-sm border-0 overflow-hidden">
+    <% if listing.photos.exists? %>
+      <div id="carousel-<%= listing.id %>" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <% listing.photos.each_with_index do |photo, index| %>
+            <div class="carousel-item <%= 'active' if index == 0 %>">
+              <% if photo.image.present? %>
+                <%= image_tag photo.image.url, class: 'img-fluid w-100', style: "height: 200px; object-fit: cover;" %>
+              <% end %>         
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-        <% end %>
-
-        <div class="card-product-infos ">
-          <%= link_to l.title, host_listing_path(l), class:"text-dark fs-4 text-decoration-none" %>
-          <p>
-          <i class="fa-solid fa-location-dot"></i>
-          <%= l.address %></p>
-          <p>
-          <i class="fa-solid fa-map "></i>
-           lat : <%= l.latitude if l.latitude.present? %>,
-           lng : <%= l.longitude if l.longitude.present? %></p>
-
-           <% if l.published? %>
-            <p  class="fw-bold ">
-            <i class="fa-regular fa-circle-check text-success fw-bold fs-5 mr-2 "></i>
-            <%= l.status.capitalize %></p>
-            <% else %>
-            <p  class="fw-bold">
-              <i class="fa-regular fa-clock text-warning fw-bold fs-5 "></i>
-            <%= l.status.capitalize %></p>
-            <% end %>
-          <p><%= l.host.email %></p>
-
-
-
-
-            <% if @reservations.any?  &&  @listing.present?%>
-              <% @reservations.each do |reservation| %>
-              <td><%= link_to reservation.l.title, listing_reservations_path(l) %></td>
-              <% end %>
-            <% end %>
-            <p><%= link_to "See Reservations for  #{l.title}", listing_reservations_path(l), class:"text-dark fs-6 text-decoration-none" %></p>
-
-            <div class="d-flex justify-content-between gap-2  mb-3">
-
-              <!-- <% if l.reservations.any? %>
-                <%= link_to "View Reservations", listing_reservations_path(l), class: "btn btn-danger rounded-5" %>
-              <% end %> -->
-            
-
-            
-              <p>  <%= link_to "Edit listing", edit_host_listing_path(l), class: "btn btn-dark rounded-5" %></p>
-              <p>  <%= link_to "Edit rooms", host_listing_rooms_path(l), class: "btn btn-dark rounded-5  " %></p>
-              <p><%= button_to "delete listing", host_listing_path(l), method: :delete, data: { confirm: "Are you sure?" }, class:"btn btn-dark rounded-5" %></p>
-            
-          </div>
-
-
-
-          
+          <% end %>
         </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carousel-<%= listing.id %>" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carousel-<%= listing.id %>" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    <% end %>
+    
+    <div class="card-body">
+      <h5 class="card-title">
+        <%= link_to listing.title, host_listing_path(listing), class: "text-dark text-decoration-none fw-bold" %>
+      </h5>
+      
+      <div class="d-flex align-items-center mb-2">
+        <i class="fa-solid fa-location-dot me-2 text-muted"></i>
+        <span class="text-muted"><%= listing.address %></span>
+      </div>
+      
+      <div class="d-flex align-items-center mb-2">
+        <i class="fa-solid fa-map me-2 text-muted"></i>
+        <span class="text-muted">
+          <%= "lat: #{listing.latitude}" if listing.latitude.present? %>
+          <%= ", lng: #{listing.longitude}" if listing.longitude.present? %>
+        </span>
+      </div>
+      
+      <div class="d-flex align-items-center mb-3">
+        <% if listing.published? %>
+          <i class="fa-regular fa-circle-check text-success me-2"></i>
+        <% else %>
+          <i class="fa-regular fa-clock text-warning me-2"></i>
+        <% end %>
+        <span class="fw-bold"><%= listing.status.capitalize %></span>
+      </div>
+      
+      <p class="text-muted mb-3"><small>Host: <%= listing.host.email %></small></p>
+      
+      <% if listing.reservations.any? %>
+        <%= link_to "See Reservations (#{listing.reservations.count})", listing_reservations_path(listing), class: "btn btn-sm btn-outline-dark w-100 mb-3" %>
+      <% end %>
+      
+      <div class="d-flex justify-content-between">
+        <%= link_to edit_host_listing_path(listing), class: "btn btn-sm btn-dark rounded-circle", title: "Edit" do %>
+          <i class="fas fa-pen"></i>
+        <% end %>
+        
+        <%= link_to host_listing_rooms_path(listing), class: "btn btn-sm btn-dark rounded-circle", title: "Rooms" do %>
+          <i class="fas fa-door-open"></i>
+        <% end %>
+        
+        <%= button_to host_listing_path(listing), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-dark rounded-circle", title: "Delete" do %>
+          <i class="fas fa-trash"></i>
+        <% end %>
       </div>
     </div>
-    <% end %>
-
-    <% end %>
   </div>
-  </div>
-
-  <%= link_to "Add listing", new_host_listing_path, class: "btn btn-dark mt-3 " %>
 </div>

@@ -101,6 +101,8 @@ GEM
       image_processing (~> 1.1)
       marcel (~> 1.0.0)
       ssrf_filter (~> 1.0)
+    childprocess (5.1.0)
+      logger (~> 1.5)
     concurrent-ruby (1.2.3)
     countries (6.0.0)
       unaccent (~> 0.3)
@@ -178,13 +180,21 @@ GEM
       activesupport (>= 5.0.0)
     jwt (2.8.1)
       base64
-    launchy (2.5.2)
+    launchy (3.1.1)
       addressable (~> 2.8)
-    letter_opener (1.9.0)
-      launchy (>= 2.2, < 3)
+      childprocess (~> 5.0)
+      logger (~> 1.6)
+    letter_opener (1.10.0)
+      launchy (>= 2.2, < 4)
+    letter_opener_web (3.0.0)
+      actionmailer (>= 6.1)
+      letter_opener (~> 1.9)
+      railties (>= 6.1)
+      rexml
     llhttp-ffi (0.5.0)
       ffi-compiler (~> 1.0)
       rake (~> 13.0)
+    logger (1.7.0)
     lograge (0.14.0)
       actionpack (>= 4)
       activesupport (>= 4)
@@ -422,7 +432,7 @@ PLATFORMS
 DEPENDENCIES
   annotate
   bootsnap
-  bootstrap (~> 5.3.2)
+  bootstrap (~> 5)
   bullet (~> 7.2)
   capybara
   carrierwave
@@ -437,7 +447,7 @@ DEPENDENCIES
   geocoder
   importmap-rails
   jbuilder
-  letter_opener
+  letter_opener_web
   lograge
   noticed (~> 1.5)
   omniauth

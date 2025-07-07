@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   end
 
   resources :webhooks, only: [:create]
+  
+  post '/webhooks/:source' => 'webhooks#create'
+  post '/webhooks/stripe', to: 'webhooks#create'
+  
   resources :webpush_subs
 
   resources :listings, only: [:index, :show] do
@@ -23,7 +27,6 @@ Rails.application.routes.draw do
   post '/listings/:listing_id/reservations/:id/cancel', to: 'reservations#cancel', as: 'cancel_listing_reservation'
   get '/listings/:listing_id/reservations/:id/expire', to: 'reservations#expire', as: 'expire_listing_reservation'
 
-  post '/webhooks/:source' => 'webhooks#create'
   get '/listings/search', to: 'listings#search'
 
 
@@ -56,5 +59,10 @@ Rails.application.routes.draw do
   authenticate :user do
     mount Resque::Server, at: '/private_resque', as: 'private_resque'  # Unique name
   end
+
+  if Rails.env.development?
+  mount LetterOpenerWeb::Engine, at: "/letter_opener"
+end
+
   
 end

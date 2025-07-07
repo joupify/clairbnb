@@ -27,7 +27,7 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 
-gem 'bootstrap', '~> 5.3.2'
+gem 'bootstrap', '~> 5'
 gem "font-awesome-sass"
 gem "simple_form"
 gem 'country_select'
@@ -87,7 +87,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-  gem "letter_opener"
+gem "letter_opener_web"
   gem 'annotate'
   gem "bullet", "~> 7.2"
 

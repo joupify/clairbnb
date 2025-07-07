@@ -21,7 +21,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @reservations.each do |reservation| %>
+      <% @reservations.includes(:host, :guest).each do |reservation| %>
         <tr>
           <td><%= reservation.id %></td>
           <td><%= reservation.host.email %></td>

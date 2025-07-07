@@ -50,12 +50,6 @@ class Listing < ApplicationRecord
   def may_be_create_stripe_product
     return if !stripe_product_id.blank?
 
-    # product_images = []
-
-    # photos.each do |photo|
-    #   product_images << photo.image_url if photo.image.present?
-    # end
-
     product = Stripe::Product.create(
       name: title,
       url: Rails.application.routes.url_helpers.url_for(self),

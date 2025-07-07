@@ -1,47 +1,84 @@
-<div class="navbar navbar-expand-sm bg-warning navbar-lewagon">
-  <div class="container-fluid">
-    <%= link_to "#", class: "navbar-brand" do %>
-      <%= image_tag "" %>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+  <div class="container">
+    <%= link_to root_path, class: "navbar-brand d-flex align-items-center" do %>
+      <span class="fw-bold fs-4 text-warning">Clairbnb</span>
     <% end %>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto">
-
-        <li class="<%= 'active' if current_page?(root_path) %>">
-          <%= link_to "Home", root_path, class: "nav-link text-white" %>
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item mx-2 <%= 'active' if current_page?(root_path) %>">
+          <%= link_to root_path, class: "nav-link position-relative" do %>
+            Home
+            <% if current_page?(root_path) %>
+              <span class="position-absolute bottom-0 start-50 translate-middle-x bg-warning" style="height: 2px; width: 20px;"></span>
+            <% end %>
+          <% end %>
         </li>
-        <li class="nav-item <%= 'active' if current_page?(listings_path) %>">
-          <%= link_to "My Listings", host_listings_path, class: "nav-link text-white" %>
+        
+        <li class="nav-item mx-2 <%= 'active' if current_page?(listings_path) %>">
+          <%= link_to host_listings_path, class: "nav-link position-relative" do %>
+            My Listings
+            <% if current_page?(host_listings_path) %>
+              <span class="position-absolute bottom-0 start-50 translate-middle-x bg-warning" style="height: 2px; width: 20px;"></span>
+            <% end %>
+          <% end %>
         </li>
-
-        <li class="nav-item <%= 'active' if current_page?(listing_reservations_path(:listing_id)) %>">
-          <%= link_to "Reservations", listing_reservations_path(:listing_id), class: "nav-link text-white" %>
+        
+        <li class="nav-item mx-2 <%= 'active' if current_page?(listing_reservations_path(:listing_id)) %>">
+          <%= link_to listing_reservations_path(:listing_id), class: "nav-link position-relative" do %>
+            Reservations
+            <% if current_page?(listing_reservations_path(:listing_id)) %>
+              <span class="position-absolute bottom-0 start-50 translate-middle-x bg-warning" style="height: 2px; width: 20px;"></span>
+            <% end %>
+          <% end %>
         </li>
+      </ul>
 
+      <ul class="navbar-nav ms-auto align-items-center">
         <% if user_signed_in? %>
-          <li class="nav-item <%= 'active' if current_page?(host_listings_path) %>">
-            <%= link_to "Dashboard", static_pages_dashboard_path, class: "nav-link text-white" %>
-         
-            <a class="nav-link dropdown-toggle" href="#" id="accountDropdownLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
-            <%= image_tag "me.jpg", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <a href="<%= edit_user_registration_path %>" class="nav-link fw-bolder">
-                MON COMPTE
-              </a>
-              <%= link_to "Another action", "#", class: "dropdown-item" %>
-              <%= link_to "Log Out", destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "dropdown-item" %>
-            </div>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <%= image_tag "me.jpg", class: "rounded-circle me-2", width: "32", height: "32" %>
+              <span class="d-none d-lg-inline">Account</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="accountDropdown">
+              <li>
+                <%= link_to edit_user_registration_path, class: "dropdown-item d-flex align-items-center" do %>
+                  <i class="fas fa-user-cog me-2 text-muted"></i>My Account
+                <% end %>
+              </li>
+              <li>
+                <%= link_to static_pages_dashboard_path, class: "dropdown-item d-flex align-items-center" do %>
+                  <i class="fas fa-user-cog me-2 text-muted"></i>My Dashbord
+                <% end %>
+              </li>
+
+
+
+              <li>
+                <%= link_to "#", class: "dropdown-item d-flex align-items-center" do %>
+                  <i class="fas fa-cog me-2 text-muted"></i>Settings
+                <% end %>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <%= link_to destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "dropdown-item d-flex align-items-center text-danger" do %>
+                <i class="fas fa-sign-out-alt me-2"></i>Log Out
+              <% end %>
+
+            </ul>
           </li>
         <% else %>
           <li class="nav-item <%= 'active' if current_page?(new_user_session_path) %>">
-            <%= link_to "Login", new_user_session_path, class: "nav-link text-white" %>
+            <%= link_to new_user_session_path, class: "btn btn-outline-warning px-3" do %>
+              <i class="fas fa-sign-in-alt me-1"></i> Login
+            <% end %>
           </li>
         <% end %>
       </ul>
     </div>
   </div>
-</div>
+</nav>

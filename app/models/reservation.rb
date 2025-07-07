@@ -13,6 +13,8 @@
 #  stripe_refund_id         :string
 #
 class Reservation < ApplicationRecord
+    # attr_accessor :start_date, :end_date, :nights
+
   belongs_to :listing
   belongs_to :guest, class_name: 'User'
   has_many :messages, dependent: :destroy
