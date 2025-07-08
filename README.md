@@ -112,5 +112,5 @@ Développeuse Full Stack Ruby on Rails
 [Portfolio GitHub](https://github.com/joupify)
 
 📌 **Licence propriétaire – usage personnel uniquement.**  
-Pour un usage commercial ou professionnel, contactez-moi : mikayakouta@email.com  
+Pour un usage commercial ou professionnel, contactez-moi : mikayakouta@gmail.com  
 Voir le fichier [LICENSE](./LICENSE) pour les conditions complètes.
