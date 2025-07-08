@@ -1,4 +1,5 @@
-# Clairbnb 🏡  
+# Clairbnb 🏡
+
 **Plateforme de location de logements inspirée d'Airbnb**  
 Projet personnel développé en Ruby on Rails
 
@@ -31,22 +32,22 @@ Ce projet a été conçu pour renforcer mes compétences full-stack en Ruby on R
 
 ## 🛠️ Technologies utilisées
 
-| Outil / Lib | Usage |
-|-------------|-------|
-| **Ruby on Rails 7** | Framework backend principal |
-| **PostgreSQL** | Base de données relationnelle |
-| **Devise** | Authentification |
-| **Stripe** | Paiement sécurisé |
+| Outil / Lib                       | Usage                           |
+| --------------------------------- | ------------------------------- |
+| **Ruby on Rails 7**               | Framework backend principal     |
+| **PostgreSQL**                    | Base de données relationnelle   |
+| **Devise**                        | Authentification                |
+| **Stripe**                        | Paiement sécurisé               |
 | **Stimulus.js & Turbo (Hotwire)** | Interactions frontend réactives |
-| **Active Storage** | Stockage des images |
-| **Heroku** | Déploiement |
-| **RSpec / Capybara** | Tests automatisés |
+| **Active Storage**                | Stockage des images             |
+| **Heroku**                        | Déploiement                     |
+| **RSpec / Capybara**              | Tests automatisés               |
 
 ---
 
 ## 📸 Aperçu (Screenshots)
 
-*captures d’écran de l’interface utilisateur (accueil, fiche logement, paiement, etc.)*
+_captures d’écran de l’interface utilisateur (accueil, fiche logement, paiement, etc.)_
 
 ---
 
@@ -104,9 +105,12 @@ rails s
 - 📝 Système d’avis et de notation
 - 📊 Statistiques pour les hôtes (taux d’occupation, revenus)
 
-
 ## 👩‍💻 Auteur
 
 **Malika Housni**  
 Développeuse Full Stack Ruby on Rails  
 [Portfolio GitHub](https://github.com/joupify)
+
+📌 **Licence propriétaire – usage personnel uniquement.**  
+Pour un usage commercial ou professionnel, contactez-moi : mikayakouta@email.com  
+Voir le fichier [LICENSE](./LICENSE) pour les conditions complètes.
